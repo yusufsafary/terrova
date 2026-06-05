@@ -120,7 +120,7 @@ body {
   cursor: pointer;
   user-select: none;
 }
-.logo-mark { width: 34px; height: 34px; flex-shrink: 0; }
+.logo-mark { width: 28px; height: 28px; flex-shrink: 0; }
 
 .logo-wordmark { display: flex; flex-direction: column; gap: 0; }
 
@@ -1054,9 +1054,9 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
 /* ── LOGO IMAGE (brand) ── */
 .logo-img {
-  height: 38px;
+  height: 28px;
   width: auto;
-  max-width: 180px;
+  max-width: 150px;
   object-fit: contain;
   display: block;
 }
@@ -1075,6 +1075,17 @@ textarea.inp::placeholder { color: var(--warm-3); }
   display: block;
   opacity: .85;
 }
+
+/* ── ORYNTH BADGE ── */
+.orynth-badge {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+  opacity: .75;
+  transition: opacity .18s;
+}
+.orynth-badge:hover { opacity: 1; }
+.orynth-badge img { height: 32px; width: auto; display: block; }
 
 /* ── HOME HERO (clean, no card) ── */
 .home-hero {
@@ -1129,9 +1140,6 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <span id="newLabel2">History</span>
           <span class="hist-badge" id="histBadge"></span>
         </button>
-        <button class="hist-btn" onclick="goAbout()" style="padding:6px 10px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        </button>
         <button class="lang-pill" onclick="openSheet()">
           <span class="flag" id="hFlag">🇬🇧</span>
           <span id="hCode">EN</span>
@@ -1142,8 +1150,8 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
     <div class="chat" id="chat">
       <div class="home-hero" id="welcomeCard">
-        <h2 class="hero-title">Hey there, farmer.<br>What's growing today?</h2>
-        <p class="hero-sub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</p>
+        <h2 class="hero-title" id="wMsg">Hey there, farmer.<br>What's growing today?</h2>
+        <p class="hero-sub" id="wSub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</p>
         <div class="hero-chips">
           <span class="hero-chip">🌐 15 languages</span>
           <span class="hero-chip">🌱 50+ crop types</span>
@@ -1284,6 +1292,11 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
+        <div class="orynth-badge">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=light&style=default" alt="Featured on Orynth" />
+          </a>
+        </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
       </div>
     </div>
@@ -1394,6 +1407,11 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
+        <div class="orynth-badge">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=light&style=default" alt="Featured on Orynth" />
+          </a>
+        </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
       </div>
     </div>
@@ -1485,6 +1503,11 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goLegal()">Legal</button>
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
+        </div>
+        <div class="orynth-badge">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=light&style=default" alt="Featured on Orynth" />
+          </a>
         </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
       </div>
@@ -1615,6 +1638,11 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goLegal()">Legal</button>
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
+        </div>
+        <div class="orynth-badge">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=light&style=default" alt="Featured on Orynth" />
+          </a>
         </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
       </div>

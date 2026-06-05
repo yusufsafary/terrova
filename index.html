@@ -227,7 +227,7 @@ body {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 18px 15px 10px;
+  padding: 14px 15px 8px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -242,7 +242,7 @@ body {
 .welcome {
   background: var(--ink-2);
   border-radius: var(--r-xl);
-  padding: 20px 18px 18px;
+  padding: 18px 18px 16px;
   position: relative;
   overflow: hidden;
   margin-bottom: 2px;
@@ -351,14 +351,14 @@ body {
 .qs-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 7px;
+  gap: 8px;
 }
 
 .q-btn {
   background: var(--white);
   border: 1px solid #E5DFD1;
   border-radius: var(--r);
-  padding: 12px 12px 11px;
+  padding: 14px 13px 13px;
   cursor: pointer;
   text-align: left;
   display: flex;
@@ -467,7 +467,7 @@ body {
   background: var(--white);
   border-top: 1px solid #EAE4D8;
   padding: 11px 15px;
-  padding-bottom: max(13px, env(safe-area-inset-bottom));
+  padding-bottom: calc(60px + max(4px, env(safe-area-inset-bottom)));
   flex-shrink: 0;
 }
 
@@ -547,7 +547,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: 14px 15px 20px;
+  padding: 14px 15px 70px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -712,7 +712,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
 /* ── BOTTOM NAV ── */
 #bottomNav {
-  display: none;
+  display: flex;
   flex-direction: row;
   background: var(--white);
   border-top: 1px solid #EAE4D8;
@@ -720,7 +720,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
   z-index: 20;
   padding-bottom: max(8px, env(safe-area-inset-bottom));
 }
-#bottomNav.show { display: flex; }
+/* nav always visible */
 
 .nav-item {
   flex: 1;
@@ -774,6 +774,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
   touch-action: pan-y;
+  padding-bottom: 64px;
 }
 .content-scroll::-webkit-scrollbar { display: none; }
 
@@ -1709,14 +1710,13 @@ function showPage(id) {
       el.className = el.className.replace(/\bvisible\b/g,'').trim() + ' hidden-right';
     }
   });
-  // bottom nav: show only on content pages
-  const nav = document.getElementById('bottomNav');
-  nav.classList.toggle('show', CONTENT_PAGES.includes(id));
   // update nav active state
   ['about','how','legal','faq'].forEach(k => {
     const btn = document.getElementById('nav-'+k);
     if (btn) btn.classList.toggle('active', id === k+'Page');
   });
+  const chatBtn = document.getElementById('nav-chat');
+  if (chatBtn) chatBtn.classList.toggle('active', id === 'chatPage' || id === 'histPage');
 }
 
 function goChat() {
@@ -1736,6 +1736,8 @@ function init() {
   applyLang();
   renderLangList();
   updateHistBadge();
+  const chatBtn = document.getElementById('nav-chat');
+  if (chatBtn) chatBtn.classList.add('active');
 }
 
 function applyLang() {
@@ -1804,7 +1806,7 @@ function renderCategories() {
 }
 
 function renderPrompts(cat) {
-  document.getElementById('qsGrid').innerHTML = cat.qs.map(q=>`
+  document.getElementById('qsGrid').innerHTML = cat.qs.slice(0,4).map(q=>`
     <button class="q-btn" data-cat="${cat.id}" onclick="useQ(this)">
       <span class="q-icon">${q.i}</span>
       <span class="q-text">${q.t}</span>

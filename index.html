@@ -216,6 +216,31 @@ body {
   transition:background .15s;flex-shrink:0;
 }
 .back-btn:active { background:rgba(255,255,255,.14); }
+
+/* ── CHAT-MODE BACK BUTTON (in main header) ── */
+.chat-back-btn {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 10px 6px 7px;
+  border-radius: 100px;
+  background: rgba(255,255,255,.08);
+  border: 1.5px solid rgba(255,255,255,.12);
+  color: var(--warm-2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background .15s;
+}
+.chat-back-btn:active { background: rgba(255,255,255,.15); }
+.chat-back-btn svg { flex-shrink: 0; }
+.hdr.in-chat .chat-back-btn { display: flex; }
+.hdr.in-chat .logo { opacity: 0; pointer-events: none; width: 0; overflow: hidden; transition: all .2s; }
+.hdr:not(.in-chat) .chat-back-btn { display: none; }
+.hdr:not(.in-chat) .logo { opacity: 1; pointer-events: auto; transition: opacity .2s; }
 .sub-title {
   font-family:'DM Serif Display',serif;
   font-size:18px;color:var(--white);
@@ -1288,8 +1313,12 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
   <!-- ══ CHAT PAGE ══ -->
   <div class="page visible" id="chatPage">
-    <header class="hdr">
-      <div class="logo" onclick="goChat()">
+    <header class="hdr" id="chatHdr">
+      <button class="chat-back-btn" onclick="newChat()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+        Home
+      </button>
+      <div class="logo" onclick="newChat()">
         <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img">
       </div>
       <div class="hdr-right">
@@ -2374,6 +2403,7 @@ async function send() {
       document.getElementById('welcomeCard').style.display = 'none';
       document.getElementById('qsWrap').style.display      = 'none';
     }, 260);
+    document.getElementById('chatHdr').classList.add('in-chat');
   }
 
   msgs.push({role:'user', text, time});
@@ -2417,6 +2447,8 @@ function newChat() {
   qw.style.display = '';
   wc.style.cssText = '';
   qw.style.cssText = '';
+
+  document.getElementById('chatHdr').classList.remove('in-chat');
 
   activeCat = 0;
   renderCategories();

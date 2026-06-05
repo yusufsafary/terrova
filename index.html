@@ -750,9 +750,9 @@ textarea.inp::placeholder { color: var(--warm-3); }
 }
 .nav-item svg { width: 20px; height: 20px; }
 .nav-label {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: .03em;
+  letter-spacing: .02em;
   line-height: 1;
 }
 
@@ -1020,6 +1020,32 @@ textarea.inp::placeholder { color: var(--warm-3); }
   letter-spacing: .04em;
 }
 
+
+/* ── FAQ PAGE ── */
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.faq-item {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(0,0,0,.06);
+}
+.faq-item:last-child { border-bottom: none; }
+.faq-q {
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 7px;
+  line-height: 1.45;
+}
+.faq-a {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--warm-4);
+  line-height: 1.75;
+}
+
 /* ── KEYFRAMES ── */
 @keyframes fadeBg    { from{opacity:0}to{opacity:1} }
 @keyframes slideUp   { from{transform:translateY(100%)}to{transform:translateY(0)} }
@@ -1214,9 +1240,10 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goAbout()">About</button>
           <button class="footer-link" onclick="goHow()">How It Works</button>
           <button class="footer-link" onclick="goLegal()">Legal</button>
+          <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
-        <div class="footer-copy">2025 Terrova. All rights reserved.</div>
+        <div class="footer-copy">2026 Terrova. All rights reserved.</div>
       </div>
     </div>
   </div>
@@ -1318,9 +1345,10 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goAbout()">About</button>
           <button class="footer-link" onclick="goHow()">How It Works</button>
           <button class="footer-link" onclick="goLegal()">Legal</button>
+          <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
-        <div class="footer-copy">2025 Terrova. All rights reserved.</div>
+        <div class="footer-copy">2026 Terrova. All rights reserved.</div>
       </div>
     </div>
   </div>
@@ -1404,9 +1432,135 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goAbout()">About</button>
           <button class="footer-link" onclick="goHow()">How It Works</button>
           <button class="footer-link" onclick="goLegal()">Legal</button>
+          <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
-        <div class="footer-copy">2025 Terrova. All rights reserved.</div>
+        <div class="footer-copy">2026 Terrova. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══ FAQ PAGE ══ -->
+  <div class="page content-page hidden-right" id="faqPage">
+    <div class="content-scroll">
+      <div class="content-hero">
+        <span class="content-hero-icon">💬</span>
+        <div class="content-hero-title">Frequently asked questions</div>
+        <div class="content-hero-sub">Answers to common questions about Terrova, Kova, and how the app works.</div>
+      </div>
+      <div class="content-body">
+
+        <div class="content-section">
+          <div class="section-tag"><span class="section-tag-dot"></span>Getting started</div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-q">Is Terrova free to use?</div>
+              <div class="faq-a">Yes, Terrova is completely free. There are no subscriptions, no in-app purchases, and no hidden fees. Just open the app and start asking.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Do I need to create an account?</div>
+              <div class="faq-a">No account is needed. Terrova works instantly in your browser without any sign-up or login. Your conversations are saved locally on your device.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Does Terrova work without internet?</div>
+              <div class="faq-a">An internet connection is required to get answers from Kova. However, your saved chat history is stored on your device and can be read offline at any time.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Which devices and browsers are supported?</div>
+              <div class="faq-a">Terrova works on any modern smartphone, tablet, or desktop browser including Chrome, Safari, Firefox, and Edge. It is optimized for mobile use.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="content-section">
+          <div class="section-tag"><span class="section-tag-dot"></span>About Kova</div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-q">What is Kova and how does it work?</div>
+              <div class="faq-a">Kova is the AI farming assistant built into Terrova. It draws on a broad base of agricultural knowledge to answer your questions about crops, soil, pests, irrigation, harvest, and more. It is designed to give practical, grounded advice suited to smallholder and family farmers.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How accurate is Kova's advice?</div>
+              <div class="faq-a">Kova provides general guidance based on widely accepted farming practices. It aims to be accurate and helpful, but farming outcomes depend on many local factors including soil type, climate, variety, and timing. Always test recommendations on a small area before applying them to your whole farm.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Can Kova give advice in my language?</div>
+              <div class="faq-a">Yes. Terrova currently supports 15 languages including English, Indonesian, Spanish, Hindi, French, Portuguese, Japanese, Swahili, Bengali, Vietnamese, Thai, Tagalog, Amharic, Burmese, and Turkish. Tap the language flag in the header to switch.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">What crops does Kova cover?</div>
+              <div class="faq-a">Kova covers a wide range of crops including rice, corn, vegetables, fruits, spices, grains, and ornamental plants. There are 18 topic categories with ready-made prompts to get you started quickly on any topic.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Can I ask follow-up questions?</div>
+              <div class="faq-a">Yes. Kova supports multi-turn conversations. If the first answer is too general, just ask a follow-up in the same chat. For example: "What dose should I use?" or "Is this safe near a water source?"</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="content-section">
+          <div class="section-tag"><span class="section-tag-dot"></span>Privacy and data</div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-q">Does Terrova collect my data?</div>
+              <div class="faq-a">No. Terrova does not collect personal information. Your conversations are stored locally on your device using browser localStorage. We do not have access to your chat history, location, or device identifiers.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I delete my saved conversations?</div>
+              <div class="faq-a">Go to the History tab and tap "Clear all" to delete all saved conversations. To remove a single session, tap the X button on that conversation. Data is removed immediately and permanently.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Are my chats shared with anyone?</div>
+              <div class="faq-a">No. Your conversations stay on your device and are never sent to Terrova or any third party. We do not see what you ask or what Kova replies.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <div class="content-section">
+          <div class="section-tag"><span class="section-tag-dot"></span>Troubleshooting</div>
+
+          <div class="faq-list">
+            <div class="faq-item">
+              <div class="faq-q">Kova is not responding. What should I do?</div>
+              <div class="faq-a">Check your internet connection and try refreshing the page. If the problem continues, clear your browser cache and reload. Terrova works best on a stable connection.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">My saved history has disappeared. Why?</div>
+              <div class="faq-a">Chat history is stored in your browser's localStorage. It can be cleared if you clear your browser data, switch browsers, use a private or incognito window, or switch to a different device. The data is not backed up to any server.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">How do I report a bug or suggest a feature?</div>
+              <div class="faq-a">Open an issue on the Terrova GitHub repository. We read all reports and aim to respond within a few days. Community feedback directly shapes what gets built next.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="page-footer">
+        <div class="footer-logo-row">
+          <svg width="22" height="22" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#252119"/><path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity=".9"/><path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity=".8"/><path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity=".6"/></svg>
+          <span class="footer-logo-name">Terrova</span>
+        </div>
+        <div class="footer-tagline">Smart farming knowledge for every grower.</div>
+        <div class="footer-links">
+          <button class="footer-link" onclick="goAbout()">About</button>
+          <button class="footer-link" onclick="goHow()">How It Works</button>
+          <button class="footer-link" onclick="goLegal()">Legal</button>
+          <button class="footer-link" onclick="goFaq()">FAQ</button>
+          <button class="footer-link" onclick="goChat()">Back to Chat</button>
+        </div>
+        <div class="footer-copy">2026 Terrova. All rights reserved.</div>
       </div>
     </div>
   </div>
@@ -1424,6 +1578,10 @@ textarea.inp::placeholder { color: var(--warm-3); }
     <button class="nav-item" id="nav-legal" onclick="goLegal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
       <span class="nav-label">Legal</span>
+    </button>
+    <button class="nav-item" id="nav-faq" onclick="goFaq()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span class="nav-label">FAQ</span>
     </button>
     <button class="nav-item" id="nav-chat" onclick="goChat()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -1486,45 +1644,45 @@ const STR = {
 };
 
 const CATS_EN = [
-  {id:'pests',     icon:'🪲',label:'Pests',      qs:[{i:'🪲',t:'How to control aphids on cabbage?'},{i:'🐛',t:'Best organic spray for caterpillars?'},{i:'🐀',t:'Rodent control in rice paddies?'},{i:'🦟',t:'Stop thrips on chili plants fast?'},{i:'🐌',t:'Keep slugs away from young seedlings?'},{i:'🪳',t:'Whitefly on tomatoes — what works?'},{i:'🐝',t:'Prevent stem borers in corn?'},{i:'🐜',t:'Ant colonies damaging root crops?'}]},
-  {id:'disease',   icon:'🦠',label:'Disease',    qs:[{i:'🍂',t:'Yellow leaves on my paddy — why?'},{i:'🍄',t:'Fungal blight on corn — treatment?'},{i:'🫙',t:'Bacterial wilt on tomatoes — cure?'},{i:'💀',t:'Root rot in watermelon — save it?'},{i:'🌫️',t:'Powdery mildew on cucumber leaves?'},{i:'🟤',t:'Brown spots spreading on rice?'},{i:'🌿',t:'Mosaic virus on chili — remove plant?'},{i:'🔴',t:'Red rust on wheat leaves?'}]},
-  {id:'soil',      icon:'🪨',label:'Soil',        qs:[{i:'🪨',t:'Test soil pH at home easily?'},{i:'💩',t:'Best compost NPK ratio for veggies?'},{i:'🌿',t:'Cover crops that fix nitrogen?'},{i:'🧪',t:'When to lime acidic soil?'},{i:'🌱',t:'Sandy soil fix for water retention?'},{i:'🔬',t:'Soil structure — how to improve tilth?'},{i:'🌍',t:'Subsoil compaction — break it cheaply?'},{i:'💧',t:'Waterlogged soil — improve drainage?'}]},
-  {id:'water',     icon:'💧',label:'Irrigation',  qs:[{i:'💧',t:'Drip vs sprinkler — which suits me?'},{i:'🌊',t:'Water depth for paddy each week?'},{i:'⏰',t:'Best hour of day to irrigate?'},{i:'🌡️',t:'Dry-season irrigation schedule?'},{i:'🚿',t:'Water-saving tips for small farms?'},{i:'📏',t:'How deep should irrigation reach?'},{i:'⚡',t:'Solar pump setup for remote field?'},{i:'🪣',t:'Rainwater harvesting for farming?'}]},
-  {id:'harvest',   icon:'🌾',label:'Harvest',     qs:[{i:'🌾',t:'Signs paddy is ready to harvest?'},{i:'🍅',t:'Pick tomatoes at peak ripeness?'},{i:'📅',t:'Best time to harvest to boost yield?'},{i:'🌽',t:'When does corn reach sweetness peak?'},{i:'🫑',t:'Chili — harvest green or wait red?'},{i:'🥦',t:'Cut broccoli before it flowers?'},{i:'🍌',t:'Banana cutting — which bunch first?'},{i:'🧅',t:'Onion — when to stop watering before harvest?'}]},
-  {id:'market',    icon:'💰',label:'Market',      qs:[{i:'💰',t:'Best time to sell rice this season?'},{i:'📈',t:'How to negotiate with middlemen?'},{i:'🏪',t:'Sell directly to market — how to start?'},{i:'📦',t:'Post-harvest storage to keep grade?'},{i:'🤝',t:'Find bulk buyers for my crops?'},{i:'💵',t:'Chili price outlook for this month?'},{i:'🧾',t:'How to get a fair price for produce?'},{i:'🚛',t:'Transport crops to market cheaply?'}]},
-  {id:'weather',   icon:'🌦️',label:'Weather',     qs:[{i:'🌧️',t:'Best crops to plant in rainy season?'},{i:'☀️',t:'Drought-tolerant crops for long dry?'},{i:'🌪️',t:'Protect plants from strong wind?'},{i:'🌡️',t:'Heat stress in crops — manage it?'},{i:'⛈️',t:'Flood recovery plan for my field?'},{i:'🌫️',t:'Fog and frost damage protection?'},{i:'🌬️',t:'Wind breaks — best trees to plant?'},{i:'📊',t:'Read a seasonal weather forecast?'}]},
-  {id:'organic',   icon:'🌿',label:'Organic',     qs:[{i:'🌿',t:'Homemade neem oil pesticide?'},{i:'🐝',t:'Attract bees and pollinators to farm?'},{i:'🐛',t:'Beneficial bugs to keep on my field?'},{i:'♻️',t:'Liquid compost from kitchen waste?'},{i:'🌱',t:'Companion planting — what grows together?'},{i:'🧄',t:'Garlic-chili spray — recipe?'},{i:'🌾',t:'Fermented plant juice (FPJ) for crops?'},{i:'🍵',t:'Compost tea application timing?'}]},
-  {id:'seeds',     icon:'🫘',label:'Seeds',       qs:[{i:'🫘',t:'Select the best seeds for planting?'},{i:'💦',t:'Seed soaking duration before planting?'},{i:'🌡️',t:'Germination temperature for each crop?'},{i:'📦',t:'Store seeds to keep them viable?'},{i:'🔬',t:'Germination test at home — how?'},{i:'🧬',t:'Hybrid vs open-pollinated seeds?'},{i:'📅',t:'Seed viability — how long is too long?'},{i:'🫙',t:'Collect and dry seeds from own harvest?'}]},
+  {id:'pests',     icon:'🪲',label:'Pests',      qs:[{i:'🪲',t:'How to control aphids on cabbage?'},{i:'🐛',t:'Best organic spray for caterpillars?'},{i:'🐀',t:'Rodent control in rice paddies?'},{i:'🦟',t:'Stop thrips on chili plants fast?'},{i:'🐌',t:'Keep slugs away from young seedlings?'},{i:'🪳',t:'Whitefly on tomatoes: what works?'},{i:'🐝',t:'Prevent stem borers in corn?'},{i:'🐜',t:'Ant colonies damaging root crops?'}]},
+  {id:'disease',   icon:'🦠',label:'Disease',    qs:[{i:'🍂',t:'Yellow leaves on my paddy: why?'},{i:'🍄',t:'Fungal blight on corn: treatment?'},{i:'🫙',t:'Bacterial wilt on tomatoes: cure?'},{i:'💀',t:'Root rot in watermelon: save it?'},{i:'🌫️',t:'Powdery mildew on cucumber leaves?'},{i:'🟤',t:'Brown spots spreading on rice?'},{i:'🌿',t:'Mosaic virus on chili: remove plant?'},{i:'🔴',t:'Red rust on wheat leaves?'}]},
+  {id:'soil',      icon:'🪨',label:'Soil',        qs:[{i:'🪨',t:'Test soil pH at home easily?'},{i:'💩',t:'Best compost NPK ratio for veggies?'},{i:'🌿',t:'Cover crops that fix nitrogen?'},{i:'🧪',t:'When to lime acidic soil?'},{i:'🌱',t:'Sandy soil fix for water retention?'},{i:'🔬',t:'Soil structure: how to improve tilth?'},{i:'🌍',t:'Subsoil compaction: break it cheaply?'},{i:'💧',t:'Waterlogged soil: improve drainage?'}]},
+  {id:'water',     icon:'💧',label:'Irrigation',  qs:[{i:'💧',t:'Drip vs sprinkler: which suits me?'},{i:'🌊',t:'Water depth for paddy each week?'},{i:'⏰',t:'Best hour of day to irrigate?'},{i:'🌡️',t:'Dry-season irrigation schedule?'},{i:'🚿',t:'Water-saving tips for small farms?'},{i:'📏',t:'How deep should irrigation reach?'},{i:'⚡',t:'Solar pump setup for remote field?'},{i:'🪣',t:'Rainwater harvesting for farming?'}]},
+  {id:'harvest',   icon:'🌾',label:'Harvest',     qs:[{i:'🌾',t:'Signs paddy is ready to harvest?'},{i:'🍅',t:'Pick tomatoes at peak ripeness?'},{i:'📅',t:'Best time to harvest to boost yield?'},{i:'🌽',t:'When does corn reach sweetness peak?'},{i:'🫑',t:'Chili: harvest green or wait red?'},{i:'🥦',t:'Cut broccoli before it flowers?'},{i:'🍌',t:'Banana cutting: which bunch first?'},{i:'🧅',t:'Onion: when to stop watering before harvest?'}]},
+  {id:'market',    icon:'💰',label:'Market',      qs:[{i:'💰',t:'Best time to sell rice this season?'},{i:'📈',t:'How to negotiate with middlemen?'},{i:'🏪',t:'Sell directly to market: how to start?'},{i:'📦',t:'Post-harvest storage to keep grade?'},{i:'🤝',t:'Find bulk buyers for my crops?'},{i:'💵',t:'Chili price outlook for this month?'},{i:'🧾',t:'How to get a fair price for produce?'},{i:'🚛',t:'Transport crops to market cheaply?'}]},
+  {id:'weather',   icon:'🌦️',label:'Weather',     qs:[{i:'🌧️',t:'Best crops to plant in rainy season?'},{i:'☀️',t:'Drought-tolerant crops for long dry?'},{i:'🌪️',t:'Protect plants from strong wind?'},{i:'🌡️',t:'Heat stress in crops: manage it?'},{i:'⛈️',t:'Flood recovery plan for my field?'},{i:'🌫️',t:'Fog and frost damage protection?'},{i:'🌬️',t:'Wind breaks: best trees to plant?'},{i:'📊',t:'Read a seasonal weather forecast?'}]},
+  {id:'organic',   icon:'🌿',label:'Organic',     qs:[{i:'🌿',t:'Homemade neem oil pesticide?'},{i:'🐝',t:'Attract bees and pollinators to farm?'},{i:'🐛',t:'Beneficial bugs to keep on my field?'},{i:'♻️',t:'Liquid compost from kitchen waste?'},{i:'🌱',t:'Companion planting: what grows together?'},{i:'🧄',t:'Garlic-chili spray: recipe?'},{i:'🌾',t:'Fermented plant juice (FPJ) for crops?'},{i:'🍵',t:'Compost tea application timing?'}]},
+  {id:'seeds',     icon:'🫘',label:'Seeds',       qs:[{i:'🫘',t:'Select the best seeds for planting?'},{i:'💦',t:'Seed soaking duration before planting?'},{i:'🌡️',t:'Germination temperature for each crop?'},{i:'📦',t:'Store seeds to keep them viable?'},{i:'🔬',t:'Germination test at home: how?'},{i:'🧬',t:'Hybrid vs open-pollinated seeds?'},{i:'📅',t:'Seed viability: how long is too long?'},{i:'🫙',t:'Collect and dry seeds from own harvest?'}]},
   {id:'livestock', icon:'🐄',label:'Livestock',   qs:[{i:'🐄',t:'Integrate goats with crop farming?'},{i:'🐓',t:'Use chicken manure safely on crops?'},{i:'🐟',t:'Fish pond setup beside rice field?'},{i:'🐝',t:'Start beekeeping for farm income?'},{i:'🐐',t:'Goats for weed control strategy?'},{i:'🦆',t:'Ducks for pest control in paddy?'},{i:'🐖',t:'Pig waste as biogas for the farm?'},{i:'🐇',t:'Rabbit composting system?'}]},
-  {id:'tools',     icon:'🚜',label:'Farm Tools',  qs:[{i:'🚜',t:'Small tractor vs walk-behind tractor?'},{i:'🔧',t:'Maintain hand sprayer for long life?'},{i:'⚡',t:'Solar drip pump — worth it?'},{i:'🌡️',t:'Soil moisture meter — which to buy?'},{i:'📱',t:'Best apps to track crop progress?'},{i:'✂️',t:'Pruning tools for fruit trees?'},{i:'🪚',t:'Sharpening machete and hoe at home?'},{i:'🌡️',t:'Refractometer — why farmers use it?'}]},
-  {id:'veggies',   icon:'🥬',label:'Vegetables',  qs:[{i:'🥬',t:'Grow spinach in hot tropical climate?'},{i:'🥕',t:'Carrot farming in sandy soil — tips?'},{i:'🫑',t:'Bell pepper care from seedling to fruit?'},{i:'🥒',t:'Cucumber trellising for higher yield?'},{i:'🧅',t:'Onion planting depth and spacing?'},{i:'🥦',t:'Kale for year-round harvest?'},{i:'🌽',t:'Sweet corn vs field corn — difference?'},{i:'🍆',t:'Eggplant care to avoid fruit drop?'}]},
-  {id:'grains',    icon:'🌾',label:'Grains & Rice',qs:[{i:'🌾',t:'Rice varieties best for flood areas?'},{i:'🌽',t:'Corn spacing for maximum yield?'},{i:'🫘',t:'Soybean nitrogen fixation benefits?'},{i:'🌾',t:'Paddy water management by growth stage?'},{i:'🫙',t:'Small-scale rice milling options?'},{i:'🌾',t:'SRI method — is it better than conventional?'},{i:'🫛',t:'Mung bean after paddy — good idea?'},{i:'🍚',t:'Why is my rice yield dropping?'}]},
-  {id:'spices',    icon:'🌶️',label:'Spices & Chili',qs:[{i:'🌶️',t:'Boost chili yield naturally?'},{i:'🧄',t:'Garlic growing season and harvest time?'},{i:'🫚',t:'Ginger intercropping with other crops?'},{i:'🌿',t:'Turmeric — best soil and plant spacing?'},{i:'🌶️',t:'Dry chili for export quality?'},{i:'🧅',t:'Shallot growing for premium market?'},{i:'🌿',t:'Lemongrass planting — commercial use?'},{i:'🌸',t:'Cardamom — can I grow it here?'}]},
-  {id:'fruits',    icon:'🍌',label:'Fruits',      qs:[{i:'🍌',t:'Banana bunch care after flowering?'},{i:'🥭',t:'Mango tree pruning for more fruit?'},{i:'🍍',t:'Pineapple ratoon crop management?'},{i:'🍉',t:'Watermelon hand pollination guide?'},{i:'🍈',t:'Papaya — male vs hermaphrodite?'},{i:'🫐',t:'Dragon fruit trellis system setup?'},{i:'🍋',t:'Citrus nutrient deficiency — signs?'},{i:'🍊',t:'Jackfruit harvesting at the right time?'}]},
-  {id:'ornamental',icon:'🌸',label:'Ornamental',  qs:[{i:'🌸',t:'Anthurium leaf yellowing — why?'},{i:'🌺',t:'Orchid care in tropical humidity?'},{i:'🌻',t:'Sunflower for cut flower market?'},{i:'🪴',t:'Indoor plants best for high humidity?'},{i:'🌿',t:'Propagate ornamentals by cutting?'},{i:'🌹',t:'Rose plant care in hot climate?'},{i:'🌼',t:'Chrysanthemum for local flower market?'},{i:'🎋',t:'Bamboo landscaping — varieties?'}]},
+  {id:'tools',     icon:'🚜',label:'Farm Tools',  qs:[{i:'🚜',t:'Small tractor vs walk-behind tractor?'},{i:'🔧',t:'Maintain hand sprayer for long life?'},{i:'⚡',t:'Solar drip pump: worth it?'},{i:'🌡️',t:'Soil moisture meter: which to buy?'},{i:'📱',t:'Best apps to track crop progress?'},{i:'✂️',t:'Pruning tools for fruit trees?'},{i:'🪚',t:'Sharpening machete and hoe at home?'},{i:'🌡️',t:'Refractometer: why farmers use it?'}]},
+  {id:'veggies',   icon:'🥬',label:'Vegetables',  qs:[{i:'🥬',t:'Grow spinach in hot tropical climate?'},{i:'🥕',t:'Carrot farming in sandy soil: tips?'},{i:'🫑',t:'Bell pepper care from seedling to fruit?'},{i:'🥒',t:'Cucumber trellising for higher yield?'},{i:'🧅',t:'Onion planting depth and spacing?'},{i:'🥦',t:'Kale for year-round harvest?'},{i:'🌽',t:'Sweet corn vs field corn: difference?'},{i:'🍆',t:'Eggplant care to avoid fruit drop?'}]},
+  {id:'grains',    icon:'🌾',label:'Grains & Rice',qs:[{i:'🌾',t:'Rice varieties best for flood areas?'},{i:'🌽',t:'Corn spacing for maximum yield?'},{i:'🫘',t:'Soybean nitrogen fixation benefits?'},{i:'🌾',t:'Paddy water management by growth stage?'},{i:'🫙',t:'Small-scale rice milling options?'},{i:'🌾',t:'SRI method: is it better than conventional?'},{i:'🫛',t:'Mung bean after paddy: good idea?'},{i:'🍚',t:'Why is my rice yield dropping?'}]},
+  {id:'spices',    icon:'🌶️',label:'Spices & Chili',qs:[{i:'🌶️',t:'Boost chili yield naturally?'},{i:'🧄',t:'Garlic growing season and harvest time?'},{i:'🫚',t:'Ginger intercropping with other crops?'},{i:'🌿',t:'Turmeric: best soil and plant spacing?'},{i:'🌶️',t:'Dry chili for export quality?'},{i:'🧅',t:'Shallot growing for premium market?'},{i:'🌿',t:'Lemongrass planting: commercial use?'},{i:'🌸',t:'Cardamom: can I grow it here?'}]},
+  {id:'fruits',    icon:'🍌',label:'Fruits',      qs:[{i:'🍌',t:'Banana bunch care after flowering?'},{i:'🥭',t:'Mango tree pruning for more fruit?'},{i:'🍍',t:'Pineapple ratoon crop management?'},{i:'🍉',t:'Watermelon hand pollination guide?'},{i:'🍈',t:'Papaya: male vs hermaphrodite?'},{i:'🫐',t:'Dragon fruit trellis system setup?'},{i:'🍋',t:'Citrus nutrient deficiency: signs?'},{i:'🍊',t:'Jackfruit harvesting at the right time?'}]},
+  {id:'ornamental',icon:'🌸',label:'Ornamental',  qs:[{i:'🌸',t:'Anthurium leaf yellowing: why?'},{i:'🌺',t:'Orchid care in tropical humidity?'},{i:'🌻',t:'Sunflower for cut flower market?'},{i:'🪴',t:'Indoor plants best for high humidity?'},{i:'🌿',t:'Propagate ornamentals by cutting?'},{i:'🌹',t:'Rose plant care in hot climate?'},{i:'🌼',t:'Chrysanthemum for local flower market?'},{i:'🎋',t:'Bamboo landscaping: varieties?'}]},
   {id:'analysis',  icon:'📊',label:'Land Analysis',qs:[{i:'📊',t:'Read a soil test report step by step?'},{i:'🗺️',t:'Map low-yield zones in my field?'},{i:'🛰️',t:'Use satellite images to monitor crops?'},{i:'📏',t:'Calculate fertilizer needs per hectare?'},{i:'🔬',t:'When should I send soil to a lab?'},{i:'💧',t:'Water quality test before irrigation?'},{i:'📐',t:'Calculate how many plants per hectare?'},{i:'🌍',t:'Slope and erosion management?'}]},
-  {id:'composting',icon:'♻️',label:'Composting',  qs:[{i:'♻️',t:'Vermicompost from kitchen scraps?'},{i:'🌡️',t:'Hot composting — ideal temperature range?'},{i:'🍂',t:'Carbon to nitrogen ratio in compost?'},{i:'💧',t:'Right moisture level in compost pile?'},{i:'⏱️',t:'How long until compost is ready to use?'},{i:'🌱',t:'Compost tea — make and apply correctly?'},{i:'🐛',t:'Bokashi fermentation for fast compost?'},{i:'🌾',t:'Rice straw composting at home?'}]},
+  {id:'composting',icon:'♻️',label:'Composting',  qs:[{i:'♻️',t:'Vermicompost from kitchen scraps?'},{i:'🌡️',t:'Hot composting: ideal temperature range?'},{i:'🍂',t:'Carbon to nitrogen ratio in compost?'},{i:'💧',t:'Right moisture level in compost pile?'},{i:'⏱️',t:'How long until compost is ready to use?'},{i:'🌱',t:'Compost tea: make and apply correctly?'},{i:'🐛',t:'Bokashi fermentation for fast compost?'},{i:'🌾',t:'Rice straw composting at home?'}]},
 ];
 
 const CATS_ID = [
-  {id:'pests',     icon:'🪲',label:'Hama',           qs:[{i:'🪲',t:'Kendalikan kutu daun pada kol?'},{i:'🐛',t:'Semprotan organik terbaik untuk ulat?'},{i:'🐀',t:'Pengendalian tikus di sawah?'},{i:'🦟',t:'Atasi thrips pada cabai dengan cepat?'},{i:'🐌',t:'Jauhkan siput dari bibit muda?'},{i:'🪳',t:'Kutu kebul tomat — solusinya?'},{i:'🐝',t:'Cegah penggerek batang jagung?'},{i:'🐜',t:'Koloni semut merusak umbi?'}]},
-  {id:'disease',   icon:'🦠',label:'Penyakit',       qs:[{i:'🍂',t:'Daun kuning pada padi — kenapa?'},{i:'🍄',t:'Hawar jamur jagung — cara obati?'},{i:'🫙',t:'Layu bakteri tomat — obatnya?'},{i:'💀',t:'Busuk akar semangka — cara selamatkan?'},{i:'🌫️',t:'Embun tepung mentimun?'},{i:'🟤',t:'Bercak coklat menyebar di padi?'},{i:'🌿',t:'Virus mosaik cabai — cabut tanaman?'},{i:'🔴',t:'Karat merah pada gandum?'}]},
-  {id:'soil',      icon:'🪨',label:'Tanah',           qs:[{i:'🪨',t:'Uji pH tanah di rumah?'},{i:'💩',t:'Rasio NPK kompos terbaik untuk sayur?'},{i:'🌿',t:'Tanaman penutup fiksasi nitrogen?'},{i:'🧪',t:'Kapan menambah kapur ke tanah asam?'},{i:'🌱',t:'Perbaiki tanah berpasir agar tahan air?'},{i:'🔬',t:'Perbaiki struktur tanah — bagaimana?'},{i:'🌍',t:'Pemadatan lapisan bawah tanah?'},{i:'💧',t:'Tanah tergenang — perbaiki drainase?'}]},
+  {id:'pests',     icon:'🪲',label:'Hama',           qs:[{i:'🪲',t:'Kendalikan kutu daun pada kol?'},{i:'🐛',t:'Semprotan organik terbaik untuk ulat?'},{i:'🐀',t:'Pengendalian tikus di sawah?'},{i:'🦟',t:'Atasi thrips pada cabai dengan cepat?'},{i:'🐌',t:'Jauhkan siput dari bibit muda?'},{i:'🪳',t:'Kutu kebul tomat: solusinya?'},{i:'🐝',t:'Cegah penggerek batang jagung?'},{i:'🐜',t:'Koloni semut merusak umbi?'}]},
+  {id:'disease',   icon:'🦠',label:'Penyakit',       qs:[{i:'🍂',t:'Daun kuning pada padi: kenapa?'},{i:'🍄',t:'Hawar jamur jagung: cara obati?'},{i:'🫙',t:'Layu bakteri tomat: obatnya?'},{i:'💀',t:'Busuk akar semangka: cara selamatkan?'},{i:'🌫️',t:'Embun tepung mentimun?'},{i:'🟤',t:'Bercak coklat menyebar di padi?'},{i:'🌿',t:'Virus mosaik cabai: cabut tanaman?'},{i:'🔴',t:'Karat merah pada gandum?'}]},
+  {id:'soil',      icon:'🪨',label:'Tanah',           qs:[{i:'🪨',t:'Uji pH tanah di rumah?'},{i:'💩',t:'Rasio NPK kompos terbaik untuk sayur?'},{i:'🌿',t:'Tanaman penutup fiksasi nitrogen?'},{i:'🧪',t:'Kapan menambah kapur ke tanah asam?'},{i:'🌱',t:'Perbaiki tanah berpasir agar tahan air?'},{i:'🔬',t:'Perbaiki struktur tanah: bagaimana?'},{i:'🌍',t:'Pemadatan lapisan bawah tanah?'},{i:'💧',t:'Tanah tergenang: perbaiki drainase?'}]},
   {id:'water',     icon:'💧',label:'Irigasi',         qs:[{i:'💧',t:'Irigasi tetes vs sprinkler mana cocok?'},{i:'🌊',t:'Ketinggian air sawah tiap minggu?'},{i:'⏰',t:'Waktu terbaik irigasi dalam sehari?'},{i:'🌡️',t:'Jadwal irigasi musim kemarau?'},{i:'🚿',t:'Tips hemat air untuk petani kecil?'},{i:'📏',t:'Kedalaman irigasi ideal?'},{i:'⚡',t:'Pompa tenaga surya untuk ladang jauh?'},{i:'🪣',t:'Tampung air hujan untuk pertanian?'}]},
-  {id:'harvest',   icon:'🌾',label:'Panen',           qs:[{i:'🌾',t:'Tanda padi siap dipanen?'},{i:'🍅',t:'Petik tomat di kematangan terbaik?'},{i:'📅',t:'Waktu panen terbaik tingkatkan hasil?'},{i:'🌽',t:'Kapan jagung mencapai puncak manisnya?'},{i:'🫑',t:'Cabai — panen hijau atau tunggu merah?'},{i:'🥦',t:'Potong brokoli sebelum berbunga?'},{i:'🍌',t:'Potong tandan pisang — mana lebih dulu?'},{i:'🧅',t:'Bawang — kapan hentikan siram sebelum panen?'}]},
-  {id:'market',    icon:'💰',label:'Pasar',           qs:[{i:'💰',t:'Waktu terbaik jual beras musim ini?'},{i:'📈',t:'Cara negosiasi dengan tengkulak?'},{i:'🏪',t:'Jual langsung ke pasar — mulai dari mana?'},{i:'📦',t:'Simpan hasil panen agar tetap berkualitas?'},{i:'🤝',t:'Cari pembeli massal untuk hasil tani?'},{i:'💵',t:'Proyeksi harga cabai bulan ini?'},{i:'🧾',t:'Dapat harga adil untuk hasil tani?'},{i:'🚛',t:'Angkut hasil tani ke pasar dengan murah?'}]},
-  {id:'weather',   icon:'🌦️',label:'Cuaca',           qs:[{i:'🌧️',t:'Tanaman terbaik untuk musim hujan?'},{i:'☀️',t:'Tanaman tahan kering untuk kemarau?'},{i:'🌪️',t:'Lindungi tanaman dari angin kencang?'},{i:'🌡️',t:'Stres panas pada tanaman — cara atasi?'},{i:'⛈️',t:'Rencana pemulihan setelah banjir?'},{i:'🌫️',t:'Perlindungan dari kabut dan embun beku?'},{i:'🌬️',t:'Pohon penahan angin yang bagus?'},{i:'📊',t:'Cara baca prakiraan cuaca musiman?'}]},
-  {id:'organic',   icon:'🌿',label:'Organik',         qs:[{i:'🌿',t:'Pestisida minyak nimba buatan sendiri?'},{i:'🐝',t:'Tarik lebah dan penyerbuk ke kebun?'},{i:'🐛',t:'Serangga bermanfaat yang perlu dijaga?'},{i:'♻️',t:'Kompos cair dari sisa dapur?'},{i:'🌱',t:'Tanam pendamping — apa yang cocok berdampingan?'},{i:'🧄',t:'Semprotan bawang putih-cabai — resepnya?'},{i:'🌾',t:'Jus tanaman fermentasi (FPJ) untuk tanaman?'},{i:'🍵',t:'Waktu aplikasi teh kompos?'}]},
-  {id:'seeds',     icon:'🫘',label:'Benih',           qs:[{i:'🫘',t:'Pilih benih terbaik untuk tanam?'},{i:'💦',t:'Durasi rendam benih sebelum tanam?'},{i:'🌡️',t:'Suhu perkecambahan tiap tanaman?'},{i:'📦',t:'Simpan benih agar tetap viable?'},{i:'🔬',t:'Uji perkecambahan di rumah — bagaimana?'},{i:'🧬',t:'Benih hibrida vs benih lokal?'},{i:'📅',t:'Daya simpan benih — kapan kadaluarsa?'},{i:'🫙',t:'Kumpul dan keringkan benih dari panen sendiri?'}]},
+  {id:'harvest',   icon:'🌾',label:'Panen',           qs:[{i:'🌾',t:'Tanda padi siap dipanen?'},{i:'🍅',t:'Petik tomat di kematangan terbaik?'},{i:'📅',t:'Waktu panen terbaik tingkatkan hasil?'},{i:'🌽',t:'Kapan jagung mencapai puncak manisnya?'},{i:'🫑',t:'Cabai: panen hijau atau tunggu merah?'},{i:'🥦',t:'Potong brokoli sebelum berbunga?'},{i:'🍌',t:'Potong tandan pisang: mana lebih dulu?'},{i:'🧅',t:'Bawang: kapan hentikan siram sebelum panen?'}]},
+  {id:'market',    icon:'💰',label:'Pasar',           qs:[{i:'💰',t:'Waktu terbaik jual beras musim ini?'},{i:'📈',t:'Cara negosiasi dengan tengkulak?'},{i:'🏪',t:'Jual langsung ke pasar: mulai dari mana?'},{i:'📦',t:'Simpan hasil panen agar tetap berkualitas?'},{i:'🤝',t:'Cari pembeli massal untuk hasil tani?'},{i:'💵',t:'Proyeksi harga cabai bulan ini?'},{i:'🧾',t:'Dapat harga adil untuk hasil tani?'},{i:'🚛',t:'Angkut hasil tani ke pasar dengan murah?'}]},
+  {id:'weather',   icon:'🌦️',label:'Cuaca',           qs:[{i:'🌧️',t:'Tanaman terbaik untuk musim hujan?'},{i:'☀️',t:'Tanaman tahan kering untuk kemarau?'},{i:'🌪️',t:'Lindungi tanaman dari angin kencang?'},{i:'🌡️',t:'Stres panas pada tanaman: cara atasi?'},{i:'⛈️',t:'Rencana pemulihan setelah banjir?'},{i:'🌫️',t:'Perlindungan dari kabut dan embun beku?'},{i:'🌬️',t:'Pohon penahan angin yang bagus?'},{i:'📊',t:'Cara baca prakiraan cuaca musiman?'}]},
+  {id:'organic',   icon:'🌿',label:'Organik',         qs:[{i:'🌿',t:'Pestisida minyak nimba buatan sendiri?'},{i:'🐝',t:'Tarik lebah dan penyerbuk ke kebun?'},{i:'🐛',t:'Serangga bermanfaat yang perlu dijaga?'},{i:'♻️',t:'Kompos cair dari sisa dapur?'},{i:'🌱',t:'Tanam pendamping: apa yang cocok berdampingan?'},{i:'🧄',t:'Semprotan bawang putih-cabai: resepnya?'},{i:'🌾',t:'Jus tanaman fermentasi (FPJ) untuk tanaman?'},{i:'🍵',t:'Waktu aplikasi teh kompos?'}]},
+  {id:'seeds',     icon:'🫘',label:'Benih',           qs:[{i:'🫘',t:'Pilih benih terbaik untuk tanam?'},{i:'💦',t:'Durasi rendam benih sebelum tanam?'},{i:'🌡️',t:'Suhu perkecambahan tiap tanaman?'},{i:'📦',t:'Simpan benih agar tetap viable?'},{i:'🔬',t:'Uji perkecambahan di rumah: bagaimana?'},{i:'🧬',t:'Benih hibrida vs benih lokal?'},{i:'📅',t:'Daya simpan benih: kapan kadaluarsa?'},{i:'🫙',t:'Kumpul dan keringkan benih dari panen sendiri?'}]},
   {id:'livestock', icon:'🐄',label:'Ternak',          qs:[{i:'🐄',t:'Integrasi kambing dengan tanaman?'},{i:'🐓',t:'Pakai kotoran ayam dengan aman di tanaman?'},{i:'🐟',t:'Setup kolam ikan di sebelah sawah?'},{i:'🐝',t:'Mulai budi daya lebah madu untuk income?'},{i:'🐐',t:'Strategi kambing untuk kendalikan gulma?'},{i:'🦆',t:'Bebek untuk pengendalian hama padi?'},{i:'🐖',t:'Limbah babi sebagai biogas untuk ladang?'},{i:'🐇',t:'Sistem kompos dari kelinci?'}]},
-  {id:'tools',     icon:'🚜',label:'Alat Tani',       qs:[{i:'🚜',t:'Traktor kecil vs traktor tangan — kapan?'},{i:'🔧',t:'Rawat sprayer manual agar awet?'},{i:'⚡',t:'Pompa tetes tenaga surya — worth it?'},{i:'🌡️',t:'Alat ukur kelembaban tanah — beli yang mana?'},{i:'📱',t:'Aplikasi terbaik pantau perkembangan tanaman?'},{i:'✂️',t:'Alat pangkas pohon buah?'},{i:'🪚',t:'Asah parang dan cangkul di rumah?'},{i:'🌡️',t:'Refraktometer — kenapa petani pakai?'}]},
-  {id:'veggies',   icon:'🥬',label:'Sayuran',         qs:[{i:'🥬',t:'Tanam bayam di iklim tropis panas?'},{i:'🥕',t:'Wortel di tanah berpasir — tips?'},{i:'🫑',t:'Perawatan paprika dari bibit sampai buah?'},{i:'🥒',t:'Rambatan mentimun untuk hasil lebih besar?'},{i:'🧅',t:'Kedalaman dan jarak tanam bawang?'},{i:'🥦',t:'Kale untuk panen sepanjang tahun?'},{i:'🌽',t:'Jagung manis vs jagung biasa — bedanya?'},{i:'🍆',t:'Perawatan terong agar tidak rontok buah?'}]},
-  {id:'grains',    icon:'🌾',label:'Padi & Serealia', qs:[{i:'🌾',t:'Varietas padi terbaik untuk daerah banjir?'},{i:'🌽',t:'Jarak tanam jagung untuk hasil maksimal?'},{i:'🫘',t:'Manfaat fiksasi nitrogen kedelai?'},{i:'🌾',t:'Manajemen air sawah per fase tumbuh?'},{i:'🫙',t:'Pilihan penggilingan padi skala kecil?'},{i:'🌾',t:'Metode SRI — lebih baik dari konvensional?'},{i:'🫛',t:'Kacang hijau setelah padi — bagus?'},{i:'🍚',t:'Kenapa hasil padi saya terus menurun?'}]},
-  {id:'spices',    icon:'🌶️',label:'Cabai & Rempah', qs:[{i:'🌶️',t:'Tingkatkan hasil cabai secara alami?'},{i:'🧄',t:'Musim tanam dan panen bawang putih?'},{i:'🫚',t:'Tumpang sari jahe dengan tanaman lain?'},{i:'🌿',t:'Kunyit — tanah dan jarak tanam terbaik?'},{i:'🌶️',t:'Keringkan cabai untuk kualitas ekspor?'},{i:'🧅',t:'Budi daya bawang merah pasar premium?'},{i:'🌿',t:'Serai wangi — penanaman komersial?'},{i:'🌸',t:'Kapulaga — bisa tanam di sini?'}]},
-  {id:'fruits',    icon:'🍌',label:'Buah-buahan',     qs:[{i:'🍌',t:'Perawatan tandan pisang setelah berbunga?'},{i:'🥭',t:'Pemangkasan pohon mangga agar banyak buah?'},{i:'🍍',t:'Manajemen ratoon nanas?'},{i:'🍉',t:'Panduan penyerbukan semangka manual?'},{i:'🍈',t:'Pepaya jantan vs hermaprodit?'},{i:'🫐',t:'Setup sistem rambatan buah naga?'},{i:'🍋',t:'Kekurangan nutrisi jeruk — tandanya apa?'},{i:'🍊',t:'Nangka — waktu panen yang tepat?'}]},
-  {id:'ornamental',icon:'🌸',label:'Tanaman Hias',    qs:[{i:'🌸',t:'Daun anthurium menguning — kenapa?'},{i:'🌺',t:'Perawatan anggrek di kelembaban tropis?'},{i:'🌻',t:'Bunga matahari untuk pasar bunga potong?'},{i:'🪴',t:'Tanaman dalam ruangan terbaik untuk lembab?'},{i:'🌿',t:'Perbanyak tanaman hias dari stek?'},{i:'🌹',t:'Perawatan mawar di iklim panas?'},{i:'🌼',t:'Krisan untuk pasar bunga lokal?'},{i:'🎋',t:'Bambu untuk lansekap — varietasnya?'}]},
+  {id:'tools',     icon:'🚜',label:'Alat Tani',       qs:[{i:'🚜',t:'Traktor kecil vs traktor tangan: kapan?'},{i:'🔧',t:'Rawat sprayer manual agar awet?'},{i:'⚡',t:'Pompa tetes tenaga surya: worth it?'},{i:'🌡️',t:'Alat ukur kelembaban tanah: beli yang mana?'},{i:'📱',t:'Aplikasi terbaik pantau perkembangan tanaman?'},{i:'✂️',t:'Alat pangkas pohon buah?'},{i:'🪚',t:'Asah parang dan cangkul di rumah?'},{i:'🌡️',t:'Refraktometer: kenapa petani pakai?'}]},
+  {id:'veggies',   icon:'🥬',label:'Sayuran',         qs:[{i:'🥬',t:'Tanam bayam di iklim tropis panas?'},{i:'🥕',t:'Wortel di tanah berpasir: tips?'},{i:'🫑',t:'Perawatan paprika dari bibit sampai buah?'},{i:'🥒',t:'Rambatan mentimun untuk hasil lebih besar?'},{i:'🧅',t:'Kedalaman dan jarak tanam bawang?'},{i:'🥦',t:'Kale untuk panen sepanjang tahun?'},{i:'🌽',t:'Jagung manis vs jagung biasa: bedanya?'},{i:'🍆',t:'Perawatan terong agar tidak rontok buah?'}]},
+  {id:'grains',    icon:'🌾',label:'Padi & Serealia', qs:[{i:'🌾',t:'Varietas padi terbaik untuk daerah banjir?'},{i:'🌽',t:'Jarak tanam jagung untuk hasil maksimal?'},{i:'🫘',t:'Manfaat fiksasi nitrogen kedelai?'},{i:'🌾',t:'Manajemen air sawah per fase tumbuh?'},{i:'🫙',t:'Pilihan penggilingan padi skala kecil?'},{i:'🌾',t:'Metode SRI: lebih baik dari konvensional?'},{i:'🫛',t:'Kacang hijau setelah padi: bagus?'},{i:'🍚',t:'Kenapa hasil padi saya terus menurun?'}]},
+  {id:'spices',    icon:'🌶️',label:'Cabai & Rempah', qs:[{i:'🌶️',t:'Tingkatkan hasil cabai secara alami?'},{i:'🧄',t:'Musim tanam dan panen bawang putih?'},{i:'🫚',t:'Tumpang sari jahe dengan tanaman lain?'},{i:'🌿',t:'Kunyit: tanah dan jarak tanam terbaik?'},{i:'🌶️',t:'Keringkan cabai untuk kualitas ekspor?'},{i:'🧅',t:'Budi daya bawang merah pasar premium?'},{i:'🌿',t:'Serai wangi: penanaman komersial?'},{i:'🌸',t:'Kapulaga: bisa tanam di sini?'}]},
+  {id:'fruits',    icon:'🍌',label:'Buah-buahan',     qs:[{i:'🍌',t:'Perawatan tandan pisang setelah berbunga?'},{i:'🥭',t:'Pemangkasan pohon mangga agar banyak buah?'},{i:'🍍',t:'Manajemen ratoon nanas?'},{i:'🍉',t:'Panduan penyerbukan semangka manual?'},{i:'🍈',t:'Pepaya jantan vs hermaprodit?'},{i:'🫐',t:'Setup sistem rambatan buah naga?'},{i:'🍋',t:'Kekurangan nutrisi jeruk: tandanya apa?'},{i:'🍊',t:'Nangka: waktu panen yang tepat?'}]},
+  {id:'ornamental',icon:'🌸',label:'Tanaman Hias',    qs:[{i:'🌸',t:'Daun anthurium menguning: kenapa?'},{i:'🌺',t:'Perawatan anggrek di kelembaban tropis?'},{i:'🌻',t:'Bunga matahari untuk pasar bunga potong?'},{i:'🪴',t:'Tanaman dalam ruangan terbaik untuk lembab?'},{i:'🌿',t:'Perbanyak tanaman hias dari stek?'},{i:'🌹',t:'Perawatan mawar di iklim panas?'},{i:'🌼',t:'Krisan untuk pasar bunga lokal?'},{i:'🎋',t:'Bambu untuk lansekap: varietasnya?'}]},
   {id:'analysis',  icon:'📊',label:'Analisis Lahan',  qs:[{i:'📊',t:'Cara baca laporan uji tanah step by step?'},{i:'🗺️',t:'Pemetaan zona hasil rendah di lahan saya?'},{i:'🛰️',t:'Pakai citra satelit pantau tanaman?'},{i:'📏',t:'Hitung kebutuhan pupuk per hektar?'},{i:'🔬',t:'Kapan kirim tanah ke laboratorium?'},{i:'💧',t:'Uji kualitas air sebelum irigasi?'},{i:'📐',t:'Hitung berapa tanaman per hektar?'},{i:'🌍',t:'Kelola kemiringan lahan dan erosi?'}]},
-  {id:'composting',icon:'♻️',label:'Pengomposan',     qs:[{i:'♻️',t:'Kascing dari sisa dapur?'},{i:'🌡️',t:'Pengomposan panas — suhu ideal?'},{i:'🍂',t:'Rasio karbon dan nitrogen dalam kompos?'},{i:'💧',t:'Kadar air ideal dalam tumpukan kompos?'},{i:'⏱️',t:'Berapa lama sampai kompos siap pakai?'},{i:'🌱',t:'Teh kompos — cara buat dan aplikasinya?'},{i:'🐛',t:'Fermentasi bokashi untuk kompos cepat?'},{i:'🌾',t:'Pengomposan jerami padi di rumah?'}]},
+  {id:'composting',icon:'♻️',label:'Pengomposan',     qs:[{i:'♻️',t:'Kascing dari sisa dapur?'},{i:'🌡️',t:'Pengomposan panas: suhu ideal?'},{i:'🍂',t:'Rasio karbon dan nitrogen dalam kompos?'},{i:'💧',t:'Kadar air ideal dalam tumpukan kompos?'},{i:'⏱️',t:'Berapa lama sampai kompos siap pakai?'},{i:'🌱',t:'Teh kompos: cara buat dan aplikasinya?'},{i:'🐛',t:'Fermentasi bokashi untuk kompos cepat?'},{i:'🌾',t:'Pengomposan jerami padi di rumah?'}]},
 ];
 
 const getCats = (lang) => lang === 'id' ? CATS_ID : CATS_EN;
@@ -1538,8 +1696,8 @@ let sessions   = JSON.parse(localStorage.getItem('tv_sessions') || '[]');
 let currentSID = null; // null = new chat
 
 /* ════════════ PAGES ════════════ */
-const ALL_PAGES = ['chatPage','histPage','aboutPage','howPage','legalPage'];
-const CONTENT_PAGES = ['aboutPage','howPage','legalPage'];
+const ALL_PAGES = ['chatPage','histPage','aboutPage','howPage','legalPage','faqPage'];
+const CONTENT_PAGES = ['aboutPage','howPage','legalPage','faqPage'];
 
 function showPage(id) {
   ALL_PAGES.forEach(p => {
@@ -1555,7 +1713,7 @@ function showPage(id) {
   const nav = document.getElementById('bottomNav');
   nav.classList.toggle('show', CONTENT_PAGES.includes(id));
   // update nav active state
-  ['about','how','legal'].forEach(k => {
+  ['about','how','legal','faq'].forEach(k => {
     const btn = document.getElementById('nav-'+k);
     if (btn) btn.classList.toggle('active', id === k+'Page');
   });
@@ -1571,6 +1729,7 @@ function goHistory() {
 function goAbout() { showPage('aboutPage'); }
 function goHow()   { showPage('howPage'); }
 function goLegal() { showPage('legalPage'); }
+function goFaq()   { showPage('faqPage'); }
 
 /* ════════════ INIT ════════════ */
 function init() {
@@ -1687,21 +1846,21 @@ function fmtDate(ts) {
 
 const RESPONSES = {
   en:[
-    "Great question! Based on common farming practices, here's what you should know: start by observing the symptoms closely — timing and pattern matter a lot. Early intervention usually gives the best results.",
+    "Great question! Based on common farming practices, here's what you should know: start by observing the symptoms closely: timing and pattern matter a lot. Early intervention usually gives the best results.",
     "Farmers in similar conditions have found that the key is consistency. Whether it's watering schedule or pest management, regularity is more important than intensity.",
     "This depends on your soil type and local climate. Generally, testing your soil pH first gives you a clear direction. Most crops prefer a pH between 6.0 and 7.0.",
-    "The best approach here is integrated — combine organic methods with good timing. Chemical solutions should always be a last resort, not the first.",
+    "The best approach here is integrated: combine organic methods with good timing. Chemical solutions should always be a last resort, not the first.",
     "For your region, timing is crucial. Plan 2–3 weeks ahead of the expected season change. Preparation now means a better harvest later.",
-    "Many experienced farmers recommend starting small and observing results before scaling. Document what works in your specific conditions — local knowledge is irreplaceable.",
+    "Many experienced farmers recommend starting small and observing results before scaling. Document what works in your specific conditions: local knowledge is irreplaceable.",
     "The root cause is often in the soil. Before trying surface-level solutions, check drainage, organic matter content, and pH. These three factors affect almost every crop problem.",
   ],
   id:[
-    "Pertanyaan bagus! Berdasarkan praktik pertanian umum, mulailah dengan mengamati gejala secara dekat — waktu dan pola sangat penting. Intervensi dini biasanya memberikan hasil terbaik.",
+    "Pertanyaan bagus! Berdasarkan praktik pertanian umum, mulailah dengan mengamati gejala secara dekat: waktu dan pola sangat penting. Intervensi dini biasanya memberikan hasil terbaik.",
     "Petani dalam kondisi serupa menemukan bahwa kuncinya adalah konsistensi. Baik jadwal penyiraman maupun pengendalian hama, keteraturan lebih penting dari intensitas.",
     "Ini tergantung pada jenis tanah dan iklim lokalmu. Secara umum, uji pH tanah terlebih dahulu memberi arahan yang jelas. Sebagian besar tanaman menyukai pH antara 6,0 dan 7,0.",
-    "Pendekatan terbaik di sini adalah terpadu — kombinasikan metode organik dengan waktu yang tepat. Solusi kimia harus selalu menjadi pilihan terakhir.",
+    "Pendekatan terbaik di sini adalah terpadu: kombinasikan metode organik dengan waktu yang tepat. Solusi kimia harus selalu menjadi pilihan terakhir.",
     "Untuk daerahmu, waktunya sangat penting. Rencanakan 2–3 minggu sebelum pergantian musim. Persiapan sekarang berarti panen yang lebih baik nanti.",
-    "Banyak petani berpengalaman menyarankan untuk mulai skala kecil dan amati hasilnya sebelum memperluas. Catat apa yang berhasil di kondisi spesifikmu — pengetahuan lokal tak tergantikan.",
+    "Banyak petani berpengalaman menyarankan untuk mulai skala kecil dan amati hasilnya sebelum memperluas. Catat apa yang berhasil di kondisi spesifikmu: pengetahuan lokal tak tergantikan.",
     "Akar masalahnya sering ada di tanah. Sebelum mencoba solusi di permukaan, periksa drainase, kandungan bahan organik, dan pH. Ketiga faktor ini mempengaruhi hampir semua masalah tanaman.",
   ],
 };

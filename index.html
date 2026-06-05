@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Terrova</title>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#0B0A08">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Terrova">
+<meta name="description" content="Smart farming knowledge for every grower. Ask Rova anything about your crops, soil, pests, or harvest.">
+<link rel="apple-touch-icon" href="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
@@ -1076,6 +1083,157 @@ textarea.inp::placeholder { color: var(--warm-3); }
   opacity: .85;
 }
 
+/* ── MAGIC LINK LOGIN BUTTON ── */
+.login-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(78,168,118,.12);
+  border: 1px solid rgba(78,168,118,.28);
+  border-radius: 100px;
+  padding: 6px 11px;
+  cursor: pointer;
+  color: var(--green-3);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  transition: background .15s;
+  white-space: nowrap;
+}
+.login-btn:active { background: rgba(78,168,118,.22); }
+.login-btn svg { opacity: .8; }
+
+/* ── LOGIN SHEET ── */
+.login-sheet-title { font-family:'DM Serif Display',serif; font-size:20px; font-weight:400; color:var(--ink); margin-bottom:4px; }
+.login-sheet-sub { font-size:12.5px; color:var(--warm-4); line-height:1.55; margin-bottom:20px; }
+.login-input-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 22px 22px;
+}
+.login-email-field {
+  width: 100%;
+  background: var(--warm-1);
+  border: 1.5px solid #DAD2BE;
+  border-radius: 12px;
+  padding: 12px 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: var(--ink);
+  outline: none;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+}
+.login-email-field:focus { border-color: var(--green-2); }
+.login-email-field::placeholder { color: var(--warm-3); }
+.login-submit-btn {
+  width: 100%;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  border-radius: 12px;
+  padding: 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background .15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.login-submit-btn:active { background: var(--green); }
+.login-note {
+  text-align: center;
+  font-size: 11px;
+  color: var(--warm-3);
+  line-height: 1.5;
+  padding: 0 4px;
+}
+
+/* ── PWA INSTALL BANNER ── */
+.pwa-banner {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: var(--ink-2);
+  border-top: 1px solid rgba(78,168,118,.18);
+  padding: 13px 16px 13px;
+  padding-bottom: calc(13px + max(0px, env(safe-area-inset-bottom)));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 160;
+  transform: translateY(110%);
+  transition: transform .42s cubic-bezier(.32,.72,0,1);
+  will-change: transform;
+}
+.pwa-banner.show { transform: translateY(0); }
+.pwa-banner-icon {
+  width: 40px; height: 40px; border-radius: 10px;
+  background: var(--green);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  font-size: 20px;
+}
+.pwa-banner-body { flex: 1; min-width: 0; }
+.pwa-banner-title { font-size: 13px; font-weight: 500; color: var(--white); line-height: 1.3; }
+.pwa-banner-sub { font-size: 11px; color: var(--warm-3); margin-top: 2px; }
+.pwa-banner-actions { display: flex; gap: 7px; flex-shrink: 0; }
+.pwa-install-btn {
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  padding: 7px 13px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background .15s;
+}
+.pwa-install-btn:active { background: var(--green-2); }
+.pwa-dismiss-btn {
+  background: rgba(255,255,255,.07);
+  color: var(--warm-3);
+  border: none;
+  border-radius: 8px;
+  padding: 7px 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background .15s;
+}
+.pwa-dismiss-btn:active { background: rgba(255,255,255,.14); }
+
+/* ── X SOCIAL LINK ── */
+.social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0 4px;
+}
+.social-link-x {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--warm-4);
+  font-size: 12px;
+  font-weight: 400;
+  padding: 6px 12px;
+  border: 1px solid #E0D9CB;
+  border-radius: 100px;
+  background: var(--white);
+  transition: all .15s;
+}
+.social-link-x:active { background: var(--warm-1); color: var(--ink); }
+.social-link-x svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+
 /* ── ORYNTH BADGE ── */
 .orynth-badge {
   display: flex;
@@ -1135,6 +1293,10 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img">
       </div>
       <div class="hdr-right">
+        <button class="login-btn" onclick="openLoginSheet()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+          Sign in
+        </button>
         <button class="hist-btn" onclick="goHistory()">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></svg>
           <span id="newLabel2">History</span>
@@ -1292,6 +1454,12 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
+        <div class="social-row">
+          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+            @terrova_ai
+          </a>
+        </div>
         <div class="orynth-badge">
           <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
             <img src="https://orynth.dev/api/badge/terrova?theme=light&style=default" alt="Featured on Orynth" />
@@ -1407,6 +1575,12 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
+        <div class="social-row">
+          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+            @terrova_ai
+          </a>
+        </div>
         <div class="orynth-badge">
           <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
             <img src="https://orynth.dev/api/badge/terrova?theme=light&style=default" alt="Featured on Orynth" />
@@ -1503,6 +1677,12 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goLegal()">Legal</button>
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
+        </div>
+        <div class="social-row">
+          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+            @terrova_ai
+          </a>
         </div>
         <div class="orynth-badge">
           <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
@@ -1639,6 +1819,12 @@ textarea.inp::placeholder { color: var(--warm-3); }
           <button class="footer-link" onclick="goFaq()">FAQ</button>
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
+        <div class="social-row">
+          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+            @terrova_ai
+          </a>
+        </div>
         <div class="orynth-badge">
           <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
             <img src="https://orynth.dev/api/badge/terrova?theme=light&style=default" alt="Featured on Orynth" />
@@ -1672,6 +1858,38 @@ textarea.inp::placeholder { color: var(--warm-3); }
       <span class="nav-label">Chat</span>
     </button>
   </nav>
+
+  <!-- LOGIN SHEET -->
+  <div class="sheet-overlay" id="loginOverlay" onclick="outsideLoginClose(event)">
+    <div class="sheet">
+      <div class="sheet-handle"></div>
+      <div class="sheet-head">
+        <div class="login-sheet-title">Sign in to Terrova</div>
+        <div class="login-sheet-sub">Enter your email and we'll send you a magic link — no password needed.</div>
+      </div>
+      <div class="login-input-wrap">
+        <input type="email" class="login-email-field" id="loginEmail" placeholder="your@email.com" autocomplete="email" inputmode="email">
+        <button class="login-submit-btn" onclick="sendMagicLink()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send magic link
+        </button>
+        <div class="login-note">Basic features work without an account. Signing in lets you sync your history across devices.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PWA INSTALL BANNER -->
+  <div class="pwa-banner" id="pwaBanner">
+    <div class="pwa-banner-icon">🌱</div>
+    <div class="pwa-banner-body">
+      <div class="pwa-banner-title">Add Terrova to your home screen</div>
+      <div class="pwa-banner-sub">Get faster access, offline history & a native app feel.</div>
+    </div>
+    <div class="pwa-banner-actions">
+      <button class="pwa-install-btn" onclick="installPWA()">Install</button>
+      <button class="pwa-dismiss-btn" onclick="dismissPWA()">✕</button>
+    </div>
+  </div>
 
   <!-- LANG SHEET -->
   <div class="sheet-overlay" id="overlay" onclick="outsideClose(event)">
@@ -1934,26 +2152,147 @@ function fmtDate(ts) {
   return d.toLocaleDateString(undefined, {month:'short',day:'numeric'});
 }
 
-const RESPONSES = {
-  en:[
-    "Great question! Based on common farming practices, here's what you should know: start by observing the symptoms closely: timing and pattern matter a lot. Early intervention usually gives the best results.",
-    "Farmers in similar conditions have found that the key is consistency. Whether it's watering schedule or pest management, regularity is more important than intensity.",
-    "This depends on your soil type and local climate. Generally, testing your soil pH first gives you a clear direction. Most crops prefer a pH between 6.0 and 7.0.",
-    "The best approach here is integrated: combine organic methods with good timing. Chemical solutions should always be a last resort, not the first.",
-    "For your region, timing is crucial. Plan 2–3 weeks ahead of the expected season change. Preparation now means a better harvest later.",
-    "Many experienced farmers recommend starting small and observing results before scaling. Document what works in your specific conditions: local knowledge is irreplaceable.",
-    "The root cause is often in the soil. Before trying surface-level solutions, check drainage, organic matter content, and pH. These three factors affect almost every crop problem.",
-  ],
-  id:[
-    "Pertanyaan bagus! Berdasarkan praktik pertanian umum, mulailah dengan mengamati gejala secara dekat: waktu dan pola sangat penting. Intervensi dini biasanya memberikan hasil terbaik.",
-    "Petani dalam kondisi serupa menemukan bahwa kuncinya adalah konsistensi. Baik jadwal penyiraman maupun pengendalian hama, keteraturan lebih penting dari intensitas.",
-    "Ini tergantung pada jenis tanah dan iklim lokalmu. Secara umum, uji pH tanah terlebih dahulu memberi arahan yang jelas. Sebagian besar tanaman menyukai pH antara 6,0 dan 7,0.",
-    "Pendekatan terbaik di sini adalah terpadu: kombinasikan metode organik dengan waktu yang tepat. Solusi kimia harus selalu menjadi pilihan terakhir.",
-    "Untuk daerahmu, waktunya sangat penting. Rencanakan 2–3 minggu sebelum pergantian musim. Persiapan sekarang berarti panen yang lebih baik nanti.",
-    "Banyak petani berpengalaman menyarankan untuk mulai skala kecil dan amati hasilnya sebelum memperluas. Catat apa yang berhasil di kondisi spesifikmu: pengetahuan lokal tak tergantikan.",
-    "Akar masalahnya sering ada di tanah. Sebelum mencoba solusi di permukaan, periksa drainase, kandungan bahan organik, dan pH. Ketiga faktor ini mempengaruhi hampir semua masalah tanaman.",
-  ],
+const CAT_RESPONSES = {
+  en: {
+    pests: [
+      "🪲 Pest identification first, then treatment.\n\nBefore reaching for a spray, confirm what pest you're dealing with — treatment differs widely. For sucking insects like aphids or thrips: neem oil (5ml/L) every 5–7 days works well organically. For chewers like caterpillars: Bacillus thuringiensis (Bt) is your safest biological option.\n\n📋 Quick checklist:\n• Inspect undersides of leaves — that's where most pests hide\n• Check at dawn or dusk when insects are most active\n• Remove badly infested leaves by hand first\n• Rotate spray products every 2–3 applications to prevent resistance\n\nIf damage is under 15%, hold off on chemicals and boost plant immunity with potassium-rich foliar feeds instead.",
+      "🔍 Integrated Pest Management (IPM) is the gold standard.\n\nIPM means combining cultural, biological, and chemical control — in that order. Start with:\n\n1. Cultural: remove crop debris, rotate crops, widen plant spacing for airflow\n2. Biological: encourage predatory insects (ladybirds eat aphids, ground beetles eat eggs)\n3. Chemical: only when pest populations exceed economic threshold\n\n💡 Practical tip: A simple yellow sticky trap every 10m² tells you which pests are present before damage becomes visible. Check weekly and act early — it's far cheaper than spraying after an outbreak.",
+    ],
+    disease: [
+      "🦠 Plant disease follows a triangle: susceptible host + pathogen + favorable environment.\n\nBreak any corner of that triangle and disease slows or stops.\n\n• Susceptible host → plant resistant varieties, improve nutrition (deficient plants get sick faster)\n• Pathogen → remove infected material immediately, sterilize tools between plants\n• Environment → reduce leaf wetness (water at the base, not overhead), improve airflow by pruning\n\n📋 For fungal diseases (most common): copper-based fungicides or sulfur sprays applied preventively work better than curatively. Once blight or rust is widespread, treatment only slows spread — it cannot reverse damage.\n\n⚠️ Key rule: never compost diseased plant material. Burn or bury it deeply.",
+      "🍂 Yellowing leaves have many causes — don't guess, diagnose.\n\nPattern tells the story:\n• Yellowing starting at bottom leaves → nitrogen deficiency or root rot\n• Yellow between green veins → iron or magnesium deficiency (check pH first)\n• Yellow spots with dark borders → fungal infection\n• Yellow + sticky residue → sucking pest damage\n• Yellow + wilting even with adequate water → Fusarium or bacterial wilt in roots\n\nFix the pH first (6.0–6.8 for most crops) — nutrients become unavailable outside this range no matter how much you feed.",
+    ],
+    soil: [
+      "🪨 Healthy soil is 45% minerals, 25% water, 25% air, and 5% organic matter — that 5% does most of the work.\n\nOrganic matter improves water retention in sandy soils, drainage in clay soils, feeds soil microbes, and buffers pH. Your first investment in any problem soil should be compost.\n\n📋 Simple soil health audit:\n1. Dig a 30cm hole and count earthworms — 10+ per spadeful means healthy biology\n2. Do the jar test: shake soil in water, let settle overnight. Layers show your sand/silt/clay ratio\n3. Test pH with a cheap kit — it's the single most important number in soil management\n\n💡 Mulching 5–7cm of organic material on the surface is the single highest-return action for most small farms.",
+    ],
+    water: [
+      "💧 Water management is about timing and depth — not just volume.\n\nMost crops need water in the root zone (20–40cm deep), not at the surface. Frequent shallow watering trains roots to stay near the surface, making plants drought-sensitive.\n\n📋 Better practice:\n• Water deeply and less frequently (every 2–4 days vs. daily)\n• Water early morning — less evaporation, leaves dry by afternoon reducing disease risk\n• Check soil moisture at 10cm depth before irrigating — if still moist, skip\n• Drip irrigation delivers 30–50% more efficiency than overhead sprinklers\n\n🌡️ Water stress signs: leaf edges curl inward (under-watered), leaves yellow and drop (over-watered). The soil tells you more than the plant does.",
+    ],
+    harvest: [
+      "🌾 Harvesting at peak maturity is a skill — and it directly determines your income.\n\nUnderstanding harvest readiness:\n• Grains (rice, corn): check moisture content. Rice at 20–25% grain moisture is ready to cut. Wait longer = shattering losses\n• Fruits: look at color change, skin feel, and how easily the fruit separates from the plant with a gentle twist\n• Root crops (onion, garlic): when 50–70% of tops have fallen over naturally, stop irrigating for 5–7 days, then harvest\n• Leafy vegetables: harvest before the plant bolts (sends up a flower stalk) — flavor deteriorates quickly after bolting\n\n⏱️ Best time to harvest: early morning when temperatures are low — post-harvest shelf life improves significantly.",
+    ],
+    market: [
+      "💰 Getting the best price starts before harvest.\n\nPost-harvest loss is the silent killer of farm income — an estimated 20–40% of produce in developing countries is lost between field and market. Fixing that is worth more than any price negotiation.\n\n📋 Price-maximizing checklist:\n1. Grade your produce honestly — premium-grade commands 20–40% more\n2. Know your break-even price before you go to market\n3. Time your sale: prices are lowest right after harvest season peaks — storing for 2–4 weeks often returns 15–25% more\n4. Build direct relationships with restaurants, schools, or processors — cut out middlemen\n5. Diversify buyers so no single buyer has pricing power over you\n\n💡 Track prices weekly on at least 2 different markets. Seasonal patterns repeat every year.",
+    ],
+    weather: [
+      "🌦️ Work with weather patterns, not against them.\n\nFor most tropical and subtropical farmers, the calendar is less useful than knowing your microclimate's rainy season onset and dry season length.\n\n📋 Practical weather response strategies:\n• Dry season: plant drought-tolerant varieties, apply thick mulch, irrigate in cycles\n• Rainy season: ensure drainage channels are clear before rains start, use raised beds, apply fungicides preventively\n• El Niño years (drier): plant earlier, store water, choose short-duration varieties\n• La Niña years (wetter): improve drainage, plant on slopes or raised beds, watch for fungal disease\n\n🌡️ Install a simple min-max thermometer and rain gauge — 3 years of your own data predicts your season better than any forecast.",
+    ],
+    organic: [
+      "🌿 Organic farming works — but it requires more observation and timing, not just substituting organic products for chemical ones.\n\nThe three pillars of productive organic farming:\n1. Soil biology: compost, vermicast, cover crops, and reduced tillage build the microbial community that feeds your crops\n2. Biodiversity: mixed cropping and field edges with flowering plants attract beneficial insects and break pest cycles\n3. Nutrient cycling: return everything you can to the soil — crop residue, kitchen waste, animal manure\n\n🍃 Highest-return organic inputs:\n• Compost tea (aerated, 24–48hr): broad-spectrum soil and foliar biostimulant\n• Fermented plant juice (FPJ): from banana pseudostem or young shoots, dilute 1:500\n• Neem cake soil application: slow-release nitrogen + natural nematicide",
+    ],
+    seeds: [
+      "🫘 Seed quality is the highest-leverage point in your whole growing season.\n\nA germination test before planting saves you from thinning disappointment:\n1. Place 10 seeds on a damp paper towel, fold it over\n2. Keep at room temperature (25–30°C ideal)\n3. Check at 5 days and 10 days — count germinated seeds\n4. If fewer than 7/10 germinate, either increase seeding rate or find better seed\n\n📋 Seed storage best practices:\n• Dry to 12–14% moisture before storing\n• Store in sealed glass jars with a silica gel packet\n• Keep in a cool, dark location (below 25°C)\n• Label with crop, variety, and harvest date\n\n💡 Open-pollinated (OP) seeds can be saved from your own best plants. Hybrids cannot — buying hybrid seed every season is a real cost to factor into your budget.",
+    ],
+    livestock: [
+      "🐄 Integrating livestock with crop farming multiplies productivity of both systems.\n\nHighest-synergy integrations:\n• Chickens on crop stubble after harvest: eat weed seeds and insect pests, deposit manure\n• Goats on field margins: control grass without chemicals, produce manure and milk\n• Ducks in paddy: suppress golden apple snail and weeds, eliminate need for molluscicide\n• Fish ponds beside rice: rice straw feeds fish, fish waste fertilizes rice\n\n⚠️ Key risk to manage: overgrazing compacts soil. Rotate livestock through paddocks — never let them graze the same area more than 5–7 days before moving on.",
+    ],
+    tools: [
+      "🚜 The right tool maintained well outperforms an expensive tool neglected.\n\nMaintenance schedule most farmers skip:\n• Sprayer nozzles: flush with clean water after every use, replace nozzles annually — a worn nozzle delivers 30–50% wrong volume\n• Cutting tools (machete, pruning shears): sharpen monthly, wipe blades with 70% alcohol between plants when managing disease\n• Pumps: drain and dry before storage, check seals every season\n\n💡 Tool priority for small farms:\n1. Quality hand sprayer (15–20L backpack)\n2. Soil moisture meter (cheap, high value)\n3. Sharp harvest knife or pruning shears\n4. Rain gauge + thermometer\n\nBefore buying motorized equipment, calculate: if you can hire labor or rent machinery for less than 30% of the purchase price annually, renting wins.",
+    ],
+    veggies: [
+      "🥬 Vegetables are demanding — but rewarding when managed well.\n\nThe two biggest yield killers in vegetable production:\n1. Inconsistent water — fluctuations between wet and dry cause blossom end rot (tomatoes, peppers), tip burn (lettuce), and cracking (cabbage)\n2. Pest pressure in the seedling stage — losing 20% of seedlings to cutworms or damping off sets the whole crop back by weeks\n\n📋 Season-long success checklist:\n• Transplant in the evening or on a cloudy day — reduces transplant shock\n• Mulch immediately after transplanting — reduces water needs by 30–40%\n• Side-dress with nitrogen at 3–4 weeks after transplanting\n• Set up simple crop records: planting date, input cost, yield, price — one season of data transforms your planning",
+    ],
+    grains: [
+      "🌾 Grain production is a numbers game — yield per hectare × price per kg × efficiency of post-harvest handling.\n\nFor rice specifically:\nThe System of Rice Intensification (SRI) consistently outperforms conventional methods in smallholder trials:\n• Transplant single seedlings at 8–12 days old (not 21–25 days)\n• Wide spacing: 25×25cm (not the usual 20×20cm)\n• Alternate wetting and drying (AWD): let soil dry until hairline cracks appear, then re-flood — saves 25–30% water, often improves yield\n• Mechanical weeding at 10 and 20 days stimulates tillering\n\n💡 The most common reason for declining rice yield: soil organic matter depletion from continuous cropping without return of organic material. Incorporate rice straw or apply compost every other season.",
+    ],
+    spices: [
+      "🌶️ Chili and spice crops reward attention to detail — and punish neglect fast.\n\nFor chili specifically:\n• Calcium deficiency causes blossom end rot — apply calcium foliar spray or gypsum at flowering\n• Inconsistent irrigation during fruiting → cracking and poor color development\n• Anthracnose (dark sunken spots on fruit) is the top disease — use copper fungicide preventively and avoid overhead irrigation\n\n📋 To maximize chili yield:\n1. Maintain pH at 6.0–6.5\n2. Apply phosphorus-heavy fertilizer at planting for strong root system\n3. Switch to potassium-heavy fertilizer at flowering for fruit size and color\n4. Harvest regularly — leaving ripe fruit on the plant suppresses further fruiting\n\n💡 For export quality dry chili: sun-dry on raised mesh platforms for even airflow, target 12% moisture content.",
+    ],
+    fruits: [
+      "🍌 Tree fruit requires a long-term investment mindset — the decisions you make in years 1–3 determine yield potential for the next decade.\n\nFoundation practices:\n• Pit preparation: dig 60×60×60cm, fill with topsoil + compost + rock phosphate 2–3 weeks before planting\n• Canopy management: train young trees to open center or modified leader structure — light penetration determines fruit quality\n• Fruit thinning: counterintuitive, but removing 30–40% of fruit after fruit set produces larger, higher-value remaining fruit\n\n📋 Year 1–3 priority: establishment, not production. Deep watering 2–3x per week, weed suppression, and structural pruning now determine the tree's productivity for 20+ years.",
+    ],
+    ornamental: [
+      "🌸 Ornamental plant success depends on matching plant to environment, not forcing plants into wrong conditions.\n\nDiagnosis first:\n• Yellow leaves + dry soil → underwatering or low humidity\n• Yellow leaves + wet soil → root rot from overwatering\n• Brown leaf tips → low humidity, fluoride in tap water, or salt buildup from over-fertilizing\n• Leggy, stretched growth → insufficient light\n\n📋 For tropical ornamentals in high humidity:\n• Water when top 2–3cm of soil is dry — never on a fixed schedule\n• Fertilize at 25–50% of recommended dose, more frequently (every 2 weeks) rather than full dose monthly\n• Morning misting improves humidity without causing leaf disease\n• Repot when roots emerge from drainage holes or growth significantly slows",
+    ],
+    analysis: [
+      "📊 A soil test is the most cost-effective investment in your farm.\n\nReading a basic soil report:\n• pH: the master variable. Outside 6.0–7.0, nutrient uptake drops even with adequate fertilizer\n• N (nitrogen): high demand crop = apply if below 20mg/kg; leaches quickly — split applications beat single large doses\n• P (phosphorus): less mobile, stays where you put it. Build reserves slowly over multiple seasons\n• K (potassium): check against calcium ratio — excess calcium blocks potassium uptake\n• CEC (Cation Exchange Capacity): below 10 = low fertility potential; above 20 = good nutrient holding\n\n💡 Even without a lab: the simple jar test, earthworm count, and pH strip kit give you 80% of what you need to make good fertility decisions.",
+    ],
+    composting: [
+      "♻️ Good compost takes 6–12 weeks with management, or 6–12 months without it.\n\nThe fast hot compost method (6 weeks):\n1. Layer 30cm of brown material (straw, dry leaves, cardboard) — provides carbon\n2. Layer 10cm of green material (kitchen waste, fresh grass, manure) — provides nitrogen\n3. Target C:N ratio of 25–30:1. Simple rule: 3 parts brown to 1 part green by volume\n4. Moisture: squeeze a handful — a few drops should come out, like a wrung sponge\n5. Turn every 5–7 days to maintain oxygen. Temperature should reach 55–65°C inside\n6. Compost is ready when it's dark, crumbly, and smells like earth\n\n⚡ Fastest method: vermicomposting (worm composting) converts kitchen scraps into high-quality castings in 4–6 weeks with no turning required.",
+    ],
+  },
+  id: {
+    pests: [
+      "🪲 Identifikasi dulu, baru tangani.\n\nSebelum menyemprot, pastikan hama apa yang menyerang — penanganannya sangat berbeda. Untuk hama pengisap (kutu daun, thrips): minyak nimba (5ml/L) setiap 5–7 hari efektif secara organik. Untuk hama pengunyah (ulat): Bacillus thuringiensis (Bt) adalah pilihan biologis paling aman.\n\n📋 Checklist cepat:\n• Periksa bagian bawah daun — di situlah sebagian besar hama bersembunyi\n• Cek saat fajar atau senja ketika serangga paling aktif\n• Cabut daun yang terinfestasi parah terlebih dahulu secara manual\n• Rotasi produk semprot setiap 2–3 aplikasi untuk mencegah resistensi\n\nJika kerusakan di bawah 15%, tahan diri dari bahan kimia dan tingkatkan kekebalan tanaman dengan pupuk daun kaya kalium.",
+    ],
+    disease: [
+      "🦠 Penyakit tanaman mengikuti segitiga: inang rentan + patogen + lingkungan yang mendukung.\n\nPatahkan salah satu sudut segitiga itu dan penyakit melambat atau berhenti.\n\n• Inang rentan → tanam varietas tahan, perbaiki nutrisi\n• Patogen → segera buang material terinfeksi, sterilkan alat antar tanaman\n• Lingkungan → kurangi kelembaban daun, perbaiki sirkulasi udara dengan pemangkasan\n\n📋 Untuk penyakit jamur (paling umum): fungisida berbasis tembaga atau semprotan belerang lebih efektif jika digunakan preventif.\n\n⚠️ Aturan penting: jangan pernah mengompos material tanaman yang sakit. Bakar atau kubur dalam-dalam.",
+    ],
+    soil: [
+      "🪨 Tanah sehat terdiri dari 45% mineral, 25% air, 25% udara, dan 5% bahan organik — 5% itu yang melakukan sebagian besar pekerjaan.\n\nBahan organik meningkatkan retensi air di tanah berpasir, drainase di tanah liat, memberi makan mikroba tanah, dan menyangga pH.\n\n📋 Audit kesehatan tanah sederhana:\n1. Gali lubang 30cm dan hitung cacing tanah — 10+ per sekop berarti biologi tanah sehat\n2. Uji pH dengan kit murah — ini angka terpenting dalam pengelolaan tanah\n3. Mulsa organik 5–7cm di permukaan tanah adalah tindakan dengan return tertinggi untuk kebanyakan petani",
+    ],
+    water: [
+      "💧 Manajemen air adalah soal waktu dan kedalaman — bukan hanya volume.\n\nSebagian besar tanaman membutuhkan air di zona akar (kedalaman 20–40cm), bukan di permukaan. Penyiraman dangkal yang sering membuat akar tetap di permukaan dan tanaman lebih rentan kekeringan.\n\n📋 Praktik yang lebih baik:\n• Siram dalam dan jarang (setiap 2–4 hari vs. setiap hari)\n• Siram pagi hari — evaporasi lebih sedikit, daun kering siang hari mengurangi risiko penyakit\n• Cek kelembaban tanah di kedalaman 10cm sebelum irigasi\n• Irigasi tetes memberikan efisiensi 30–50% lebih baik dari sprinkler",
+    ],
+    harvest: [
+      "🌾 Memanen pada kematangan puncak adalah keterampilan — dan langsung menentukan pendapatanmu.\n\nPanduan kesiapan panen:\n• Padi: cek kadar air gabah. Padi di kadar air 20–25% siap dipotong\n• Buah: perhatikan perubahan warna, tekstur kulit, dan kemudahan buah terlepas dari tanaman\n• Umbi (bawang, bawang putih): saat 50–70% daun telah rebah alami, hentikan irigasi 5–7 hari, lalu panen\n• Sayuran daun: panen sebelum tanaman berbunga — rasa memburuk cepat setelah itu\n\n⏱️ Waktu panen terbaik: pagi hari ketika suhu rendah — umur simpan pasca panen meningkat signifikan.",
+    ],
+    market: [
+      "💰 Mendapat harga terbaik dimulai sebelum panen.\n\nKehilangan pascapanen adalah pembunuh diam-diam pendapatan pertanian — diperkirakan 20–40% hasil di negara berkembang hilang antara lahan dan pasar.\n\n📋 Checklist maksimalkan harga:\n1. Sortir hasil dengan jujur — grade premium dapat 20–40% lebih\n2. Ketahui harga break-even sebelum ke pasar\n3. Waktu penjualan: harga terendah tepat setelah puncak musim panen — menyimpan 2–4 minggu sering memberi 15–25% lebih\n4. Bangun hubungan langsung dengan restoran, sekolah, atau pengolah\n5. Diversifikasi pembeli agar tidak ada satu pembeli yang mengendalikan harga",
+    ],
+    weather: [
+      "🌦️ Bekerja dengan pola cuaca, bukan melawannya.\n\nUntuk sebagian besar petani tropis, kalender kurang berguna dibanding mengetahui onset musim hujan dan panjang musim kemarau mikroklimat Anda.\n\n📋 Strategi respons cuaca praktis:\n• Musim kemarau: tanam varietas tahan kering, mulsa tebal, irigasi berputar\n• Musim hujan: pastikan saluran drainase bersih sebelum hujan, gunakan bedengan tinggi, aplikasi fungisida preventif\n• Tahun El Niño (lebih kering): tanam lebih awal, simpan air, pilih varietas umur pendek\n• Tahun La Niña (lebih basah): perbaiki drainase, tanam di lereng atau bedengan, waspadai penyakit jamur",
+    ],
+    organic: [
+      "🌿 Pertanian organik berhasil — tapi memerlukan lebih banyak observasi dan waktu yang tepat.\n\nTiga pilar pertanian organik produktif:\n1. Biologi tanah: kompos, kascing, tanaman penutup, dan pengolahan tanah minimal\n2. Keanekaragaman hayati: tanam campuran dan tepi lahan dengan tanaman berbunga menarik serangga menguntungkan\n3. Siklus nutrisi: kembalikan semua yang bisa ke tanah\n\n🍃 Input organik return tertinggi:\n• Teh kompos aerasi (24–48 jam): biostimulant tanah dan daun\n• Jus tanaman fermentasi (FPJ): dari batang pisang atau tunas muda, encerkan 1:500\n• Bungkil nimba aplikasi tanah: nitrogen slow-release + nematisida alami",
+    ],
+    seeds: [
+      "🫘 Kualitas benih adalah titik leverage tertinggi di seluruh musim tanam Anda.\n\nUji perkecambahan sebelum tanam:\n1. Letakkan 10 benih di kertas tisu basah, lipat\n2. Simpan suhu ruang (25–30°C ideal)\n3. Cek hari ke-5 dan ke-10 — hitung benih yang berkecambah\n4. Jika kurang dari 7/10, tingkatkan laju penanaman atau cari benih lebih baik\n\n📋 Praktik penyimpanan benih terbaik:\n• Keringkan hingga kadar air 12–14% sebelum disimpan\n• Simpan dalam toples kaca tertutup dengan silica gel\n• Simpan di tempat sejuk dan gelap (di bawah 25°C)\n• Beri label dengan tanaman, varietas, dan tanggal panen",
+    ],
+    livestock: [
+      "🐄 Mengintegrasikan ternak dengan pertanian tanaman melipatgandakan produktivitas kedua sistem.\n\nIntegrasi sinergi tertinggi:\n• Ayam di sisa panen: makan biji gulma dan hama serangga, depositkan pupuk\n• Kambing di pinggir lahan: kendalikan rumput tanpa bahan kimia\n• Bebek di sawah: tekan keong mas dan gulma, hilangkan kebutuhan molluscicide\n• Kolam ikan di sebelah sawah: jerami padi memberi makan ikan, limbah ikan menyuburkan padi\n\n⚠️ Risiko utama: overgrazing memadatkan tanah. Rotasi ternak antar petak — jangan biarkan merumput di area yang sama lebih dari 5–7 hari.",
+    ],
+    tools: [
+      "🚜 Alat yang tepat dan terawat mengalahkan alat mahal yang diabaikan.\n\nJadwal perawatan yang sering dilewati petani:\n• Nozel sprayer: bilas dengan air bersih setelah setiap penggunaan, ganti nozel setiap tahun\n• Alat potong: asah setiap bulan, lap bilah dengan alkohol 70% antar tanaman saat mengelola penyakit\n• Pompa: kuras dan keringkan sebelum disimpan, cek seal setiap musim\n\n💡 Prioritas alat untuk pertanian kecil:\n1. Sprayer punggung berkualitas (15–20L)\n2. Alat ukur kelembaban tanah (murah, bernilai tinggi)\n3. Pisau panen atau gunting pangkas tajam\n4. Pengukur hujan + termometer",
+    ],
+    veggies: [
+      "🥬 Sayuran menuntut perhatian — tapi menguntungkan jika dikelola dengan baik.\n\nDua pembunuh hasil terbesar dalam produksi sayuran:\n1. Air tidak konsisten — fluktuasi basah-kering menyebabkan busuk ujung buah, daun terbakar\n2. Tekanan hama di fase bibit — kehilangan 20% bibit karena ulat tanah atau damping off menunda seluruh tanaman berminggu-minggu\n\n📋 Checklist sukses sepanjang musim:\n• Transplant di sore hari atau hari mendung — kurangi shock transplant\n• Mulsa segera setelah transplant — kurangi kebutuhan air 30–40%\n• Side-dress dengan nitrogen 3–4 minggu setelah transplant\n• Buat catatan tanaman sederhana: tanggal tanam, biaya input, hasil, harga",
+    ],
+    grains: [
+      "🌾 Produksi padi adalah permainan angka — hasil per hektar × harga per kg × efisiensi pasca panen.\n\nSistem Intensifikasi Padi (SRI) secara konsisten mengungguli metode konvensional:\n• Transplant bibit tunggal umur 8–12 hari (bukan 21–25 hari)\n• Jarak tanam lebar: 25×25cm (bukan 20×20cm biasa)\n• Pengairan berselang (AWD): biarkan tanah kering hingga muncul retakan rambut, lalu re-flood — hemat air 25–30%, sering meningkatkan hasil\n• Penyiangan mekanis hari ke-10 dan ke-20 merangsang anakan\n\n💡 Penyebab paling umum hasil padi menurun: deplesi bahan organik tanah dari pertanaman terus-menerus tanpa pengembalian bahan organik.",
+    ],
+    spices: [
+      "🌶️ Tanaman cabai dan rempah memberi imbalan pada perhatian detail — dan cepat dihukum karena kelalaian.\n\nUntuk cabai khususnya:\n• Defisiensi kalsium menyebabkan busuk ujung buah — aplikasi pupuk daun kalsium atau gypsum saat berbunga\n• Irigasi tidak konsisten saat berbuah → retak dan perkembangan warna buruk\n• Antraknosa (bercak gelap cekung pada buah) adalah penyakit utama — gunakan fungisida tembaga preventif\n\n📋 Untuk memaksimalkan hasil cabai:\n1. Pertahankan pH di 6,0–6,5\n2. Aplikasi pupuk kaya fosfor saat tanam untuk sistem akar kuat\n3. Beralih ke pupuk kaya kalium saat berbunga untuk ukuran dan warna buah\n4. Panen secara teratur — buah matang yang dibiarkan di tanaman menekan pembungaan lebih lanjut",
+    ],
+    fruits: [
+      "🍌 Buah pohon memerlukan mindset investasi jangka panjang.\n\nPraktik dasar:\n• Persiapan lubang tanam: gali 60×60×60cm, isi dengan tanah atas + kompos + rock phosphate 2–3 minggu sebelum tanam\n• Manajemen kanopi: latih pohon muda ke struktur center terbuka — penetrasi cahaya menentukan kualitas buah\n• Penjarangan buah: buang 30–40% buah setelah fruit set menghasilkan buah yang lebih besar dan bernilai lebih tinggi\n\n📋 Prioritas tahun 1–3: pembentukan, bukan produksi. Penyiraman dalam 2–3x seminggu, penekanan gulma, dan pemangkasan struktural sekarang menentukan produktivitas pohon selama 20+ tahun.",
+    ],
+    ornamental: [
+      "🌸 Keberhasilan tanaman hias tergantung pada mencocokkan tanaman dengan lingkungan.\n\nDiagnosis dulu:\n• Daun kuning + tanah kering → kurang air atau kelembaban rendah\n• Daun kuning + tanah basah → busuk akar karena penyiraman berlebih\n• Ujung daun coklat → kelembaban rendah atau penumpukan garam dari pupuk berlebih\n• Pertumbuhan kurus, memanjang → cahaya tidak cukup\n\n📋 Untuk tanaman hias tropis:\n• Siram ketika 2–3cm bagian atas tanah kering — jangan jadwal tetap\n• Pupuk dengan 25–50% dari dosis yang dianjurkan, lebih sering (setiap 2 minggu) daripada dosis penuh bulanan\n• Semprot pagi meningkatkan kelembaban tanpa menyebabkan penyakit daun",
+    ],
+    analysis: [
+      "📊 Uji tanah adalah investasi paling hemat biaya di ladangmu.\n\nMembaca laporan tanah dasar:\n• pH: variabel utama. Di luar 6,0–7,0, penyerapan nutrisi turun meski pupuk cukup\n• N (nitrogen): tuntutan tinggi → aplikasi jika di bawah 20mg/kg; mudah tercuci — aplikasi terbagi lebih baik\n• P (fosfor): tidak banyak bergerak, tetap di tempat kamu meletakkannya. Bangun cadangan perlahan\n• K (kalium): cek terhadap rasio kalsium — kalsium berlebih memblokir penyerapan kalium\n• KTK (Kapasitas Tukar Kation): di bawah 10 = potensi kesuburan rendah; di atas 20 = baik",
+    ],
+    composting: [
+      "♻️ Kompos baik membutuhkan 6–12 minggu dengan manajemen, atau 6–12 bulan tanpanya.\n\nMetode kompos panas cepat (6 minggu):\n1. Lapisi 30cm bahan coklat (jerami, daun kering, kardus) — sumber karbon\n2. Lapisi 10cm bahan hijau (sisa dapur, rumput segar, pupuk kandang) — sumber nitrogen\n3. Target rasio C:N 25–30:1. Aturan sederhana: 3 bagian coklat berbanding 1 bagian hijau\n4. Kelembaban: peras segenggam — beberapa tetes harus keluar, seperti spons yang diperas\n5. Balik setiap 5–7 hari untuk mempertahankan oksigen. Suhu harus mencapai 55–65°C di dalam\n6. Kompos siap ketika gelap, remah, dan berbau seperti tanah\n\n⚡ Metode tercepat: vermikompos mengubah sisa dapur menjadi kascing berkualitas tinggi dalam 4–6 minggu tanpa pembalikan.",
+    ],
+  },
 };
+
+function getResponse() {
+  const cats = getCats(lang);
+  const currentCat = cats[activeCat];
+  const catId = currentCat ? currentCat.id : null;
+  const langResponses = CAT_RESPONSES[lang] || CAT_RESPONSES.en;
+  const catArr = (catId && langResponses[catId]) ? langResponses[catId] : null;
+
+  if (catArr && catArr.length > 0) {
+    return catArr[Math.floor(Math.random() * catArr.length)];
+  }
+
+  // Fallback generic responses
+  const fallback = {
+    en: [
+      "Great question! Let me give you a thorough answer.\n\nThe key principles here apply across most farming situations:\n\n1. Observe before acting — most visible symptoms have been building for 1–2 weeks already\n2. Address root causes, not symptoms — treat the soil and environment, not just the plant\n3. Test small first — apply any new input to 10% of your field before scaling\n4. Keep records — even simple notes on a phone help you spot patterns across seasons\n\nFor your specific situation, share more details about your crop variety, local weather, and soil type — that lets me give you much more targeted advice.",
+      "Solid question — here's what the evidence says.\n\nMost crop problems trace back to three root causes: soil biology, water management, or nutrient imbalance. Before spending money on inputs, it's worth checking which of these is actually limiting your results.\n\n💡 Quick diagnostic steps:\n• Check soil moisture at 10cm depth — not just the surface\n• Look at the pattern of symptoms across your field (edge vs. center tells you a lot)\n• Check for pest or disease signs on the undersides of leaves\n• Review your last 2–3 inputs and their timing\n\nShare your crop, location, and what you've observed and I can give you a much more specific answer.",
+    ],
+    id: [
+      "Pertanyaan yang bagus! Mari saya berikan jawaban yang menyeluruh.\n\nPrinsip utama yang berlaku di sebagian besar situasi pertanian:\n\n1. Amati sebelum bertindak — sebagian besar gejala yang terlihat sudah terjadi 1–2 minggu sebelumnya\n2. Tangani akar penyebab, bukan gejala — rawat tanah dan lingkungan, bukan hanya tanaman\n3. Coba skala kecil dulu — terapkan input baru ke 10% lahan sebelum memperluas\n4. Catat — bahkan catatan sederhana di ponsel membantu mengenali pola antar musim\n\nUntuk situasi spesifikmu, bagikan lebih detail tentang varietas tanaman, cuaca lokal, dan jenis tanah.",
+    ],
+  };
+  const fb = fallback[lang] || fallback.en;
+  return fb[Math.floor(Math.random() * fb.length)];
+}
 
 function getResponse() {
   const arr = RESPONSES[lang] || RESPONSES.en;
@@ -1975,6 +2314,7 @@ function addMsgEl(text, who, time) {
   const bub  = document.createElement('div');
   bub.className = 'bubble';
   bub.style.maxWidth = '100%';
+  bub.style.whiteSpace = 'pre-wrap';
   bub.textContent = text;
 
   const t = document.createElement('div');
@@ -2171,6 +2511,52 @@ function renderHistory() {
 
 function escHtml(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+/* ════════════ LOGIN SHEET ════════════ */
+function openLoginSheet() {
+  document.getElementById('loginOverlay').classList.add('open');
+  setTimeout(() => document.getElementById('loginEmail').focus(), 350);
+}
+function closeLoginSheet() {
+  document.getElementById('loginOverlay').classList.remove('open');
+}
+function outsideLoginClose(e) {
+  if (e.target === document.getElementById('loginOverlay')) closeLoginSheet();
+}
+function sendMagicLink() {
+  const email = document.getElementById('loginEmail').value.trim();
+  if (!email || !email.includes('@')) {
+    showToast('Please enter a valid email address.');
+    return;
+  }
+  closeLoginSheet();
+  showToast('✉️ Magic link sent — check your inbox!');
+}
+
+/* ════════════ PWA INSTALL ════════════ */
+let deferredPrompt = null;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  // Show banner after 4 seconds — non-intrusive delay
+  if (!localStorage.getItem('tv_pwa_dismissed')) {
+    setTimeout(() => {
+      document.getElementById('pwaBanner').classList.add('show');
+    }, 4000);
+  }
+});
+
+function installPWA() {
+  document.getElementById('pwaBanner').classList.remove('show');
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+  }
+}
+function dismissPWA() {
+  document.getElementById('pwaBanner').classList.remove('show');
+  localStorage.setItem('tv_pwa_dismissed', '1');
+}
+
 /* ════════════ TOAST ════════════ */
 let toastTimer;
 function showToast(msg){
@@ -2179,6 +2565,13 @@ function showToast(msg){
   t.classList.add('show');
   clearTimeout(toastTimer);
   toastTimer = setTimeout(()=>t.classList.remove('show'), 2000);
+}
+
+/* ════════════ SERVICE WORKER ════════════ */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').catch(() => {});
+  });
 }
 
 /* ════════════ START ════════════ */

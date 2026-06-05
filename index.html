@@ -1409,6 +1409,39 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   letter-spacing: 0.01em;
   box-shadow: 0 1px 3px rgba(11,10,8,.06);
 }
+
+/* ── SKELETON LOADING ── */
+@keyframes skel-shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+.skel-base {
+  background: linear-gradient(90deg, #E8E2D6 25%, #F5F1E8 50%, #E8E2D6 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s ease-in-out infinite;
+  flex-shrink: 0;
+  border-radius: 100px;
+}
+.skel-chip { height: 32px; }
+.skel-chip:nth-child(1) { width: 62px; }
+.skel-chip:nth-child(2) { width: 78px; animation-delay: .08s; }
+.skel-chip:nth-child(3) { width: 54px; animation-delay: .16s; }
+.skel-chip:nth-child(4) { width: 84px; animation-delay: .24s; }
+.skel-chip:nth-child(5) { width: 68px; animation-delay: .32s; }
+.skel-chip:nth-child(6) { width: 60px; animation-delay: .40s; }
+
+.skel-card {
+  background: linear-gradient(90deg, #E8E2D6 25%, #F5F1E8 50%, #E8E2D6 75%);
+  background-size: 200% 100%;
+  animation: skel-shimmer 1.5s ease-in-out infinite;
+  border-radius: var(--r);
+  height: 86px;
+  border: 1px solid #EAE4D9;
+}
+.skel-card:nth-child(2) { animation-delay: .09s; }
+.skel-card:nth-child(3) { animation-delay: .18s; }
+.skel-card:nth-child(4) { animation-delay: .27s; }
+
 </style>
 </head>
 <body>
@@ -1449,8 +1482,20 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 
       <div class="qs-wrap" id="qsWrap">
         <div class="cat-label" id="catLabel">Browse categories</div>
-        <div class="cat-scroll" id="catScroll"></div>
-        <div class="qs-grid" id="qsGrid"></div>
+        <div class="cat-scroll" id="catScroll">
+        <div class="skel-base skel-chip"></div>
+        <div class="skel-base skel-chip"></div>
+        <div class="skel-base skel-chip"></div>
+        <div class="skel-base skel-chip"></div>
+        <div class="skel-base skel-chip"></div>
+        <div class="skel-base skel-chip"></div>
+      </div>
+        <div class="qs-grid" id="qsGrid">
+        <div class="skel-card"></div>
+        <div class="skel-card"></div>
+        <div class="skel-card"></div>
+        <div class="skel-card"></div>
+      </div>
       </div>
     </div>
 
@@ -2215,23 +2260,52 @@ function setLang(code) {
 }
 
 /* ════════════ CATEGORIES ════════════ */
+let _skelShown = true;
+
 function renderCategories(anim) {
+  if (_skelShown) {
+    _skelShown = false;
+    const catScroll = document.getElementById('catScroll');
+    const qsGrid    = document.getElementById('qsGrid');
+
+    catScroll.style.transition = 'opacity .2s ease';
+    catScroll.style.opacity    = '0';
+    qsGrid.style.transition    = 'opacity .2s ease, transform .2s ease';
+    qsGrid.style.opacity       = '0';
+    qsGrid.style.transform     = 'translateY(6px)';
+
+    setTimeout(() => {
+      _renderCatsReal(false);
+      requestAnimationFrame(() => {
+        catScroll.style.opacity  = '1';
+        qsGrid.style.opacity     = '1';
+        qsGrid.style.transform   = 'translateY(0)';
+      });
+    }, 300);
+  } else {
+    _renderCatsReal(anim);
+  }
+}
+
+function _renderCatsReal(anim) {
   const cats = getCats(lang);
   activeCat  = Math.min(activeCat, cats.length-1);
 
-  document.getElementById('catScroll').innerHTML = cats.map((c,i)=>`
-    <button class="cat-chip${i===activeCat?' active':''}" onclick="selectCat(${i},true)">
-      <span class="chip-icon">${c.icon}</span>${c.label}
-    </button>`).join('');
+  document.getElementById('catScroll').innerHTML = cats.map((c,i) =>
+    '<button class="cat-chip' + (i===activeCat?' active':'') + '" onclick="selectCat(' + i + ',true)">' +
+    '<span class="chip-icon">' + c.icon + '</span>' + c.label +
+    '</button>'
+  ).join('');
 
   renderPrompts(cats[activeCat], anim);
 
-  // scroll active chip into view
-  requestAnimationFrame(()=>{
+  requestAnimationFrame(() => {
     const scroll = document.getElementById('catScroll');
     const active = scroll.querySelector('.cat-chip.active');
-    if(active) active.scrollIntoView({inline:'center', behavior:'smooth', block:'nearest'});
+    if (active) active.scrollIntoView({inline:'center', behavior:'smooth', block:'nearest'});
   });
+}
+
 }
 
 function renderPrompts(cat, anim) {

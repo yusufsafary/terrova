@@ -239,61 +239,7 @@ body {
 .chat::-webkit-scrollbar { display: none; }
 
 /* ─── WELCOME ─── */
-.welcome {
-  background: var(--ink-2);
-  border-radius: var(--r-xl);
-  padding: 16px 18px 16px;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: 2px;
-  animation: fadeUp .45s cubic-bezier(.22,.68,0,1.2) both;
-}
-.welcome::before {
-  content:'';position:absolute;right:-44px;top:-44px;
-  width:140px;height:140px;border-radius:50%;
-  border:1px solid rgba(78,168,118,.07);
-}
-.welcome::after {
-  content:'';position:absolute;right:-22px;top:-22px;
-  width:82px;height:82px;border-radius:50%;
-  border:1px solid rgba(78,168,118,.12);
-}
 
-.welcome-kova {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-.kova-dot {
-  width: 7px; height: 7px;
-  background: var(--green-3);
-  border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(78,168,118,.2);
-  flex-shrink: 0;
-  animation: pulse 2.5s infinite;
-}
-.kova-label {
-  font-size: 10.5px;
-  font-weight: 400;
-  color: var(--warm-3);
-  letter-spacing: .14em;
-  text-transform: uppercase;
-}
-.welcome-msg {
-  font-family: 'DM Serif Display', serif;
-  font-size: 20px;
-  font-weight: 400;
-  color: var(--white);
-  line-height: 1.4;
-  margin-bottom: 10px;
-}
-.welcome-sub {
-  font-size: 13px;
-  font-weight: 300;
-  color: var(--warm-3);
-  line-height: 1.65;
-}
 
 /* ─── CAT NAV ─── */
 .qs-wrap { animation: fadeUp .5s .08s cubic-bezier(.22,.68,0,1.2) both; }
@@ -1067,62 +1013,6 @@ textarea.inp::placeholder { color: var(--warm-3); }
   }
 }
 
-/* ── KOVA IDENTITY (welcome card) ── */
-.kova-identity {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  margin-bottom: 12px;
-}
-.kova-avatar-wrap {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #1F5C3A 0%, #2E7A52 100%);
-  border: 1.5px solid rgba(78,168,118,.28);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 3px 14px rgba(31,92,58,.4);
-}
-.kova-id-info { display: flex; flex-direction: column; gap: 4px; }
-.kova-id-name {
-  font-family: 'DM Serif Display', serif;
-  font-size: 21px;
-  color: var(--white);
-  line-height: 1;
-  letter-spacing: -0.01em;
-}
-.kova-id-status {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-size: 11px;
-  color: var(--green-3);
-  font-weight: 400;
-}
-
-/* ── KOVA FEATURE CHIPS ── */
-.kova-features {
-  display: flex;
-  gap: 7px;
-  flex-wrap: nowrap;
-  margin-top: 11px;
-  overflow: hidden;
-}
-.kova-feat {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--warm-3);
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: 100px;
-  padding: 4px 10px;
-  letter-spacing: 0.01em;
-  white-space: nowrap;
-}
-
 /* ── CONTENT PAGE BACK NAV ── */
 .content-nav-bar {
   background: var(--ink);
@@ -1185,6 +1075,43 @@ textarea.inp::placeholder { color: var(--warm-3); }
   display: block;
   opacity: .85;
 }
+
+/* ── HOME HERO (clean, no card) ── */
+.home-hero {
+  padding: 24px 20px 14px;
+  animation: fadeUp .45s cubic-bezier(.22,.68,0,1.2) both;
+}
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 26px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.32;
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.hero-sub {
+  font-size: 13.5px;
+  color: var(--warm-4);
+  line-height: 1.65;
+  margin-bottom: 16px;
+  max-width: 320px;
+}
+.hero-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+.hero-chip {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--warm-5);
+  background: var(--warm-1);
+  border: 1px solid var(--warm-2);
+  border-radius: 100px;
+  padding: 5px 13px;
+  white-space: nowrap;
+}
 </style>
 </head>
 <body>
@@ -1214,21 +1141,12 @@ textarea.inp::placeholder { color: var(--warm-3); }
     </header>
 
     <div class="chat" id="chat">
-      <div class="welcome" id="welcomeCard">
-        <div class="kova-identity">
-          <div class="kova-avatar-wrap">
-            <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-mark.png" alt="Terrova" style="width:34px;height:34px;object-fit:contain;">
-          </div>
-          <div class="kova-id-info">
-            <div class="kova-id-name">Kova</div>
-            <div class="kova-id-status"><span class="kova-dot"></span>Online</div>
-          </div>
-        </div>
-        <div class="welcome-msg" id="wMsg">Hey there, farmer. What's growing today?</div>
-        <div class="welcome-sub" id="wSub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</div>
-        <div class="kova-features">
-          <span class="kova-feat">🌐 15 languages</span>
-          <span class="kova-feat">🌱 50+ crop types</span>
+      <div class="home-hero" id="welcomeCard">
+        <h2 class="hero-title">Hey there, farmer.<br>What's growing today?</h2>
+        <p class="hero-sub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</p>
+        <div class="hero-chips">
+          <span class="hero-chip">🌐 15 languages</span>
+          <span class="hero-chip">🌱 50+ crop types</span>
         </div>
       </div>
 

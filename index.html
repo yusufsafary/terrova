@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Terrova</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,12 +52,26 @@
   --c-composting: #607030;
 }
 
-html, body { height: 100%; background: var(--ink); overflow: hidden; }
+html {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+body {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  top: 0; left: 0;
+  background: var(--ink);
+  overflow: hidden;
+  overscroll-behavior: none;
+}
 
 #app {
   display: flex;
   flex-direction: column;
-  height: 100dvh;
+  height: 100%;
+  height: -webkit-fill-available;
   max-width: 430px;
   margin: 0 auto;
   background: var(--canvas);
@@ -212,11 +226,14 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
 .chat {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 18px 15px 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
   -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
   scroll-behavior: smooth;
 }
 .chat::-webkit-scrollbar { display: none; }
@@ -295,9 +312,12 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   display: flex;
   gap: 7px;
   overflow-x: auto;
-  padding-bottom: 2px;
+  overflow-y: hidden;
+  padding-bottom: 4px;
   margin-bottom: 13px;
   scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pinch-zoom;
 }
 .cat-scroll::-webkit-scrollbar { display: none; }
 
@@ -526,10 +546,14 @@ textarea.inp::placeholder { color: var(--warm-3); }
 .hist-list {
   flex: 1;
   overflow-y: auto;
+  overflow-x: hidden;
   padding: 14px 15px 20px;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
 }
 .hist-list::-webkit-scrollbar { display:none; }
 
@@ -641,7 +665,14 @@ textarea.inp::placeholder { color: var(--warm-3); }
   font-family:'DM Serif Display',serif;
   font-size:18px;font-weight:400;color:var(--ink);
 }
-.sheet-scroll { overflow-y:auto;flex:1; }
+.sheet-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
 .sheet-scroll::-webkit-scrollbar { display:none; }
 
 .lang-list { list-style:none;padding:6px 0 8px; }

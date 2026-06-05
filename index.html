@@ -1920,9 +1920,6 @@ function renderLangList() {
       </div>
       <span class="lang-check">✓</span>
     </li>`).join('');
-    grid.classList.remove('cat-fade');
-  }
-  if (anim) { grid.classList.add('cat-fade'); setTimeout(doRender, 160); } else { doRender(); }
 }
 
 function setLang(code) {

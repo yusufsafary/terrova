@@ -13,7 +13,7 @@
 <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-mark.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -84,7 +84,7 @@ body {
   background: var(--canvas);
   position: relative;
   overflow: hidden;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 /* ── PAGE SYSTEM ── */
@@ -128,12 +128,12 @@ body {
   cursor: pointer;
   user-select: none;
 }
-.logo-mark { width: 28px; height: 28px; flex-shrink: 0; }
+.logo-mark { width: 24px; height: 24px; flex-shrink: 0; }
 
 .logo-wordmark { display: flex; flex-direction: column; gap: 0; }
 
 .logo-name {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 21px;
   font-weight: 400;
   color: var(--white);
@@ -162,7 +162,7 @@ body {
   padding: 6px 11px;
   cursor: pointer;
   color: var(--warm-2);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   transition: background .15s;
 }
@@ -186,7 +186,7 @@ body {
   padding: 6px 10px 6px 8px;
   cursor: pointer;
   color: var(--warm-3);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11.5px;
   font-weight: 500;
   letter-spacing: .02em;
@@ -231,7 +231,7 @@ body {
   background: rgba(255,255,255,.07);
   border: 1px solid rgba(255,255,255,.11);
   color: var(--warm-2);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
@@ -275,13 +275,13 @@ body {
   transition: opacity .22s .08s ease, max-width .3s cubic-bezier(.32,.72,0,1);
 }
 .sub-title {
-  font-family:'DM Serif Display',serif;
-  font-size:18px;color:var(--white);
-  font-weight:400;flex:1;
+  font-family:'Instrument Serif',serif;
+  font-size:17px;color:var(--white);
+  font-weight:400;flex:1;letter-spacing:-0.01em;
 }
 .clear-all {
   background:none;border:none;cursor:pointer;
-  font-family:'DM Sans',sans-serif;
+  font-family:'Plus Jakarta Sans',sans-serif;
   font-size:11.5px;color:rgba(255,255,255,.35);
   padding:4px 0;transition:color .15s;
 }
@@ -310,13 +310,13 @@ body {
 .qs-wrap { animation: fadeUp .5s .08s cubic-bezier(.22,.68,0,1.2) both; }
 
 .cat-label {
-  font-size: 9.5px;
+  font-size: 9px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: .18em;
-  color: var(--warm-3);
+  letter-spacing: .22em;
+  color: var(--warm-4);
   padding: 0 2px;
-  margin-bottom: 9px;
+  margin-bottom: 10px;
 }
 
 .cat-scroll {
@@ -342,7 +342,7 @@ body {
   background: var(--white);
   cursor: pointer;
   white-space: nowrap;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 400;
   color: var(--warm-4);
@@ -392,7 +392,7 @@ body {
 .q-btn:active { transform: scale(.96); opacity: .82; box-shadow: none; }
 
 .q-icon { font-size: 17px; line-height: 1; }
-.q-text { font-size: 12px; font-weight: 400; color: var(--warm-5); line-height: 1.45; }
+.q-text { font-size: 11.5px; font-weight: 400; color: var(--warm-5); line-height: 1.48; letter-spacing: 0.005em; }
 
 /* left-border colors per cat */
 .q-btn[data-cat="pests"]      { border-left-color: var(--c-pests); }
@@ -440,9 +440,10 @@ body {
 .bubble {
   max-width: 80%;
   padding: 11px 14px;
-  font-size: 13.5px;
-  line-height: 1.68;
+  font-size: 13px;
+  line-height: 1.7;
   word-break: break-word;
+  letter-spacing: 0.005em;
 }
 
 .row.ai .bubble {
@@ -496,7 +497,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11px;
   font-weight: 500;
   color: var(--warm-3);
@@ -530,7 +531,7 @@ textarea.inp {
   border: none;
   outline: none;
   resize: none;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 400;
   color: var(--ink);
@@ -684,9 +685,9 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   border-bottom:1px solid rgba(11,10,8,.06);flex-shrink:0;
 }
 .sheet-title {
-  font-family:'DM Serif Display',serif;
-  font-size:19px;font-weight:400;color:var(--ink);
-  letter-spacing:-0.01em;
+  font-family:'Instrument Serif',serif;
+  font-size:18px;font-weight:400;color:var(--ink);
+  letter-spacing:-0.015em;
 }
 .sheet-scroll {
   overflow-y: auto;
@@ -762,7 +763,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   cursor: pointer;
   border: none;
   background: none;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   color: var(--warm-3);
   transition: color .2s ease;
   -webkit-tap-highlight-color: transparent;
@@ -779,9 +780,9 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 }
 .nav-item svg { width: 21px; height: 21px; }
 .nav-label {
-  font-size: 9px;
-  font-weight: 500;
-  letter-spacing: .03em;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: .04em;
   line-height: 1;
 }
 
@@ -837,7 +838,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   line-height: 1;
 }
 .content-hero-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 25px;
   color: var(--white);
   line-height: 1.28;
@@ -881,7 +882,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 }
 
 .section-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 20px;
   color: var(--ink);
   line-height: 1.3;
@@ -890,10 +891,11 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 }
 
 .section-body {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 300;
   color: var(--warm-5);
-  line-height: 1.8;
+  line-height: 1.82;
+  letter-spacing: 0.006em;
 }
 .section-body p { margin-bottom: 11px; }
 .section-body p:last-child { margin-bottom: 0; }
@@ -1056,7 +1058,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   margin-bottom: 10px;
 }
 .footer-logo-name {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 18px;
   color: var(--white);
 }
@@ -1081,7 +1083,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   transition: color .18s;
   background: none;
   border: none;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   padding: 0;
 }
 .footer-link:hover, .footer-link:active { color: var(--green-3); }
@@ -1171,7 +1173,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   display: flex;
   align-items: center;
   gap: 8px;
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 16px;
   color: var(--white);
   font-weight: 400;
@@ -1183,26 +1185,26 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 
 /* ── LOGO IMAGE (brand) ── */
 .logo-img {
-  height: 28px;
-  width: auto;
-  max-width: 150px;
-  object-fit: contain;
-  display: block;
-}
-.logo-img-sm {
-  height: 30px;
-  width: auto;
-  max-width: 150px;
-  object-fit: contain;
-  display: block;
-}
-.logo-img-footer {
-  height: 28px;
+  height: 22px;
   width: auto;
   max-width: 140px;
   object-fit: contain;
   display: block;
-  opacity: .85;
+}
+.logo-img-sm {
+  height: 22px;
+  width: auto;
+  max-width: 140px;
+  object-fit: contain;
+  display: block;
+}
+.logo-img-footer {
+  height: 20px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+  opacity: .8;
 }
 
 /* ── MAGIC LINK LOGIN BUTTON ── */
@@ -1216,7 +1218,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   padding: 6px 11px;
   cursor: pointer;
   color: var(--green-3);
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 11.5px;
   font-weight: 500;
   letter-spacing: .01em;
@@ -1227,7 +1229,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 .login-btn svg { opacity: .75; }
 
 /* ── LOGIN SHEET ── */
-.login-sheet-title { font-family:'DM Serif Display',serif; font-size:20px; font-weight:400; color:var(--ink); margin-bottom:4px; }
+.login-sheet-title { font-family:'Instrument Serif',serif; font-size:19px; font-weight:400; color:var(--ink); margin-bottom:4px; letter-spacing:-0.01em; }
 .login-sheet-sub { font-size:12.5px; color:var(--warm-4); line-height:1.55; margin-bottom:20px; }
 .login-input-wrap {
   display: flex;
@@ -1241,7 +1243,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   border: 1.5px solid #DAD2BE;
   border-radius: 12px;
   padding: 12px 15px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   color: var(--ink);
   outline: none;
@@ -1257,7 +1259,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   border: none;
   border-radius: 12px;
   padding: 13px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -1310,7 +1312,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   border: none;
   border-radius: 8px;
   padding: 7px 13px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
@@ -1324,7 +1326,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   border: none;
   border-radius: 8px;
   padding: 7px 10px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 12px;
   cursor: pointer;
   transition: background .15s;
@@ -1373,7 +1375,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   animation: fadeUp .5s cubic-bezier(.22,.68,0,1.2) both;
 }
 .hero-title {
-  font-family: 'DM Serif Display', serif;
+  font-family: 'Instrument Serif', serif;
   font-size: 27px;
   font-weight: 400;
   color: var(--ink);
@@ -1382,12 +1384,13 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   letter-spacing: -0.02em;
 }
 .hero-sub {
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 300;
   color: var(--warm-4);
-  line-height: 1.7;
-  margin-bottom: 18px;
-  max-width: 310px;
+  line-height: 1.72;
+  margin-bottom: 20px;
+  max-width: 300px;
+  letter-spacing: 0.005em;
 }
 .hero-chips {
   display: flex;
@@ -1395,15 +1398,16 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   flex-wrap: nowrap;
 }
 .hero-chip {
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 500;
   color: var(--warm-4);
-  background: var(--canvas);
-  border: 1px solid #DDD7C9;
+  background: var(--white);
+  border: 1px solid #E0D9CC;
   border-radius: 100px;
-  padding: 5px 12px;
+  padding: 5px 13px;
   white-space: nowrap;
-  box-shadow: 0 1px 2px rgba(11,10,8,.04);
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 3px rgba(11,10,8,.06);
 }
 </style>
 </head>

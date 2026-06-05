@@ -1442,6 +1442,290 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 .skel-card:nth-child(3) { animation-delay: .18s; }
 .skel-card:nth-child(4) { animation-delay: .27s; }
 
+
+/* ─────────────────────────────────
+   TANI QUIZ — GAME SECTION
+───────────────────────────────── */
+.tq-section {
+  margin: 6px 16px 20px;
+  animation: fadeUp .5s .18s cubic-bezier(.22,.68,0,1.2) both;
+}
+
+/* header */
+.tq-hdr { margin-bottom: 14px; }
+.tq-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--green-3);
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+.tq-badge-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green-3);
+  flex-shrink: 0;
+}
+.tq-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: -.01em;
+  line-height: 1;
+  margin: 0 0 4px;
+}
+.tq-sub {
+  font-size: 12.5px;
+  color: var(--warm-4);
+  margin: 0;
+}
+
+/* card */
+.tq-card {
+  background: var(--white);
+  border: 1px solid #E4DDD3;
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(60,44,24,.07);
+  transition: opacity .2s ease;
+}
+.tq-card.fading { opacity: 0; transform: translateY(4px); }
+
+.tq-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.tq-cat-pill {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--warm-4);
+  background: var(--warm-1);
+  border: 1px solid #E4DDD3;
+  border-radius: 100px;
+  padding: 3px 9px;
+}
+.tq-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--warm-4);
+  opacity: .6;
+}
+
+.tq-icon {
+  font-size: 42px;
+  text-align: center;
+  line-height: 1;
+  margin: 0 0 14px;
+  display: block;
+}
+
+.tq-q {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.55;
+  margin: 0 0 16px;
+}
+
+/* options */
+.tq-opts {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tq-opt {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  background: var(--warm-1);
+  border: 1.5px solid #E4DDD3;
+  border-radius: 11px;
+  padding: 10px 12px;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  line-height: 1.45;
+  transition: background .14s, border-color .14s, color .14s;
+  -webkit-tap-highlight-color: transparent;
+}
+.tq-opt:active:not([disabled]) { background: #ECE8E1; }
+.tq-opt .tq-letter {
+  width: 20px; height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #E4DDD3;
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--warm-4);
+  display: flex; align-items: center; justify-content: center;
+  transition: background .14s, color .14s;
+}
+.tq-opt.correct {
+  background: #EAF7F0;
+  border-color: rgba(78,168,118,.35);
+  color: #1F7A4A;
+}
+.tq-opt.correct .tq-letter {
+  background: var(--green-3);
+  color: white;
+}
+.tq-opt.wrong {
+  background: #FFF0F0;
+  border-color: rgba(220,80,80,.3);
+  color: #B84040;
+}
+.tq-opt.wrong .tq-letter {
+  background: #E07070;
+  color: white;
+}
+.tq-opt.reveal {
+  background: #EAF7F0;
+  border-color: rgba(78,168,118,.25);
+  color: #1F7A4A;
+  opacity: .75;
+}
+.tq-opt.reveal .tq-letter {
+  background: rgba(78,168,118,.45);
+  color: white;
+}
+.tq-opt[disabled] { cursor: default; }
+
+/* tip box */
+.tq-tip {
+  display: none;
+  margin-top: 14px;
+  background: #F5F1E8;
+  border: 1px solid #E4DDD3;
+  border-radius: 10px;
+  padding: 11px 13px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+.tq-tip.show { display: block; }
+.tq-tip-label {
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--warm-4);
+  margin-bottom: 4px;
+}
+
+/* bottom bar */
+.tq-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding: 0 2px;
+}
+.tq-stat-box {
+  text-align: center;
+}
+.tq-stat-label {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 9.5px;
+  font-weight: 600;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--warm-4);
+  opacity: .7;
+  display: block;
+  margin-bottom: 1px;
+}
+.tq-stat-val {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--ink);
+  line-height: 1;
+}
+.tq-next-btn {
+  display: none;
+  align-items: center;
+  gap: 5px;
+  background: var(--ink);
+  color: var(--warm-1);
+  border: none;
+  border-radius: 100px;
+  padding: 9px 18px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: .01em;
+  transition: background .15s;
+  white-space: nowrap;
+}
+.tq-next-btn.show { display: flex; }
+.tq-next-btn:active { background: #2A3020; }
+.tq-next-btn svg { transition: transform .15s; }
+.tq-next-btn:active svg { transform: translateX(3px); }
+
+/* completed state */
+.tq-done {
+  display: none;
+  text-align: center;
+  padding: 24px 16px;
+}
+.tq-done.show { display: block; }
+.tq-done-icon { font-size: 48px; margin-bottom: 10px; }
+.tq-done-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.tq-done-sub {
+  font-size: 13px;
+  color: var(--warm-4);
+  margin-bottom: 18px;
+  line-height: 1.55;
+}
+.tq-restart {
+  background: var(--ink);
+  color: var(--warm-1);
+  border: none;
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* progress bar */
+.tq-progress {
+  height: 3px;
+  background: #E4DDD3;
+  border-radius: 100px;
+  margin-bottom: 18px;
+  overflow: hidden;
+}
+.tq-progress-fill {
+  height: 100%;
+  background: var(--green-3);
+  border-radius: 100px;
+  transition: width .4s cubic-bezier(.22,.68,0,1.2);
+}
+
 </style>
 </head>
 <body>
@@ -1497,6 +1781,56 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
         <div class="skel-card"></div>
       </div>
       </div>
+
+      <!-- ══ TANI QUIZ ══ -->
+      <div class="tq-section" id="tqSection">
+        <div class="tq-hdr">
+          <div class="tq-badge"><span class="tq-badge-dot"></span>Mini Game</div>
+          <h3 class="tq-title">Tani Quiz</h3>
+          <p class="tq-sub">Uji pengetahuan bercocok tanammu</p>
+        </div>
+
+        <div class="tq-card" id="tqCard">
+          <!-- progress bar -->
+          <div class="tq-progress"><div class="tq-progress-fill" id="tqProgress" style="width:0%"></div></div>
+
+          <!-- question face -->
+          <div id="tqFace">
+            <div class="tq-top">
+              <div class="tq-cat-pill" id="tqCat">—</div>
+              <div class="tq-num" id="tqNum">1 / 15</div>
+            </div>
+            <span class="tq-icon" id="tqIcon">🌱</span>
+            <p class="tq-q" id="tqQ">Memuat pertanyaan...</p>
+            <div class="tq-opts" id="tqOpts"></div>
+            <div class="tq-tip" id="tqTip"><div class="tq-tip-label">💡 Penjelasan</div><span id="tqTipText"></span></div>
+          </div>
+
+          <!-- completed face -->
+          <div class="tq-done" id="tqDone">
+            <div class="tq-done-icon" id="tqDoneIcon">🏆</div>
+            <div class="tq-done-title" id="tqDoneTitle">Quiz Selesai!</div>
+            <div class="tq-done-sub" id="tqDoneSub">Kamu menjawab 0 dari 15 benar.</div>
+            <button class="tq-restart" onclick="tqRestart()">Coba Lagi →</button>
+          </div>
+        </div>
+
+        <div class="tq-bar">
+          <div class="tq-stat-box">
+            <span class="tq-stat-label">Skor</span>
+            <span class="tq-stat-val" id="tqScore">0</span>
+          </div>
+          <button class="tq-next-btn" id="tqNextBtn" onclick="tqNext()">
+            Lanjut
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          <div class="tq-stat-box" style="text-align:right">
+            <span class="tq-stat-label">Streak</span>
+            <span class="tq-stat-val" id="tqStreak">0</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <div class="input-wrap">
@@ -2790,6 +3124,163 @@ if ('serviceWorker' in navigator) {
 
 /* ════════════ START ════════════ */
 init();
+
+// ─── TANI QUIZ ────────────────────────────────
+const TQ_BANK = [
+  { cat:'Pengairan', icon:'💧', q:'Tomat tiba-tiba buahnya retak-retak saat hampir panen. Penyebab utamanya?', opts:['Kekurangan kalsium','Serangan jamur','Pengairan tidak konsisten','Terlalu banyak pupuk N'], ans:2, tip:'Penyiraman tidak teratur membuat buah tumbuh terlalu cepat sehingga kulit retak. Kunci: siram secara konsisten setiap hari.' },
+  { cat:'Pengairan', icon:'🌅', q:'Waktu terbaik menyiram tanaman saat musim kemarau adalah...', opts:['Siang hari jam 12','Sore hari jam 4','Pagi hari sebelum jam 9','Tengah malam'], ans:2, tip:'Pagi hari mencegah evaporasi berlebihan dan mencegah daun terbakar saat basah terkena terik siang.' },
+  { cat:'Hama & Penyakit', icon:'🐛', q:'Daun cabai keriting, menguning, dan tanaman kerdil. Kemungkinan penyebabnya?', opts:['Kekurangan nitrogen','Serangan thrips atau virus kuning','Kekurangan air','Tanah terlalu padat'], ans:1, tip:'Thrips vektor virus kuning (Gemini virus) menyebabkan daun keriting khas. Gunakan pestisida sistemik dan buang tanaman terinfeksi.' },
+  { cat:'Hama & Penyakit', icon:'🍃', q:'Bintik coklat bulat dengan lingkaran kuning di daun tomat. Penyakit apa ini?', opts:['Busuk daun Phytophthora','Embun tepung','Bercak daun Alternaria','Layu bakteri'], ans:2, tip:'Bercak Alternaria punya pola lingkaran konsentris seperti sasaran tembak. Semprot fungisida mankozeb atau klorotalonil.' },
+  { cat:'Pupuk', icon:'🌸', q:'Pupuk apa yang paling tepat untuk mendukung fase pembungaan tanaman?', opts:['Urea (Nitrogen tinggi)','SP-36 / TSP (Fosfor tinggi)','KCl (Kalium tinggi)','Pupuk kandang sapi'], ans:1, tip:'Fosfor (P) berperan dalam pembentukan bunga dan buah. Urea berlebihan justru memperbanyak daun dan menghambat pembungaan.' },
+  { cat:'Pupuk', icon:'📏', q:'Jarak ideal pemberian pupuk urea dari batang tanaman adalah...', opts:['Langsung di pangkal batang','5 cm dari batang','15–20 cm dari batang','Tabur merata seluruh lahan'], ans:2, tip:'Pupuk terlalu dekat batang bisa membakar akar. Jarak 15-20 cm memastikan pupuk diserap zona akar aktif.' },
+  { cat:'Panen', icon:'🌶️', q:'Cabai merah siap panen ketika...', opts:['Masih hijau tua dan keras','70–80% permukaan sudah merah','Sudah jatuh sendiri dari pohon','Merah penuh dan sangat lunak'], ans:1, tip:'Panen di 70-80% merah memberi waktu matang pasca panen. Terlalu matang = mudah busuk saat distribusi.' },
+  { cat:'Panen', icon:'🌾', q:'Setelah panen padi, jerami sebaiknya...', opts:['Dibakar di lahan','Dibuang ke sungai','Dikomposkan dan dikembalikan ke tanah','Dibiarkan tanpa diolah'], ans:2, tip:'Kompos jerami mengembalikan unsur hara dan memperbaiki struktur tanah. Pembakaran merusak mikroorganisme tanah yang bermanfaat.' },
+  { cat:'Tanah', icon:'🧪', q:'pH tanah ideal untuk kebanyakan tanaman sayuran adalah...', opts:['3.5 – 5.0 (sangat asam)','5.0 – 5.5 (agak asam)','6.0 – 7.0 (netral)','7.5 – 9.0 (basa)'], ans:2, tip:'pH 6-7 membuat semua unsur hara tersedia optimal. Di luar range ini, unsur hara terikat dan tidak bisa diserap tanaman.' },
+  { cat:'Tanah', icon:'🪱', q:'Tanda tanah yang subur dan sehat adalah...', opts:['Warna merah, kering, dan keras','Tidak ada cacing, keras saat digali','Gembur, berwarna gelap, banyak cacing tanah','Berbau busuk menyengat'], ans:2, tip:'Cacing tanah adalah indikator terbaik kesuburan — mereka aerasi tanah, dekomposisi bahan organik, dan memperbaiki struktur.' },
+  { cat:'Musim Tanam', icon:'📅', q:'Tanaman yang paling cocok ditanam di awal musim hujan adalah...', opts:['Semangka dan melon','Padi, kangkung, dan bayam','Bawang merah','Kacang tanah'], ans:1, tip:'Padi, kangkung, dan bayam butuh banyak air — cocok di awal musim hujan. Semangka lebih baik di musim kemarau.' },
+  { cat:'Musim Tanam', icon:'🌱', q:'Jarak tanam ideal untuk cabai merah keriting adalah...', opts:['20 × 20 cm','50 × 60 cm','100 × 100 cm','10 × 10 cm'], ans:1, tip:'Jarak 50×60 cm memberi sirkulasi udara baik, mengurangi kelembaban yang memicu penyakit jamur pada daun.' },
+  { cat:'Pupuk', icon:'🌿', q:'Jagung pucuknya menguning dan pertumbuhan lambat. Kemungkinan kekurangan apa?', opts:['Fosfor (P)','Kalium (K)','Nitrogen (N)','Kalsium (Ca)'], ans:2, tip:'Kekurangan nitrogen (N) menyebabkan menguning dari daun tua ke muda. Tambahkan urea atau pupuk majemuk N-P-K.' },
+  { cat:'Hama & Penyakit', icon:'🐜', q:'Cara paling efektif mencegah ulat grayak secara alami adalah...', opts:['Pupuk lebih banyak nitrogen','Semprotan Bacillus thuringiensis (Bt)','Penyiraman lebih sering','Menanam sangat rapat'], ans:1, tip:'Bt adalah bakteri alami yang membunuh larva ulat tanpa merusak predator alami dan serangga berguna lainnya.' },
+  { cat:'Pengairan', icon:'🌧️', q:'Tanda tanaman kelebihan air (overwatering) adalah...', opts:['Daun layu hanya di siang hari','Tanah retak-retak','Daun kuning + tanah selalu basah + akar membusuk','Pertumbuhan sangat cepat'], ans:2, tip:'Overwatering menguras oksigen dari tanah, akar membusuk. Cek kelembaban: masukkan jari 5 cm ke tanah sebelum menyiram.' },
+];
+
+let _tqIdx = 0, _tqScore = 0, _tqStreak = 0, _tqAnswered = false, _tqOrder = [];
+
+function tqShuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function tqInit() {
+  _tqIdx = 0; _tqScore = 0; _tqStreak = 0; _tqAnswered = false;
+  _tqOrder = tqShuffle(TQ_BANK.map((_,i)=>i));
+  document.getElementById('tqDone').classList.remove('show');
+  document.getElementById('tqFace').style.display = '';
+  tqRender();
+}
+
+function tqRender() {
+  const qi    = _tqOrder[_tqIdx];
+  const q     = TQ_BANK[qi];
+  const total = _tqOrder.length;
+
+  document.getElementById('tqCat').textContent   = q.cat;
+  document.getElementById('tqNum').textContent   = (_tqIdx+1) + ' / ' + total;
+  document.getElementById('tqIcon').textContent  = q.icon;
+  document.getElementById('tqQ').textContent     = q.q;
+  document.getElementById('tqProgress').style.width = ((_tqIdx / total)*100) + '%';
+  document.getElementById('tqScore').textContent  = _tqScore;
+  document.getElementById('tqStreak').textContent = _tqStreak > 0 ? _tqStreak + ' 🔥' : '0';
+  document.getElementById('tqTip').classList.remove('show');
+  document.getElementById('tqNextBtn').classList.remove('show');
+  _tqAnswered = false;
+
+  const LETTERS = ['A','B','C','D'];
+  const optsEl = document.getElementById('tqOpts');
+  optsEl.innerHTML = q.opts.map((o,i) =>
+    '<button class="tq-opt" id="tqOpt'+i+'" onclick="tqAnswer('+i+')">' +
+    '<span class="tq-letter">'+LETTERS[i]+'</span>' + o + '</button>'
+  ).join('');
+}
+
+function tqAnswer(i) {
+  if (_tqAnswered) return;
+  _tqAnswered = true;
+
+  const qi  = _tqOrder[_tqIdx];
+  const q   = TQ_BANK[qi];
+  const correct = (i === q.ans);
+
+  // Disable all options
+  document.querySelectorAll('.tq-opt').forEach(el => el.setAttribute('disabled', ''));
+
+  // Highlight chosen + reveal correct
+  document.getElementById('tqOpt'+i).classList.add(correct ? 'correct' : 'wrong');
+  if (!correct) document.getElementById('tqOpt'+q.ans).classList.add('reveal');
+
+  // Update score/streak
+  if (correct) {
+    _tqScore += (10 + _tqStreak * 2);
+    _tqStreak++;
+  } else {
+    _tqStreak = 0;
+  }
+  document.getElementById('tqScore').textContent  = _tqScore;
+  document.getElementById('tqStreak').textContent = _tqStreak > 0 ? _tqStreak + ' 🔥' : '0';
+
+  // Show tip
+  document.getElementById('tqTipText').textContent = q.tip;
+  document.getElementById('tqTip').classList.add('show');
+
+  // Show next / finish button
+  const isLast = _tqIdx >= _tqOrder.length - 1;
+  const btn = document.getElementById('tqNextBtn');
+  btn.innerHTML = isLast
+    ? 'Lihat Hasil <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
+    : 'Lanjut <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
+  btn.classList.add('show');
+}
+
+function tqNext() {
+  _tqIdx++;
+  if (_tqIdx >= _tqOrder.length) {
+    tqShowDone();
+    return;
+  }
+  // Fade transition
+  const card = document.getElementById('tqCard');
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(4px)';
+  card.style.transition = 'opacity .18s ease, transform .18s ease';
+  setTimeout(() => {
+    tqRender();
+    card.style.opacity = '1';
+    card.style.transform = 'translateY(0)';
+  }, 200);
+}
+
+function tqShowDone() {
+  const total = _tqOrder.length;
+  const pct   = Math.round(_tqScore / (total * 12) * 100);
+  const icon  = pct >= 80 ? '🏆' : pct >= 60 ? '🌟' : pct >= 40 ? '🌱' : '💪';
+  const title = pct >= 80 ? 'Hebat, petani ahli!' : pct >= 60 ? 'Bagus sekali!' : pct >= 40 ? 'Terus belajar!' : 'Ayo asah lagi!';
+  const correct = Math.round(_tqScore / 12);
+
+  document.getElementById('tqFace').style.display = 'none';
+  document.getElementById('tqNextBtn').classList.remove('show');
+  document.getElementById('tqProgress').style.width = '100%';
+  document.getElementById('tqDoneIcon').textContent  = icon;
+  document.getElementById('tqDoneTitle').textContent = title;
+  document.getElementById('tqDoneSub').textContent   = 'Skor kamu ' + _tqScore + ' poin dari ' + total + ' soal. Masih ingin belajar? Tanya Rova!';
+  document.getElementById('tqDone').classList.add('show');
+}
+
+function tqRestart() {
+  document.getElementById('tqScore').textContent  = '0';
+  document.getElementById('tqStreak').textContent = '0';
+  const card = document.getElementById('tqCard');
+  card.style.opacity = '0';
+  setTimeout(() => {
+    tqInit();
+    card.style.transition = 'opacity .2s ease';
+    card.style.opacity = '1';
+  }, 180);
+}
+
+// Auto-init when DOM ready
+(function() {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tqInit);
+  } else {
+    tqInit();
+  }
+})();
+// ─── END TANI QUIZ ────────────────────────────
+
 </script>
 </body>
 </html>

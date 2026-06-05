@@ -242,7 +242,7 @@ body {
 .welcome {
   background: var(--ink-2);
   border-radius: var(--r-xl);
-  padding: 18px 18px 16px;
+  padding: 16px 18px 16px;
   position: relative;
   overflow: hidden;
   margin-bottom: 2px;
@@ -1071,13 +1071,13 @@ textarea.inp::placeholder { color: var(--warm-3); }
 .kova-identity {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 14px;
+  gap: 11px;
+  margin-bottom: 12px;
 }
 .kova-avatar-wrap {
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
   background: linear-gradient(145deg, #1F5C3A 0%, #2E7A52 100%);
   border: 1.5px solid rgba(78,168,118,.28);
   display: flex;
@@ -1107,8 +1107,9 @@ textarea.inp::placeholder { color: var(--warm-3); }
 .kova-features {
   display: flex;
   gap: 7px;
-  flex-wrap: wrap;
-  margin-top: 13px;
+  flex-wrap: nowrap;
+  margin-top: 11px;
+  overflow: hidden;
 }
 .kova-feat {
   font-size: 11px;
@@ -1160,6 +1161,27 @@ textarea.inp::placeholder { color: var(--warm-3); }
 /* ── CATEGORY GRID TRANSITION ── */
 .qs-grid { transition: opacity .16s ease, transform .16s ease; }
 .qs-grid.cat-fade { opacity: 0; transform: translateY(5px); }
+
+/* ── LOGO IMAGE (brand) ── */
+.logo-img {
+  height: 30px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.logo-img-sm {
+  height: 22px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+}
+.logo-img-footer {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  opacity: .75;
+}
 </style>
 </head>
 <body>
@@ -1169,25 +1191,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
   <div class="page visible" id="chatPage">
     <header class="hdr">
       <div class="logo" onclick="goChat()">
-        <svg class="logo-mark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="34" height="34" rx="9" fill="#181510"/>
-          <defs><linearGradient id="lgg" x1="0" y1="0" x2="34" y2="34"><stop offset="0%" stop-color="#4EA876"/><stop offset="100%" stop-color="#A67C2E"/></linearGradient></defs>
-          <rect width="34" height="34" rx="9" fill="url(#lgg)" opacity=".12"/>
-          <path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.2" stroke-linecap="round"/>
-          <path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/>
-          <path d="M17 22 L7.5 12" stroke="#4EA876" stroke-width="1" stroke-linecap="round" opacity=".4"/>
-          <path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/>
-          <path d="M17 17.5 L26 7.5" stroke="#4EA876" stroke-width="1" stroke-linecap="round" opacity=".4"/>
-          <path d="M7.5 29 Q17 27 26.5 29" stroke="#2E7A52" stroke-width="1.8" stroke-linecap="round" opacity=".35"/>
-          <circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/>
-          <line x1="27.5" y1="2.5" x2="27.5" y2="1" stroke="#A67C2E" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
-          <line x1="30.8" y1="3.7" x2="32" y2="2.5" stroke="#A67C2E" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
-          <line x1="32" y1="6.5" x2="33.5" y2="6.5" stroke="#A67C2E" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
-        </svg>
-        <div class="logo-wordmark">
-          <div class="logo-name">Terrova</div>
-          <div class="logo-sub">Smart Farming</div>
-        </div>
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img">
       </div>
       <div class="hdr-right">
         <button class="hist-btn" onclick="goHistory()">
@@ -1226,7 +1230,6 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <div class="kova-features">
           <span class="kova-feat">🌐 15 languages</span>
           <span class="kova-feat">🌱 50+ crop types</span>
-          <span class="kova-feat">⚡ Instant answers</span>
         </div>
       </div>
 
@@ -1276,8 +1279,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
-        <span>Terrova</span>
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1356,10 +1358,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row">
-          <svg width="22" height="22" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#252119"/><path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity=".9"/><path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity=".8"/><path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity=".6"/></svg>
-          <span class="footer-logo-name">Terrova</span>
-        </div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>
@@ -1380,8 +1379,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
-        <span>Terrova</span>
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1470,10 +1468,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row">
-          <svg width="22" height="22" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#252119"/><path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity=".9"/><path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity=".8"/><path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity=".6"/></svg>
-          <span class="footer-logo-name">Terrova</span>
-        </div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>
@@ -1494,8 +1489,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
-        <span>Terrova</span>
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1566,10 +1560,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row">
-          <svg width="22" height="22" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#252119"/><path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity=".9"/><path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity=".8"/><path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity=".6"/></svg>
-          <span class="footer-logo-name">Terrova</span>
-        </div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>
@@ -1591,8 +1582,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
-        <span>Terrova</span>
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1700,10 +1690,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row">
-          <svg width="22" height="22" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#252119"/><path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity=".9"/><path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity=".8"/><path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity=".6"/></svg>
-          <span class="footer-logo-name">Terrova</span>
-        </div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>

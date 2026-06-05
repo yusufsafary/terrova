@@ -1228,6 +1228,23 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 .login-btn:active { background: rgba(78,168,118,.2); border-color: rgba(78,168,118,.35); }
 .login-btn svg { opacity: .8; width: 11px; height: 11px; }
 
+/* ── HEADER X BUTTON ── */
+.hdr-x-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.10);
+  color: rgba(212,201,176,.65);
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: background .18s, color .18s;
+}
+.hdr-x-btn:active { background: rgba(255,255,255,.15); color: var(--warm-1); }
+.hdr-x-btn svg { width: 13px; height: 13px; fill: currentColor; display: block; }
+
 /* ── LOGIN SHEET ── */
 .login-sheet-title { font-family:'Instrument Serif',serif; font-size:19px; font-weight:400; color:var(--ink); margin-bottom:4px; letter-spacing:-0.01em; }
 .login-sheet-sub { font-size:12.5px; color:var(--warm-4); line-height:1.55; margin-bottom:20px; }
@@ -1736,6 +1753,9 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
           Sign in
         </button>
+        <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="hdr-x-btn" aria-label="Follow @terrova_ai on X">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+        </a>
         <button class="lang-pill" onclick="openSheet()">
           <span class="flag" id="hFlag">🇬🇧</span>
           <span id="hCode">EN</span>
@@ -1751,12 +1771,6 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
         <div class="hero-chips">
           <span class="hero-chip">🌐 15 languages</span>
           <span class="hero-chip">🌱 50+ crop types</span>
-        </div>
-        <div class="social-row" style="justify-content:flex-start;margin:14px 0 0;">
-          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
-            @terrova_ai
-          </a>
         </div>
       </div>
 

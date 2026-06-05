@@ -1164,23 +1164,26 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
 /* ── LOGO IMAGE (brand) ── */
 .logo-img {
-  height: 30px;
+  height: 38px;
   width: auto;
+  max-width: 180px;
   object-fit: contain;
   display: block;
 }
 .logo-img-sm {
-  height: 22px;
+  height: 30px;
   width: auto;
+  max-width: 150px;
   object-fit: contain;
   display: block;
 }
 .logo-img-footer {
-  height: 24px;
+  height: 28px;
   width: auto;
+  max-width: 140px;
   object-fit: contain;
   display: block;
-  opacity: .75;
+  opacity: .85;
 }
 </style>
 </head>
@@ -1191,7 +1194,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
   <div class="page visible" id="chatPage">
     <header class="hdr">
       <div class="logo" onclick="goChat()">
-        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img">
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img">
       </div>
       <div class="hdr-right">
         <button class="hist-btn" onclick="goHistory()">
@@ -1214,11 +1217,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       <div class="welcome" id="welcomeCard">
         <div class="kova-identity">
           <div class="kova-avatar-wrap">
-            <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
-              <path d="M17 30 L17 13" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/>
-              <path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#4EA876"/>
-              <path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#fff" opacity=".55"/>
-            </svg>
+            <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-mark.png" alt="Terrova" style="width:34px;height:34px;object-fit:contain;">
           </div>
           <div class="kova-id-info">
             <div class="kova-id-name">Kova</div>
@@ -1279,7 +1278,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1358,7 +1357,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>
@@ -1379,7 +1378,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1468,7 +1467,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>
@@ -1489,7 +1488,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1560,7 +1559,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>
@@ -1582,7 +1581,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
       </button>
       <div class="content-nav-brand">
-        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-sm">
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-sm">
       </div>
     </div>
     <div class="content-scroll">
@@ -1690,7 +1689,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
       </div>
 
       <div class="page-footer">
-        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo.png" alt="Terrova" class="logo-img-footer"></div>
+        <div class="footer-logo-row"><img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-footer"></div>
         <div class="footer-tagline">Smart farming knowledge for every grower.</div>
         <div class="footer-links">
           <button class="footer-link" onclick="goAbout()">About</button>

@@ -1228,6 +1228,63 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 .login-btn:active { background: rgba(78,168,118,.2); border-color: rgba(78,168,118,.35); }
 .login-btn svg { opacity: .8; width: 11px; height: 11px; }
 
+/* ── PARTNER LOGOS ── */
+.partner-strip {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(11,10,8,.07);
+}
+.partner-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--warm-3);
+  margin-bottom: 12px;
+}
+.partner-logos {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.partner-logo-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--white);
+  border: 1px solid #E8E2D6;
+  border-radius: 10px;
+  padding: 7px 12px;
+  box-shadow: 0 1px 3px rgba(11,10,8,.05);
+  flex-shrink: 0;
+}
+.partner-logo-item img {
+  height: 22px;
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+.partner-logo-item svg {
+  height: 28px;
+  width: 28px;
+  flex-shrink: 0;
+}
+.partner-logo-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+}
+.partner-logo-sub {
+  font-size: 9px;
+  font-weight: 400;
+  color: var(--warm-3);
+  letter-spacing: 0.02em;
+  margin-top: 1px;
+}
+
 /* ── HEADER X BUTTON ── */
 .hdr-x-btn {
   display: flex;
@@ -1771,6 +1828,41 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
         <div class="hero-chips">
           <span class="hero-chip">🌐 15 languages</span>
           <span class="hero-chip">🌱 50+ crop types</span>
+        </div>
+
+        <div class="partner-strip">
+          <div class="partner-label">Supported by</div>
+          <div class="partner-logos">
+
+            <!-- EasyA Kickstart -->
+            <div class="partner-logo-item">
+              <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/easya-kickstart.png" alt="EasyA Kickstart">
+              <div>
+                <div class="partner-logo-name">EasyA Kickstart</div>
+                <div class="partner-logo-sub">Build the future</div>
+              </div>
+            </div>
+
+            <!-- Australian Farm Association -->
+            <div class="partner-logo-item">
+              <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="96" fill="none" stroke="#2E7A52" stroke-width="5"/>
+                <circle cx="100" cy="100" r="85" fill="#F5F1E8"/>
+                <path d="M100 42 C100 42 72 52 72 75 L72 100 C72 118 84 130 100 136 C116 130 128 118 128 100 L128 75 C128 52 100 42 100 42Z" fill="#2E7A52"/>
+                <path d="M100 50 C100 50 78 59 78 78 L78 100 C78 115 88 125 100 130 C112 125 122 115 122 100 L122 78 C122 59 100 50 100 50Z" fill="#1F5C3A"/>
+                <path d="M100 68 C100 68 88 80 88 95 C88 107 93 115 100 118 C107 115 112 107 112 95 C112 80 100 68 100 68Z" fill="#4EA876" opacity=".9"/>
+                <line x1="100" y1="68" x2="100" y2="118" stroke="#F5F1E8" stroke-width="1.5" opacity=".6"/>
+                <text x="100" y="156" text-anchor="middle" font-family="Georgia,serif" font-size="9.5" font-weight="700" fill="#1F5C3A" letter-spacing="2.5">AUSTRALIAN</text>
+                <text x="100" y="169" text-anchor="middle" font-family="Georgia,serif" font-size="11" font-weight="700" fill="#1F5C3A" letter-spacing="3">FARM</text>
+                <text x="100" y="181" text-anchor="middle" font-family="Georgia,serif" font-size="7.5" fill="#6B6250" letter-spacing="2">ASSOCIATION</text>
+              </svg>
+              <div>
+                <div class="partner-logo-name">Australian Farm</div>
+                <div class="partner-logo-sub">Association</div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </div>
 

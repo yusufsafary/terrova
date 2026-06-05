@@ -1066,6 +1066,100 @@ textarea.inp::placeholder { color: var(--warm-3); }
     overflow:hidden;
   }
 }
+
+/* ── KOVA IDENTITY (welcome card) ── */
+.kova-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.kova-avatar-wrap {
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: linear-gradient(145deg, #1F5C3A 0%, #2E7A52 100%);
+  border: 1.5px solid rgba(78,168,118,.28);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 3px 14px rgba(31,92,58,.4);
+}
+.kova-id-info { display: flex; flex-direction: column; gap: 4px; }
+.kova-id-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 21px;
+  color: var(--white);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+.kova-id-status {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: var(--green-3);
+  font-weight: 400;
+}
+
+/* ── KOVA FEATURE CHIPS ── */
+.kova-features {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+  margin-top: 13px;
+}
+.kova-feat {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--warm-3);
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 100px;
+  padding: 4px 10px;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* ── CONTENT PAGE BACK NAV ── */
+.content-nav-bar {
+  background: var(--ink);
+  padding: 11px 16px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+.content-back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.07);
+  border: none;
+  cursor: pointer;
+  color: var(--warm-2);
+  transition: background .15s;
+  flex-shrink: 0;
+}
+.content-back-btn:active { background: rgba(255,255,255,.15); }
+.content-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 16px;
+  color: var(--white);
+  font-weight: 400;
+}
+
+/* ── CATEGORY GRID TRANSITION ── */
+.qs-grid { transition: opacity .16s ease, transform .16s ease; }
+.qs-grid.cat-fade { opacity: 0; transform: translateY(5px); }
 </style>
 </head>
 <body>
@@ -1077,14 +1171,18 @@ textarea.inp::placeholder { color: var(--warm-3); }
       <div class="logo" onclick="goChat()">
         <svg class="logo-mark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
           <rect width="34" height="34" rx="9" fill="#181510"/>
-          <path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity=".9"/>
-          <path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity=".8"/>
-          <path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity=".6"/>
-          <line x1="4" y1="13" x2="30" y2="13" stroke="rgba(78,168,118,.18)" stroke-width=".6"/>
-          <circle cx="25" cy="9" r="2.5" fill="#A67C2E" opacity=".85"/>
-          <line x1="25" y1="5.5" x2="25" y2="4"   stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity=".5"/>
-          <line x1="27.6" y1="6.4" x2="28.7" y2="5.3" stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity=".5"/>
-          <line x1="28.5" y1="9"   x2="30"   y2="9"   stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+          <defs><linearGradient id="lgg" x1="0" y1="0" x2="34" y2="34"><stop offset="0%" stop-color="#4EA876"/><stop offset="100%" stop-color="#A67C2E"/></linearGradient></defs>
+          <rect width="34" height="34" rx="9" fill="url(#lgg)" opacity=".12"/>
+          <path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/>
+          <path d="M17 22 L7.5 12" stroke="#4EA876" stroke-width="1" stroke-linecap="round" opacity=".4"/>
+          <path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/>
+          <path d="M17 17.5 L26 7.5" stroke="#4EA876" stroke-width="1" stroke-linecap="round" opacity=".4"/>
+          <path d="M7.5 29 Q17 27 26.5 29" stroke="#2E7A52" stroke-width="1.8" stroke-linecap="round" opacity=".35"/>
+          <circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/>
+          <line x1="27.5" y1="2.5" x2="27.5" y2="1" stroke="#A67C2E" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
+          <line x1="30.8" y1="3.7" x2="32" y2="2.5" stroke="#A67C2E" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
+          <line x1="32" y1="6.5" x2="33.5" y2="6.5" stroke="#A67C2E" stroke-width="1.4" stroke-linecap="round" opacity=".7"/>
         </svg>
         <div class="logo-wordmark">
           <div class="logo-name">Terrova</div>
@@ -1110,12 +1208,26 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
     <div class="chat" id="chat">
       <div class="welcome" id="welcomeCard">
-        <div class="welcome-kova">
-          <div class="kova-dot"></div>
-          <div class="kova-label">Kova is online</div>
+        <div class="kova-identity">
+          <div class="kova-avatar-wrap">
+            <svg width="26" height="26" viewBox="0 0 34 34" fill="none">
+              <path d="M17 30 L17 13" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/>
+              <path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#4EA876"/>
+              <path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#fff" opacity=".55"/>
+            </svg>
+          </div>
+          <div class="kova-id-info">
+            <div class="kova-id-name">Kova</div>
+            <div class="kova-id-status"><span class="kova-dot"></span>Online</div>
+          </div>
         </div>
         <div class="welcome-msg" id="wMsg">Hey there, farmer. What's growing today?</div>
         <div class="welcome-sub" id="wSub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</div>
+        <div class="kova-features">
+          <span class="kova-feat">🌐 15 languages</span>
+          <span class="kova-feat">🌱 50+ crop types</span>
+          <span class="kova-feat">⚡ Instant answers</span>
+        </div>
       </div>
 
       <div class="qs-wrap" id="qsWrap">
@@ -1159,6 +1271,15 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
   <!-- ══ ABOUT PAGE ══ -->
   <div class="page content-page hidden-right" id="aboutPage">
+    <div class="content-nav-bar">
+      <button class="content-back-btn" onclick="goChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="content-nav-brand">
+        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
+        <span>Terrova</span>
+      </div>
+    </div>
     <div class="content-scroll">
       <div class="content-hero">
         <span class="content-hero-icon">🌍</span>
@@ -1254,6 +1375,15 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
   <!-- ══ HOW IT WORKS PAGE ══ -->
   <div class="page content-page hidden-right" id="howPage">
+    <div class="content-nav-bar">
+      <button class="content-back-btn" onclick="goChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="content-nav-brand">
+        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
+        <span>Terrova</span>
+      </div>
+    </div>
     <div class="content-scroll">
       <div class="content-hero">
         <span class="content-hero-icon">🔍</span>
@@ -1359,6 +1489,15 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
   <!-- ══ LEGAL PAGE ══ -->
   <div class="page content-page hidden-right" id="legalPage">
+    <div class="content-nav-bar">
+      <button class="content-back-btn" onclick="goChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="content-nav-brand">
+        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
+        <span>Terrova</span>
+      </div>
+    </div>
     <div class="content-scroll">
       <div class="content-hero">
         <span class="content-hero-icon">📄</span>
@@ -1447,6 +1586,15 @@ textarea.inp::placeholder { color: var(--warm-3); }
 
   <!-- ══ FAQ PAGE ══ -->
   <div class="page content-page hidden-right" id="faqPage">
+    <div class="content-nav-bar">
+      <button class="content-back-btn" onclick="goChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="content-nav-brand">
+        <svg width="18" height="18" viewBox="0 0 34 34" fill="none"><rect width="34" height="34" rx="7" fill="#181510"/><path d="M17 28 L17 12.5" stroke="#4EA876" stroke-width="2.5" stroke-linecap="round"/><path d="M17 22 C14.5 22 8.5 19 7.5 12 C11.5 11.5 17 17 17 22Z" fill="#2E7A52"/><path d="M17 17.5 C19.5 17.5 25 14.5 26 7.5 C22 7.5 17 13 17 17.5Z" fill="#1F5C3A"/><circle cx="27.5" cy="6.5" r="2.8" fill="#A67C2E"/></svg>
+        <span>Terrova</span>
+      </div>
+    </div>
     <div class="content-scroll">
       <div class="content-hero">
         <span class="content-hero-icon">💬</span>
@@ -1572,23 +1720,23 @@ textarea.inp::placeholder { color: var(--warm-3); }
   <!-- ══ BOTTOM NAV ══ -->
   <nav id="bottomNav">
     <button class="nav-item" id="nav-about" onclick="goAbout()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.5"/><path d="M4 20c0-3.8 3.6-7 8-7s8 3.2 8 7"/><path d="M16 5.5 Q18.5 3.5 19.5 1.5" stroke-width="1.2" opacity=".45"/></svg>
       <span class="nav-label">About</span>
     </button>
     <button class="nav-item" id="nav-how" onclick="goHow()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 L12 10"/><path d="M12 17 C10.5 17 6.5 15 5.5 9.5 C8.5 9 12 13 12 17Z" fill="currentColor" opacity=".3" stroke="none"/><path d="M12 14 C13.5 14 17.5 12 18.5 6.5 C15.5 6.5 12 10.5 12 14Z" fill="currentColor" opacity=".5" stroke="none"/><path d="M7 22 Q12 20.5 17 22" opacity=".45"/></svg>
       <span class="nav-label">How It Works</span>
     </button>
     <button class="nav-item" id="nav-legal" onclick="goLegal()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.1 3.8 9.9 9 11.3C17.2 21.9 21 17.1 21 12V7L12 2z"/><polyline points="9 12 11 14 15 10"/></svg>
       <span class="nav-label">Legal</span>
     </button>
     <button class="nav-item" id="nav-faq" onclick="goFaq()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r=".9" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".9" fill="currentColor" stroke="none"/></svg>
       <span class="nav-label">FAQ</span>
     </button>
     <button class="nav-item" id="nav-chat" onclick="goChat()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M12 11 C11 11 8.5 10 8 7.5 C10 7.3 12 9 12 11Z" fill="currentColor" opacity=".5" stroke="none"/><path d="M12 9.5 C13 9.5 15.5 8.5 16 6 C14 6 12 8 12 9.5Z" fill="currentColor" opacity=".35" stroke="none"/></svg>
       <span class="nav-label">Chat</span>
     </button>
   </nav>
@@ -1630,7 +1778,7 @@ const LANGS = [
 ];
 
 const STR = {
-  en:{msg:"Hey there, farmer. What's growing today?",sub:"Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.",catLabel:"Browse categories",nc:"New conversation",ph:"Ask about your crops...",hist:"Chat history",clearAll:"Clear all",histEmpty:"No saved conversations yet.\nStart a chat and it'll appear here.",back:"Back",langSheet:"Language",histBtn:"History"},
+  en:{msg:"Hey, I'm Kova. What's growing today?",sub:"Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.",catLabel:"Browse categories",nc:"New conversation",ph:"Ask about your crops...",hist:"Chat history",clearAll:"Clear all",histEmpty:"No saved conversations yet.\nStart a chat and it'll appear here.",back:"Back",langSheet:"Language",histBtn:"History"},
   id:{msg:"Hei petani. Apa yang sedang tumbuh hari ini?",sub:"Tanya apa saja soal tanaman, tanah, hama, atau panen. Saya kasih saran yang langsung dan praktis.",catLabel:"Jelajahi kategori",nc:"Percakapan baru",ph:"Tanya soal tanamanmu...",hist:"Riwayat chat",clearAll:"Hapus semua",histEmpty:"Belum ada percakapan tersimpan.\nMulai chat dan akan muncul di sini.",back:"Kembali",langSheet:"Bahasa",histBtn:"Riwayat"},
   es:{msg:"Hola agricultor. ¿Qué está creciendo hoy?",sub:"Pregunta sobre cultivos, suelo, plagas o cosecha. Te doy consejos directos y prácticos.",catLabel:"Explorar categorías",nc:"Nueva conversación",ph:"Pregunta sobre tus cultivos...",hist:"Historial de chat",clearAll:"Borrar todo",histEmpty:"Aún no hay conversaciones guardadas.",back:"Volver",langSheet:"Idioma",histBtn:"Historial"},
   hi:{msg:"नमस्ते किसान। आज क्या उग रहा है?",sub:"फसल, मिट्टी, कीट या कटाई के बारे में कुछ भी पूछें।",catLabel:"श्रेणियां देखें",nc:"नई बातचीत",ph:"अपनी फसल के बारे में पूछें...",hist:"चैट इतिहास",clearAll:"सब हटाएं",histEmpty:"अभी कोई बातचीत नहीं।",back:"वापस",langSheet:"भाषा",histBtn:"इतिहास"},
@@ -1772,6 +1920,9 @@ function renderLangList() {
       </div>
       <span class="lang-check">✓</span>
     </li>`).join('');
+    grid.classList.remove('cat-fade');
+  }
+  if (anim) { grid.classList.add('cat-fade'); setTimeout(doRender, 160); } else { doRender(); }
 }
 
 function setLang(code) {
@@ -1789,16 +1940,16 @@ function setLang(code) {
 }
 
 /* ════════════ CATEGORIES ════════════ */
-function renderCategories() {
+function renderCategories(anim) {
   const cats = getCats(lang);
   activeCat  = Math.min(activeCat, cats.length-1);
 
   document.getElementById('catScroll').innerHTML = cats.map((c,i)=>`
-    <button class="cat-chip${i===activeCat?' active':''}" onclick="selectCat(${i})">
+    <button class="cat-chip${i===activeCat?' active':''}" onclick="selectCat(${i},true)">
       <span class="chip-icon">${c.icon}</span>${c.label}
     </button>`).join('');
 
-  renderPrompts(cats[activeCat]);
+  renderPrompts(cats[activeCat], anim);
 
   // scroll active chip into view
   requestAnimationFrame(()=>{
@@ -1808,17 +1959,22 @@ function renderCategories() {
   });
 }
 
-function renderPrompts(cat) {
-  document.getElementById('qsGrid').innerHTML = cat.qs.slice(0,4).map(q=>`
+function renderPrompts(cat, anim) {
+  const grid = document.getElementById('qsGrid');
+  function doRender() {
+    grid.innerHTML = cat.qs.slice(0,4).map(q=>`
     <button class="q-btn" data-cat="${cat.id}" onclick="useQ(this)">
       <span class="q-icon">${q.i}</span>
       <span class="q-text">${q.t}</span>
     </button>`).join('');
+    grid.classList.remove('cat-fade');
+  }
+  if (anim) { grid.classList.add('cat-fade'); setTimeout(doRender, 160); } else { doRender(); }
 }
 
-function selectCat(i) {
+function selectCat(i, anim) {
   activeCat = i;
-  renderCategories();
+  renderCategories(anim);
 }
 
 function useQ(btn) {

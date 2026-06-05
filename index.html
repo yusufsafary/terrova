@@ -714,10 +714,13 @@ textarea.inp::placeholder { color: var(--warm-3); }
 #bottomNav {
   display: flex;
   flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   background: var(--white);
   border-top: 1px solid #EAE4D8;
-  flex-shrink: 0;
-  z-index: 20;
+  z-index: 100;
   padding-bottom: max(8px, env(safe-area-inset-bottom));
 }
 /* nav always visible */

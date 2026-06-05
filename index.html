@@ -21,20 +21,35 @@
   --warm-1:  #EDE8DC;
   --canvas:  #F5F1E8;
   --white:   #FFFFFF;
-  --earth:   #5C3D1E;
   --green:   #1F5C3A;
   --green-2: #2E7A52;
   --green-3: #4EA876;
   --green-l: #E4F0EA;
   --gold:    #A67C2E;
-  --gold-l:  #F0E4B0;
-  --rust:    #8B3A1A;
-  --rust-l:  #F5E5DE;
-  --blue:    #1A3C5C;
-  --blue-l:  #DDE8F0;
+  --gold-l:  #F5E8B8;
   --r: 14px;
   --r-lg: 20px;
-  --r-xl: 26px;
+  --r-xl: 24px;
+
+  /* cat accent colors */
+  --c-pests:      #D44B3A;
+  --c-disease:    #8C3A4A;
+  --c-soil:       #7A5228;
+  --c-water:      #2A6EA6;
+  --c-harvest:    #B87D18;
+  --c-market:     #2A7A52;
+  --c-weather:    #4A5FA0;
+  --c-organic:    #3E8830;
+  --c-seeds:      #9A6020;
+  --c-livestock:  #A64040;
+  --c-tools:      #464860;
+  --c-veggies:    #2E8040;
+  --c-grains:     #B8922A;
+  --c-spices:     #C44020;
+  --c-fruits:     #C03868;
+  --c-ornamental: #7040C0;
+  --c-analysis:   #1A6880;
+  --c-composting: #607030;
 }
 
 html, body { height: 100%; background: var(--ink); overflow: hidden; }
@@ -51,44 +66,49 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   font-family: 'DM Sans', sans-serif;
 }
 
+/* ── PAGE SYSTEM ── */
+.page {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--canvas);
+  transition: transform 0.38s cubic-bezier(.32,.72,0,1), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.page.hidden-right  { transform: translateX(100%); opacity: 0; pointer-events: none; }
+.page.hidden-left   { transform: translateX(-30%);  opacity: 0; pointer-events: none; }
+.page.visible       { transform: translateX(0);     opacity: 1; pointer-events: auto; }
+
 /* ─── HEADER ─── */
 .hdr {
   background: var(--ink);
-  padding: 14px 18px 13px;
+  padding: 13px 18px 12px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   flex-shrink: 0;
   position: relative;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  z-index: 10;
 }
-
 .hdr::after {
-  content: '';
-  position: absolute;
-  bottom: 0; left: 0; right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(78,168,118,0.3), transparent);
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(78,168,118,.25),transparent);
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
+  user-select: none;
 }
+.logo-mark { width: 34px; height: 34px; flex-shrink: 0; }
 
-/* ─── LOGO MARK: terrain contour ─── */
-.logo-mark {
-  width: 34px;
-  height: 34px;
-  flex-shrink: 0;
-}
-
-.logo-wordmark {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
+.logo-wordmark { display: flex; flex-direction: column; gap: 0; }
 
 .logo-name {
   font-family: 'DM Serif Display', serif;
@@ -98,7 +118,6 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   letter-spacing: -0.01em;
   line-height: 1;
 }
-
 .logo-sub {
   font-size: 9px;
   font-weight: 400;
@@ -108,91 +127,86 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   margin-top: 2px;
 }
 
-/* ─── LANG BUTTON ─── */
-.lang-pill {
+/* history button */
+.hdr-right { display: flex; align-items: center; gap: 9px; }
+
+.hist-btn {
   display: flex;
   align-items: center;
-  gap: 6px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.10);
+  gap: 5px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
   border-radius: 100px;
-  padding: 6px 12px 6px 9px;
+  padding: 6px 11px;
   cursor: pointer;
   color: var(--warm-2);
   font-family: 'DM Sans', sans-serif;
   font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-  transition: background 0.15s;
+  transition: background .15s;
 }
-.lang-pill:active { background: rgba(255,255,255,0.10); }
-.lang-pill .flag { font-size: 14px; line-height: 1; }
-.lang-pill .chevron { opacity: 0.35; font-size: 9px; margin-left: 1px; }
-
-/* ─── LANG SHEET ─── */
-.sheet-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(11,10,8,0.76);
-  z-index: 100;
-  display: none;
-  align-items: flex-end;
-  backdrop-filter: blur(6px);
+.hist-btn:active { background: rgba(255,255,255,.12); }
+.hist-badge {
+  display:none;
+  width:16px;height:16px;border-radius:50%;
+  background:var(--green-3);
+  font-size:9px;font-weight:600;color:var(--ink);
+  align-items:center;justify-content:center;
 }
-.sheet-overlay.open { display: flex; animation: fadeBg 0.22s ease forwards; }
+.hist-badge.show { display:flex; }
 
-.sheet {
-  background: var(--white);
-  width: 100%;
-  border-radius: 22px 22px 0 0;
-  padding-bottom: max(24px, env(safe-area-inset-bottom));
-  animation: slideUp 0.28s cubic-bezier(.32,.72,0,1);
-  max-height: 78dvh;
-  display: flex;
-  flex-direction: column;
-}
-
-.sheet-handle {
-  width: 32px; height: 3px;
-  background: #DDD6C8;
-  border-radius: 2px;
-  margin: 10px auto 0;
-  flex-shrink: 0;
-}
-
-.sheet-head {
-  padding: 16px 22px 14px;
-  border-bottom: 1px solid #EDE8DC;
-  flex-shrink: 0;
-}
-
-.sheet-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 18px;
-  font-weight: 400;
-  color: var(--ink);
-}
-
-.sheet-scroll { overflow-y: auto; flex: 1; }
-.sheet-scroll::-webkit-scrollbar { display: none; }
-
-.lang-list { list-style: none; padding: 6px 0 8px; }
-
-.lang-item {
+.lang-pill {
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 13px 22px;
+  gap: 6px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 100px;
+  padding: 6px 11px 6px 8px;
   cursor: pointer;
-  transition: background 0.12s;
+  color: var(--warm-2);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  transition: background .15s;
 }
-.lang-item:active, .lang-item.active { background: var(--warm-1); }
-.lang-item .flag { font-size: 22px; line-height: 1; }
-.lang-item-copy { flex: 1; }
-.lang-item-name { font-size: 14px; font-weight: 500; color: var(--ink); }
-.lang-item-native { font-size: 12px; color: var(--warm-4); margin-top: 1px; }
-.lang-check { color: var(--green); font-size: 16px; opacity: 0; }
-.lang-item.active .lang-check { opacity: 1; }
+.lang-pill:active { background: rgba(255,255,255,.12); }
+.lang-pill .flag { font-size: 14px; line-height:1; }
+.lang-pill .chevron { opacity:.35; font-size:9px; margin-left:1px; }
+
+/* ── SUB-HEADER (history page) ── */
+.sub-hdr {
+  background: var(--ink);
+  padding: 13px 18px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.sub-hdr::after {
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(78,168,118,.25),transparent);
+}
+.back-btn {
+  display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;border-radius:50%;
+  background:rgba(255,255,255,.07);
+  border:none;cursor:pointer;color:var(--warm-2);
+  transition:background .15s;flex-shrink:0;
+}
+.back-btn:active { background:rgba(255,255,255,.14); }
+.sub-title {
+  font-family:'DM Serif Display',serif;
+  font-size:18px;color:var(--white);
+  font-weight:400;flex:1;
+}
+.clear-all {
+  background:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:11.5px;color:rgba(255,255,255,.35);
+  padding:4px 0;transition:color .15s;
+}
+.clear-all:active { color:var(--c-pests); }
 
 /* ─── CHAT SCROLL ─── */
 .chat {
@@ -215,23 +229,17 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   position: relative;
   overflow: hidden;
   margin-bottom: 2px;
+  animation: fadeUp .45s cubic-bezier(.22,.68,0,1.2) both;
 }
-
 .welcome::before {
-  content: '';
-  position: absolute;
-  right: -40px; top: -40px;
-  width: 130px; height: 130px;
-  border-radius: 50%;
-  border: 1px solid rgba(78,168,118,0.08);
+  content:'';position:absolute;right:-44px;top:-44px;
+  width:140px;height:140px;border-radius:50%;
+  border:1px solid rgba(78,168,118,.07);
 }
 .welcome::after {
-  content: '';
-  position: absolute;
-  right: -20px; top: -20px;
-  width: 80px; height: 80px;
-  border-radius: 50%;
-  border: 1px solid rgba(78,168,118,0.12);
+  content:'';position:absolute;right:-22px;top:-22px;
+  width:82px;height:82px;border-radius:50%;
+  border:1px solid rgba(78,168,118,.12);
 }
 
 .welcome-kova {
@@ -240,33 +248,29 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   gap: 8px;
   margin-bottom: 12px;
 }
-
 .kova-dot {
   width: 7px; height: 7px;
   background: var(--green-3);
   border-radius: 50%;
-  box-shadow: 0 0 0 3px rgba(78,168,118,0.2);
+  box-shadow: 0 0 0 3px rgba(78,168,118,.2);
   flex-shrink: 0;
   animation: pulse 2.5s infinite;
 }
-
 .kova-label {
   font-size: 10.5px;
   font-weight: 400;
   color: var(--warm-3);
-  letter-spacing: 0.14em;
+  letter-spacing: .14em;
   text-transform: uppercase;
 }
-
 .welcome-msg {
   font-family: 'DM Serif Display', serif;
   font-size: 20px;
   font-weight: 400;
   color: var(--white);
-  line-height: 1.40;
+  line-height: 1.4;
   margin-bottom: 10px;
 }
-
 .welcome-sub {
   font-size: 13px;
   font-weight: 300;
@@ -274,16 +278,14 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   line-height: 1.65;
 }
 
-/* ─── CATEGORY NAV ─── */
-.cat-section {
-  margin-bottom: 4px;
-}
+/* ─── CAT NAV ─── */
+.qs-wrap { animation: fadeUp .5s .08s cubic-bezier(.22,.68,0,1.2) both; }
 
 .cat-label {
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: .16em;
   color: var(--warm-4);
   padding: 0 2px;
   margin-bottom: 10px;
@@ -293,8 +295,8 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   display: flex;
   gap: 7px;
   overflow-x: auto;
-  padding-bottom: 4px;
-  margin-bottom: 12px;
+  padding-bottom: 2px;
+  margin-bottom: 13px;
   scrollbar-width: none;
 }
 .cat-scroll::-webkit-scrollbar { display: none; }
@@ -313,23 +315,23 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   font-size: 12px;
   font-weight: 400;
   color: var(--warm-5);
-  transition: all 0.15s;
+  transition: all .2s cubic-bezier(.32,.72,0,1);
   flex-shrink: 0;
 }
-.cat-chip .chip-icon { font-size: 13px; line-height: 1; }
+.cat-chip .chip-icon { font-size: 13px; line-height:1; }
 .cat-chip.active {
   background: var(--ink);
   border-color: var(--ink);
   color: var(--white);
+  transform: scale(1.04);
 }
-.cat-chip:active { transform: scale(0.95); }
+.cat-chip:active { transform: scale(.95); }
 
-/* ─── QUICK PROMPTS ─── */
+/* ─── PROMPT GRID ─── */
 .qs-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 7px;
-  margin-bottom: 4px;
 }
 
 .q-btn {
@@ -342,38 +344,47 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   display: flex;
   flex-direction: column;
   gap: 6px;
-  transition: all 0.15s;
+  transition: all .18s cubic-bezier(.32,.72,0,1);
+  border-left-width: 3px;
+  animation: fadeUp .35s cubic-bezier(.22,.68,0,1.2) both;
 }
-.q-btn:active { background: var(--green-l); border-color: var(--green-3); transform: scale(0.975); }
+.q-btn:nth-child(1){animation-delay:.04s}
+.q-btn:nth-child(2){animation-delay:.07s}
+.q-btn:nth-child(3){animation-delay:.10s}
+.q-btn:nth-child(4){animation-delay:.13s}
+.q-btn:nth-child(5){animation-delay:.16s}
+.q-btn:nth-child(6){animation-delay:.19s}
+.q-btn:active { transform: scale(.97); opacity: .85; }
+
 .q-icon { font-size: 16px; line-height: 1; }
 .q-text { font-size: 12px; font-weight: 400; color: var(--ink-3); line-height: 1.4; }
 
-/* category color accents */
-.q-btn[data-cat="pests"] { border-left: 3px solid #D44B3A; }
-.q-btn[data-cat="soil"] { border-left: 3px solid #8B5C2A; }
-.q-btn[data-cat="water"] { border-left: 3px solid #2A6EA6; }
-.q-btn[data-cat="harvest"] { border-left: 3px solid #C4951A; }
-.q-btn[data-cat="market"] { border-left: 3px solid #2A7A52; }
-.q-btn[data-cat="weather"] { border-left: 3px solid #5A6FA6; }
-.q-btn[data-cat="organic"] { border-left: 3px solid #4A8C3A; }
-.q-btn[data-cat="seeds"] { border-left: 3px solid #9A6B2A; }
-.q-btn[data-cat="livestock"] { border-left: 3px solid #A64040; }
-.q-btn[data-cat="tools"] { border-left: 3px solid #4A4A5E; }
-.q-btn[data-cat="veggies"] { border-left: 3px solid #3A8C3A; }
-.q-btn[data-cat="grains"] { border-left: 3px solid #C4A050; }
-.q-btn[data-cat="spices"] { border-left: 3px solid #C44A20; }
-.q-btn[data-cat="fruits"] { border-left: 3px solid #C43A6A; }
-.q-btn[data-cat="ornamental"] { border-left: 3px solid #7A4AC4; }
-.q-btn[data-cat="analysis"] { border-left: 3px solid #1A6C8C; }
-.q-btn[data-cat="disease"] { border-left: 3px solid #8C3A4A; }
-.q-btn[data-cat="composting"] { border-left: 3px solid #6C7A3A; }
+/* left-border colors per cat */
+.q-btn[data-cat="pests"]      { border-left-color: var(--c-pests); }
+.q-btn[data-cat="disease"]    { border-left-color: var(--c-disease); }
+.q-btn[data-cat="soil"]       { border-left-color: var(--c-soil); }
+.q-btn[data-cat="water"]      { border-left-color: var(--c-water); }
+.q-btn[data-cat="harvest"]    { border-left-color: var(--c-harvest); }
+.q-btn[data-cat="market"]     { border-left-color: var(--c-market); }
+.q-btn[data-cat="weather"]    { border-left-color: var(--c-weather); }
+.q-btn[data-cat="organic"]    { border-left-color: var(--c-organic); }
+.q-btn[data-cat="seeds"]      { border-left-color: var(--c-seeds); }
+.q-btn[data-cat="livestock"]  { border-left-color: var(--c-livestock); }
+.q-btn[data-cat="tools"]      { border-left-color: var(--c-tools); }
+.q-btn[data-cat="veggies"]    { border-left-color: var(--c-veggies); }
+.q-btn[data-cat="grains"]     { border-left-color: var(--c-grains); }
+.q-btn[data-cat="spices"]     { border-left-color: var(--c-spices); }
+.q-btn[data-cat="fruits"]     { border-left-color: var(--c-fruits); }
+.q-btn[data-cat="ornamental"] { border-left-color: var(--c-ornamental); }
+.q-btn[data-cat="analysis"]   { border-left-color: var(--c-analysis); }
+.q-btn[data-cat="composting"] { border-left-color: var(--c-composting); }
 
 /* ─── MESSAGES ─── */
 .row {
   display: flex;
   align-items: flex-end;
   gap: 8px;
-  animation: msgIn 0.2s ease;
+  animation: msgIn .25s cubic-bezier(.22,.68,0,1.2) both;
 }
 .row.user { flex-direction: row-reverse; }
 
@@ -384,11 +395,11 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 600;
 }
-
-.av.ai { background: var(--ink); }
-.av.user { background: var(--green); }
+.av.ai   { background: var(--ink); color: var(--green-3); }
+.av.user { background: var(--green); color: var(--white); }
 
 .bubble {
   max-width: 80%;
@@ -402,9 +413,8 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   background: var(--white);
   color: var(--ink);
   border-radius: 16px 16px 16px 4px;
-  box-shadow: 0 1px 8px rgba(11,10,8,0.07);
+  box-shadow: 0 1px 8px rgba(11,10,8,.07);
 }
-
 .row.user .bubble {
   background: var(--ink);
   color: var(--warm-2);
@@ -412,21 +422,25 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   font-weight: 300;
 }
 
+.msg-time {
+  font-size: 10px;
+  color: var(--warm-3);
+  margin-top: 3px;
+  padding: 0 2px;
+  align-self: flex-end;
+}
+.row.user .msg-time { text-align: right; }
+
 /* ─── TYPING ─── */
-.typing-dots {
-  display: flex;
-  gap: 4px;
-  align-items: center;
-  padding: 4px 2px;
-}
+.typing-dots { display:flex;gap:4px;align-items:center;padding:4px 2px; }
 .dot {
-  width: 5px; height: 5px;
-  background: var(--warm-3);
-  border-radius: 50%;
-  animation: blink 1.3s infinite;
+  width:5px;height:5px;
+  background:var(--warm-3);
+  border-radius:50%;
+  animation:blink 1.3s infinite;
 }
-.dot:nth-child(2) { animation-delay: 0.18s; }
-.dot:nth-child(3) { animation-delay: 0.36s; }
+.dot:nth-child(2){animation-delay:.18s}
+.dot:nth-child(3){animation-delay:.36s}
 
 /* ─── INPUT AREA ─── */
 .input-wrap {
@@ -448,13 +462,13 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   font-size: 11px;
   font-weight: 400;
   color: var(--warm-4);
-  letter-spacing: 0.05em;
+  letter-spacing: .05em;
   margin-bottom: 9px;
   padding: 0;
-  transition: color 0.15s;
+  transition: color .15s;
 }
 .new-chat:active { color: var(--green); }
-.new-chat svg { opacity: 0.55; }
+.new-chat svg { opacity:.55; }
 
 .input-row {
   display: flex;
@@ -464,9 +478,12 @@ html, body { height: 100%; background: var(--ink); overflow: hidden; }
   border: 1.5px solid #DAD2BE;
   border-radius: 22px;
   padding: 9px 9px 9px 15px;
-  transition: border-color 0.2s;
+  transition: border-color .2s, box-shadow .2s;
 }
-.input-row:focus-within { border-color: var(--green-2); }
+.input-row:focus-within {
+  border-color: var(--green-2);
+  box-shadow: 0 0 0 3px rgba(46,122,82,.08);
+}
 
 textarea.inp {
   flex: 1;
@@ -495,100 +512,275 @@ textarea.inp::placeholder { color: var(--warm-3); }
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: all 0.15s;
+  transition: all .15s;
 }
-.send:active { background: var(--green); transform: scale(0.92); }
+.send:active { background: var(--green); transform: scale(.92); }
 .send:disabled { background: var(--warm-2); }
-.send svg { width: 15px; height: 15px; }
+.send svg { width:15px;height:15px; }
 
-/* ─── ANIMATIONS ─── */
-@keyframes fadeBg { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
-@keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes blink { 0%,80%,100% { opacity: 0.2; } 40% { opacity: 1; } }
-@keyframes pulse { 0%,100% { box-shadow: 0 0 0 3px rgba(78,168,118,0.2); } 50% { box-shadow: 0 0 0 5px rgba(78,168,118,0.08); } }
+/* ── HISTORY PAGE ── */
+.hist-page {
+  background: var(--canvas);
+}
 
-@media (min-width: 431px) {
-  body { display: flex; align-items: center; justify-content: center; min-height: 100vh; }
-  #app { border-radius: 38px; overflow: hidden; height: 840px; max-height: 96dvh; box-shadow: 0 36px 100px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.03); }
+.hist-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.hist-list::-webkit-scrollbar { display:none; }
+
+.hist-empty {
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  color:var(--warm-3);
+  text-align:center;
+  padding:40px 30px;
+}
+.hist-empty-icon { font-size:44px;opacity:.5; }
+.hist-empty-text { font-size:14px;font-weight:300;line-height:1.6; }
+
+.hist-session {
+  background: var(--white);
+  border: 1px solid #E8E2D6;
+  border-radius: var(--r-lg);
+  padding: 14px 15px;
+  cursor: pointer;
+  transition: all .18s;
+  animation: fadeUp .3s cubic-bezier(.22,.68,0,1.2) both;
+  position: relative;
+  overflow: hidden;
+}
+.hist-session::before {
+  content:'';
+  position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:var(--green-3);opacity:0;
+  transition:opacity .15s;
+}
+.hist-session:active { transform:scale(.985);background:var(--warm-1); }
+.hist-session:active::before { opacity:1; }
+
+.hist-session-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:6px;
+}
+.hist-session-date {
+  font-size:10.5px;
+  font-weight:500;
+  color:var(--green-2);
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.hist-session-count {
+  font-size:10.5px;
+  color:var(--warm-3);
+}
+.hist-session-preview {
+  font-size:13px;
+  font-weight:400;
+  color:var(--ink);
+  line-height:1.5;
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.hist-session-del {
+  position:absolute;right:12px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  width:28px;height:28px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--warm-3);font-size:15px;
+  transition:all .15s;opacity:0;
+}
+.hist-session:hover .hist-session-del { opacity:1; }
+.hist-session-del:hover { background:rgba(212,75,58,.1);color:var(--c-pests); }
+
+/* ── LANG SHEET ── */
+.sheet-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(11,10,8,.76);
+  z-index: 200;
+  display: none;
+  align-items: flex-end;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.sheet-overlay.open { display:flex; animation:fadeBg .22s ease forwards; }
+
+.sheet {
+  background: var(--white);
+  width: 100%;
+  border-radius: 22px 22px 0 0;
+  padding-bottom: max(24px, env(safe-area-inset-bottom));
+  animation: slideUp .3s cubic-bezier(.32,.72,0,1);
+  max-height: 78dvh;
+  display: flex;
+  flex-direction: column;
+}
+.sheet-handle {
+  width:32px;height:3px;
+  background:#DDD6C8;border-radius:2px;
+  margin:10px auto 0;flex-shrink:0;
+}
+.sheet-head {
+  padding:16px 22px 14px;
+  border-bottom:1px solid #EDE8DC;flex-shrink:0;
+}
+.sheet-title {
+  font-family:'DM Serif Display',serif;
+  font-size:18px;font-weight:400;color:var(--ink);
+}
+.sheet-scroll { overflow-y:auto;flex:1; }
+.sheet-scroll::-webkit-scrollbar { display:none; }
+
+.lang-list { list-style:none;padding:6px 0 8px; }
+.lang-item {
+  display:flex;align-items:center;gap:13px;
+  padding:13px 22px;cursor:pointer;transition:background .12s;
+}
+.lang-item:active,.lang-item.active { background:var(--warm-1); }
+.lang-item .flag { font-size:22px;line-height:1; }
+.lang-item-copy { flex:1; }
+.lang-item-name { font-size:14px;font-weight:500;color:var(--ink); }
+.lang-item-native { font-size:12px;color:var(--warm-4);margin-top:1px; }
+.lang-check { color:var(--green);font-size:16px;opacity:0; }
+.lang-item.active .lang-check { opacity:1; }
+
+/* ── TOAST ── */
+.toast {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: var(--warm-2);
+  font-size: 12.5px;
+  padding: 9px 18px;
+  border-radius: 100px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: all .3s cubic-bezier(.32,.72,0,1);
+  z-index: 300;
+  pointer-events: none;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeBg    { from{opacity:0}to{opacity:1} }
+@keyframes slideUp   { from{transform:translateY(100%)}to{transform:translateY(0)} }
+@keyframes msgIn     { from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp    { from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)} }
+@keyframes blink     { 0%,80%,100%{opacity:.2}40%{opacity:1} }
+@keyframes pulse     { 0%,100%{box-shadow:0 0 0 3px rgba(78,168,118,.2)}50%{box-shadow:0 0 0 6px rgba(78,168,118,.06)} }
+
+@media (min-width:431px) {
+  body { display:flex;align-items:center;justify-content:center;min-height:100vh; }
+  #app {
+    border-radius:40px;height:840px;max-height:96dvh;
+    box-shadow:0 40px 120px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.04);
+    overflow:hidden;
+  }
 }
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- HEADER -->
-  <header class="hdr">
-    <div class="logo">
-      <!-- TERROVA LOGO: terrain contour mark -->
-      <svg class="logo-mark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <!-- background field -->
-        <rect width="34" height="34" rx="9" fill="#181510"/>
-        <!-- terrain contour layers (bottom to top) -->
-        <path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity="0.9"/>
-        <path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity="0.8"/>
-        <path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity="0.6"/>
-        <!-- horizon line accent -->
-        <line x1="4" y1="13" x2="30" y2="13" stroke="rgba(78,168,118,0.2)" stroke-width="0.5"/>
-        <!-- small sun / growth indicator -->
-        <circle cx="25" cy="9" r="2.5" fill="#A67C2E" opacity="0.85"/>
-        <line x1="25" y1="5.5" x2="25" y2="4" stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
-        <line x1="27.6" y1="6.4" x2="28.7" y2="5.3" stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
-        <line x1="28.5" y1="9" x2="30" y2="9" stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
-      </svg>
-      <div class="logo-wordmark">
-        <div class="logo-name">Terrova</div>
-        <div class="logo-sub">Smart Farming</div>
+  <!-- ══ CHAT PAGE ══ -->
+  <div class="page visible" id="chatPage">
+    <header class="hdr">
+      <div class="logo" onclick="goChat()">
+        <svg class="logo-mark" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect width="34" height="34" rx="9" fill="#181510"/>
+          <path d="M4 26 Q8.5 23 12 25 Q15.5 27 17 24 Q19 21 22 23 Q25 25 30 22 L30 30 L4 30 Z" fill="#1F5C3A" opacity=".9"/>
+          <path d="M4 23 Q7 19.5 11 21 Q14 22.5 17 19 Q20 15.5 23 18 Q26 20.5 30 17 L30 25 Q25.5 22.5 22.5 21 Q19.5 19.5 17 22 Q14.5 24.5 11.5 23 Q8.5 21.5 4 25 Z" fill="#2E7A52" opacity=".8"/>
+          <path d="M4 19 Q7.5 15 12 17 Q15 18.5 17 15 Q19 11.5 22.5 14 Q26 16.5 30 13 L30 20 Q26 17 22.5 16.5 Q19.5 16 17 19 Q14.5 22 11.5 20 Q8.5 18 4 22 Z" fill="#4EA876" opacity=".6"/>
+          <line x1="4" y1="13" x2="30" y2="13" stroke="rgba(78,168,118,.18)" stroke-width=".6"/>
+          <circle cx="25" cy="9" r="2.5" fill="#A67C2E" opacity=".85"/>
+          <line x1="25" y1="5.5" x2="25" y2="4"   stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+          <line x1="27.6" y1="6.4" x2="28.7" y2="5.3" stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+          <line x1="28.5" y1="9"   x2="30"   y2="9"   stroke="#A67C2E" stroke-width="1" stroke-linecap="round" opacity=".5"/>
+        </svg>
+        <div class="logo-wordmark">
+          <div class="logo-name">Terrova</div>
+          <div class="logo-sub">Smart Farming</div>
+        </div>
       </div>
-    </div>
-
-    <button class="lang-pill" onclick="openSheet()">
-      <span class="flag" id="hFlag">🇬🇧</span>
-      <span id="hCode">EN</span>
-      <span class="chevron">▾</span>
-    </button>
-  </header>
-
-  <!-- CHAT -->
-  <div class="chat" id="chat">
-
-    <div class="welcome" id="welcomeCard">
-      <div class="welcome-kova">
-        <div class="kova-dot"></div>
-        <div class="kova-label">Kova is online</div>
+      <div class="hdr-right">
+        <button class="hist-btn" onclick="goHistory()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 7v5l3 3"/></svg>
+          <span id="newLabel2">History</span>
+          <span class="hist-badge" id="histBadge"></span>
+        </button>
+        <button class="lang-pill" onclick="openSheet()">
+          <span class="flag" id="hFlag">🇬🇧</span>
+          <span id="hCode">EN</span>
+          <span class="chevron">▾</span>
+        </button>
       </div>
-      <div class="welcome-msg" id="wMsg">Hey there, farmer. What's growing today?</div>
-      <div class="welcome-sub" id="wSub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</div>
-    </div>
+    </header>
 
-    <div id="qsWrap">
-      <div class="cat-section">
+    <div class="chat" id="chat">
+      <div class="welcome" id="welcomeCard">
+        <div class="welcome-kova">
+          <div class="kova-dot"></div>
+          <div class="kova-label">Kova is online</div>
+        </div>
+        <div class="welcome-msg" id="wMsg">Hey there, farmer. What's growing today?</div>
+        <div class="welcome-sub" id="wSub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</div>
+      </div>
+
+      <div class="qs-wrap" id="qsWrap">
         <div class="cat-label" id="catLabel">Browse categories</div>
         <div class="cat-scroll" id="catScroll"></div>
         <div class="qs-grid" id="qsGrid"></div>
       </div>
     </div>
 
+    <div class="input-wrap">
+      <button class="new-chat" onclick="newChat()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        <span id="newLabel">New conversation</span>
+      </button>
+      <div class="input-row">
+        <textarea class="inp" id="inp" rows="1"
+          placeholder="Ask about your crops..."
+          oninput="resize(this)" onkeydown="onKey(event)"></textarea>
+        <button class="send" id="sendBtn" onclick="send()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 
-  <!-- INPUT -->
-  <div class="input-wrap">
-    <button class="new-chat" onclick="newChat()">
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
-      <span id="newLabel">New conversation</span>
-    </button>
-    <div class="input-row">
-      <textarea class="inp" id="inp" rows="1"
-        placeholder="Ask about your crops..."
-        oninput="resize(this)"
-        onkeydown="onKey(event)"></textarea>
-      <button class="send" id="sendBtn" onclick="send()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="22" y1="2" x2="11" y2="13"/>
-          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-        </svg>
+  <!-- ══ HISTORY PAGE ══ -->
+  <div class="page hidden-right" id="histPage">
+    <header class="hdr" style="position:relative;">
+      <button class="back-btn" onclick="goChat()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
       </button>
-    </div>
+      <div class="sub-title" id="histTitle">Chat history</div>
+      <button class="clear-all" onclick="clearAll()" id="clearAllBtn">Clear all</button>
+    </header>
+
+    <div class="hist-list" id="histList"></div>
   </div>
 
   <!-- LANG SHEET -->
@@ -596,7 +788,7 @@ textarea.inp::placeholder { color: var(--warm-3); }
     <div class="sheet">
       <div class="sheet-handle"></div>
       <div class="sheet-head">
-        <div class="sheet-title">Language</div>
+        <div class="sheet-title" id="langSheetTitle">Language</div>
       </div>
       <div class="sheet-scroll">
         <ul class="lang-list" id="langList"></ul>
@@ -604,116 +796,138 @@ textarea.inp::placeholder { color: var(--warm-3); }
     </div>
   </div>
 
+  <div class="toast" id="toast"></div>
 </div>
+
 <script>
+/* ════════════ DATA ════════════ */
 const LANGS = [
-  { c:'en', f:'🇬🇧', n:'English',    nat:'English' },
-  { c:'id', f:'🇮🇩', n:'Indonesian', nat:'Bahasa Indonesia' },
-  { c:'es', f:'🇪🇸', n:'Spanish',    nat:'Español' },
-  { c:'hi', f:'🇮🇳', n:'Hindi',      nat:'हिन्दी' },
-  { c:'fr', f:'🇫🇷', n:'French',     nat:'Français' },
-  { c:'pt', f:'🇧🇷', n:'Portuguese', nat:'Português' },
-  { c:'ja', f:'🇯🇵', n:'Japanese',   nat:'日本語' },
-  { c:'sw', f:'🇰🇪', n:'Swahili',    nat:'Kiswahili' },
-  { c:'bn', f:'🇧🇩', n:'Bengali',    nat:'বাংলা' },
-  { c:'vi', f:'🇻🇳', n:'Vietnamese', nat:'Tiếng Việt' },
-  { c:'th', f:'🇹🇭', n:'Thai',       nat:'ภาษาไทย' },
-  { c:'tl', f:'🇵🇭', n:'Tagalog',    nat:'Tagalog' },
-  { c:'am', f:'🇪🇹', n:'Amharic',    nat:'አማርኛ' },
-  { c:'my', f:'🇲🇲', n:'Burmese',    nat:'မြန်မာဘာသာ' },
-  { c:'tr', f:'🇹🇷', n:'Turkish',    nat:'Türkçe' },
+  {c:'en',f:'🇬🇧',n:'English',nat:'English'},
+  {c:'id',f:'🇮🇩',n:'Indonesian',nat:'Bahasa Indonesia'},
+  {c:'es',f:'🇪🇸',n:'Spanish',nat:'Español'},
+  {c:'hi',f:'🇮🇳',n:'Hindi',nat:'हिन्दी'},
+  {c:'fr',f:'🇫🇷',n:'French',nat:'Français'},
+  {c:'pt',f:'🇧🇷',n:'Portuguese',nat:'Português'},
+  {c:'ja',f:'🇯🇵',n:'Japanese',nat:'日本語'},
+  {c:'sw',f:'🇰🇪',n:'Swahili',nat:'Kiswahili'},
+  {c:'bn',f:'🇧🇩',n:'Bengali',nat:'বাংলা'},
+  {c:'vi',f:'🇻🇳',n:'Vietnamese',nat:'Tiếng Việt'},
+  {c:'th',f:'🇹🇭',n:'Thai',nat:'ภาษาไทย'},
+  {c:'tl',f:'🇵🇭',n:'Tagalog',nat:'Tagalog'},
+  {c:'am',f:'🇪🇹',n:'Amharic',nat:'አማርኛ'},
+  {c:'my',f:'🇲🇲',n:'Burmese',nat:'မြန်မာဘာသာ'},
+  {c:'tr',f:'🇹🇷',n:'Turkish',nat:'Türkçe'},
 ];
 
-/* ─── CATEGORIES ─── */
-const CATEGORIES = {
-  en: [
-    { id:'pests',      icon:'🪲', label:'Pests',       qs:[{i:'🪲',t:'How to control aphids on cabbage?'},{i:'🐛',t:'Best organic spray for caterpillars?'},{i:'🐀',t:'Rodent control in rice fields?'},{i:'🦟',t:'How to stop thrips on chili plants?'},{i:'🐌',t:'Keep slugs away from seedlings?'},{i:'🪳',t:'Whitefly on tomatoes — what to do?'}] },
-    { id:'disease',    icon:'🦠', label:'Disease',     qs:[{i:'🍂',t:'Yellow leaves on my paddy — why?'},{i:'🍄',t:'Fungal blight on corn leaves?'},{i:'🫙',t:'Bacterial wilt on tomatoes — cure?'},{i:'💀',t:'Root rot in watermelon — how to save?'},{i:'🌫️',t:'Powdery mildew on cucumber?'},{i:'🟤',t:'Brown spots on rice leaves?'}] },
-    { id:'soil',       icon:'🪨', label:'Soil & Compost', qs:[{i:'🪨',t:'How to test soil pH at home?'},{i:'💩',t:'Best compost ratio for vegetables?'},{i:'🌿',t:'Cover crops to improve soil health?'},{i:'🧪',t:'When to add lime to acidic soil?'},{i:'🔄',t:'How often to turn compost pile?'},{i:'🌱',t:'Sandy soil amendment for better retention?'}] },
-    { id:'water',      icon:'💧', label:'Irrigation',   qs:[{i:'💧',t:'Drip irrigation vs sprinkler — which?'},{i:'🌊',t:'How much water for paddy per week?'},{i:'⏰',t:'Best time of day to water crops?'},{i:'🌡️',t:'Irrigation schedule for dry season?'},{i:'🚿',t:'Water-saving tips for small farms?'},{i:'📏',t:'How deep should irrigation reach?'}] },
-    { id:'harvest',    icon:'🌾', label:'Harvest',      qs:[{i:'🌾',t:'Signs rice is ready to harvest?'},{i:'🍅',t:'How to pick tomatoes at peak ripeness?'},{i:'📅',t:'Best harvest time to maximize yield?'},{i:'🌽',t:'When to harvest corn for sweetness?'},{i:'🫑',t:'Chili harvest — green or red first?'},{i:'🥦',t:'Broccoli harvest before flowering?'}] },
-    { id:'market',     icon:'💰', label:'Market',       qs:[{i:'💰',t:'When to sell rice for best price?'},{i:'📈',t:'How to negotiate with middlemen?'},{i:'🏪',t:'Selling directly to markets — tips?'},{i:'📦',t:'Post-harvest storage to keep quality?'},{i:'🤝',t:'How to find bulk buyers for crops?'},{i:'💵',t:'Price trends for chili this season?'}] },
-    { id:'weather',    icon:'🌦️', label:'Weather',      qs:[{i:'🌧️',t:'What to plant in rainy season?'},{i:'☀️',t:'Best crops for long dry spell?'},{i:'🌪️',t:'Protect crops from strong winds?'},{i:'🌡️',t:'Heat stress in plants — how to manage?'},{i:'🌫️',t:'Fog and frost protection for crops?'},{i:'⛈️',t:'Flood recovery for flooded fields?'}] },
-    { id:'organic',    icon:'🌿', label:'Organic',      qs:[{i:'🌿',t:'Natural pesticide from neem leaves?'},{i:'🐝',t:'Attract pollinators to my farm?'},{i:'🐛',t:'Beneficial insects to keep on farm?'},{i:'♻️',t:'Make liquid compost from kitchen waste?'},{i:'🌱',t:'Companion planting to repel pests?'},{i:'🧄',t:'Garlic spray — how to make and apply?'}] },
-    { id:'seeds',      icon:'🫘', label:'Seeds',        qs:[{i:'🫘',t:'How to select best seeds for planting?'},{i:'💦',t:'Seed soaking before planting — how long?'},{i:'🌡️',t:'Germination temperature for vegetables?'},{i:'📦',t:'Proper seed storage to keep viability?'},{i:'🔬',t:'Seed germination test at home?'},{i:'🧬',t:'Hybrid vs open-pollinated seeds?'}] },
-    { id:'livestock',  icon:'🐄', label:'Livestock',    qs:[{i:'🐄',t:'Integrating goats with crop farming?'},{i:'🐓',t:'Chicken manure for crop fertilizer?'},{i:'🐟',t:'Fish pond setup beside rice field?'},{i:'🐝',t:'Beekeeping for farm income — start?'},{i:'🐐',t:'Goat grazing to control weeds?'},{i:'🦆',t:'Ducks for pest control in paddy?'}] },
-    { id:'tools',      icon:'🚜', label:'Tools',        qs:[{i:'🚜',t:'Small tractor vs hand tractor — when?'},{i:'🔧',t:'Maintain sprayer for long life?'},{i:'⚡',t:'Solar pump for small irrigation?'},{i:'🌡️',t:'Soil moisture meter — worth buying?'},{i:'📱',t:'Best farming apps to track crops?'},{i:'✂️',t:'Pruning tools for fruit trees?'}] },
-    { id:'veggies',    icon:'🥬', label:'Vegetables',   qs:[{i:'🥬',t:'How to grow spinach in hot climate?'},{i:'🥕',t:'Carrot growing in sandy soil — tips?'},{i:'🫑',t:'Bell pepper care from seedling to fruit?'},{i:'🥒',t:'Cucumber trellising for better yield?'},{i:'🧅',t:'Onion planting depth and spacing?'},{i:'🥦',t:'Kale growing for year-round harvest?'}] },
-    { id:'grains',     icon:'🌾', label:'Grains & Rice', qs:[{i:'🌾',t:'Rice varieties best for flood tolerance?'},{i:'🌽',t:'Corn spacing for maximum yield?'},{i:'🫘',t:'Soybean nitrogen fixation in soil?'},{i:'🌾',t:'Wheat growing in tropical climate?'},{i:'🌾',t:'Paddy water management by growth stage?'},{i:'🫙',t:'Milling rice at small scale — options?'}] },
-    { id:'spices',     icon:'🌶️', label:'Spices & Chili', qs:[{i:'🌶️',t:'Boost chili yield naturally?'},{i:'🧄',t:'Garlic growing season and harvest?'},{i:'🫚',t:'Ginger intercropping with other crops?'},{i:'🌿',t:'Turmeric — best soil and spacing?'},{i:'🌶️',t:'Chili drying methods for export quality?'},{i:'🧅',t:'Shallot growing for premium market?'}] },
-    { id:'fruits',     icon:'🍌', label:'Fruits',       qs:[{i:'🍌',t:'Banana bunch care after flowering?'},{i:'🥭',t:'Mango tree pruning for more fruit?'},{i:'🍍',t:'Pineapple ratoon management?'},{i:'🍉',t:'Watermelon pollination by hand?'},{i:'🍈',t:'Papaya sex — male, female, hermaphrodite?'},{i:'🫐',t:'Dragon fruit trellis system?'}] },
-    { id:'analysis',   icon:'📊', label:'Land Analysis', qs:[{i:'📊',t:'How to read a soil test report?'},{i:'🗺️',t:'Mapping low-yield zones in my field?'},{i:'🛰️',t:'Using satellite images to monitor crops?'},{i:'📏',t:'Calculating fertilizer needs per hectare?'},{i:'🔬',t:'When to send soil to lab for testing?'},{i:'💧',t:'Water quality test for irrigation?'}] },
-    { id:'composting', icon:'♻️', label:'Composting',   qs:[{i:'♻️',t:'Vermicompost from kitchen scraps?'},{i:'🌡️',t:'Hot composting — ideal temperature?'},{i:'🍂',t:'Carbon to nitrogen ratio in compost?'},{i:'💧',t:'Moisture level in compost pile?'},{i:'⏱️',t:'How long until compost is ready?'},{i:'🌱',t:'Compost tea — make and apply?'}] },
-  ],
-  id: [
-    { id:'pests',      icon:'🪲', label:'Hama',         qs:[{i:'🪲',t:'Cara mengendalikan kutu daun pada kol?'},{i:'🐛',t:'Semprotan organik terbaik untuk ulat?'},{i:'🐀',t:'Pengendalian tikus di sawah?'},{i:'🦟',t:'Atasi thrips pada tanaman cabai?'},{i:'🐌',t:'Jauhkan siput dari bibit tanaman?'},{i:'🪳',t:'Kutu kebul pada tomat — apa solusinya?'}] },
-    { id:'disease',    icon:'🦠', label:'Penyakit',      qs:[{i:'🍂',t:'Daun kuning pada padi — kenapa?'},{i:'🍄',t:'Hawar jamur pada daun jagung?'},{i:'🫙',t:'Layu bakteri pada tomat — obatnya?'},{i:'💀',t:'Busuk akar semangka — cara menyelamatkan?'},{i:'🌫️',t:'Embun tepung pada mentimun?'},{i:'🟤',t:'Bercak coklat pada daun padi?'}] },
-    { id:'soil',       icon:'🪨', label:'Tanah & Kompos', qs:[{i:'🪨',t:'Cara uji pH tanah di rumah?'},{i:'💩',t:'Rasio kompos terbaik untuk sayuran?'},{i:'🌿',t:'Tanaman penutup untuk memperbaiki tanah?'},{i:'🧪',t:'Kapan menambah kapur pada tanah asam?'},{i:'🔄',t:'Seberapa sering membalik tumpukan kompos?'},{i:'🌱',t:'Perbaikan tanah berpasir untuk retensi air?'}] },
-    { id:'water',      icon:'💧', label:'Irigasi',       qs:[{i:'💧',t:'Irigasi tetes vs sprinkler — mana lebih baik?'},{i:'🌊',t:'Berapa air untuk padi per minggu?'},{i:'⏰',t:'Waktu terbaik untuk menyiram tanaman?'},{i:'🌡️',t:'Jadwal irigasi musim kemarau?'},{i:'🚿',t:'Tips hemat air untuk petani kecil?'},{i:'📏',t:'Kedalaman irigasi yang ideal?'}] },
-    { id:'harvest',    icon:'🌾', label:'Panen',         qs:[{i:'🌾',t:'Tanda padi siap dipanen?'},{i:'🍅',t:'Cara petik tomat saat kematangan terbaik?'},{i:'📅',t:'Waktu panen terbaik untuk hasil maksimal?'},{i:'🌽',t:'Kapan panen jagung untuk rasa manis?'},{i:'🫑',t:'Panen cabai — hijau atau merah dulu?'},{i:'🥦',t:'Panen brokoli sebelum berbunga?'}] },
-    { id:'market',     icon:'💰', label:'Pasar',         qs:[{i:'💰',t:'Kapan waktu terbaik jual beras?'},{i:'📈',t:'Cara negosiasi dengan tengkulak?'},{i:'🏪',t:'Menjual langsung ke pasar — tips?'},{i:'📦',t:'Penyimpanan pascapanen agar kualitas terjaga?'},{i:'🤝',t:'Cara mencari pembeli massal untuk hasil tani?'},{i:'💵',t:'Tren harga cabai musim ini?'}] },
-    { id:'weather',    icon:'🌦️', label:'Cuaca',         qs:[{i:'🌧️',t:'Apa yang ditanam di musim hujan?'},{i:'☀️',t:'Tanaman terbaik saat kemarau panjang?'},{i:'🌪️',t:'Lindungi tanaman dari angin kencang?'},{i:'🌡️',t:'Stres panas pada tanaman — cara atasi?'},{i:'🌫️',t:'Perlindungan kabut dan embun beku?'},{i:'⛈️',t:'Pemulihan ladang setelah banjir?'}] },
-    { id:'organic',    icon:'🌿', label:'Organik',       qs:[{i:'🌿',t:'Pestisida alami dari daun mimba?'},{i:'🐝',t:'Tarik penyerbuk ke kebun saya?'},{i:'🐛',t:'Serangga bermanfaat yang perlu dijaga?'},{i:'♻️',t:'Buat kompos cair dari sisa dapur?'},{i:'🌱',t:'Tanam pendamping untuk usir hama?'},{i:'🧄',t:'Semprotan bawang putih — cara buat dan pakai?'}] },
-    { id:'seeds',      icon:'🫘', label:'Benih',         qs:[{i:'🫘',t:'Cara pilih benih terbaik untuk tanam?'},{i:'💦',t:'Rendam benih sebelum tanam — berapa lama?'},{i:'🌡️',t:'Suhu perkecambahan untuk sayuran?'},{i:'📦',t:'Simpan benih agar tetap viable?'},{i:'🔬',t:'Uji perkecambahan benih di rumah?'},{i:'🧬',t:'Benih hibrida vs benih lokal?'}] },
-    { id:'livestock',  icon:'🐄', label:'Ternak',        qs:[{i:'🐄',t:'Integrasi kambing dengan tanaman?'},{i:'🐓',t:'Kotoran ayam sebagai pupuk?'},{i:'🐟',t:'Kolam ikan di sebelah sawah?'},{i:'🐝',t:'Budidaya lebah madu — mulai dari mana?'},{i:'🐐',t:'Kambing untuk kendalikan gulma?'},{i:'🦆',t:'Bebek untuk pengendalian hama padi?'}] },
-    { id:'tools',      icon:'🚜', label:'Alat Tani',     qs:[{i:'🚜',t:'Traktor kecil vs traktor tangan — kapan?'},{i:'🔧',t:'Rawat sprayer agar awet?'},{i:'⚡',t:'Pompa tenaga surya untuk irigasi kecil?'},{i:'🌡️',t:'Alat ukur kelembaban tanah — perlu beli?'},{i:'📱',t:'Aplikasi pertanian terbaik untuk pantau lahan?'},{i:'✂️',t:'Alat pemangkas untuk pohon buah?'}] },
-    { id:'veggies',    icon:'🥬', label:'Sayuran',       qs:[{i:'🥬',t:'Cara tanam bayam di iklim panas?'},{i:'🥕',t:'Wortel di tanah berpasir — tips?'},{i:'🫑',t:'Perawatan paprika dari bibit sampai buah?'},{i:'🥒',t:'Rambatan mentimun untuk hasil lebih baik?'},{i:'🧅',t:'Kedalaman dan jarak tanam bawang?'},{i:'🥦',t:'Kale untuk panen sepanjang tahun?'}] },
-    { id:'grains',     icon:'🌾', label:'Padi & Serealia', qs:[{i:'🌾',t:'Varietas padi tahan genangan?'},{i:'🌽',t:'Jarak tanam jagung untuk hasil maksimal?'},{i:'🫘',t:'Fiksasi nitrogen kedelai di tanah?'},{i:'🌾',t:'Gandum di iklim tropis — bisa?'},{i:'🌾',t:'Manajemen air sawah per fase tumbuh?'},{i:'🫙',t:'Penggilingan padi skala kecil — pilihan?'}] },
-    { id:'spices',     icon:'🌶️', label:'Cabai & Rempah', qs:[{i:'🌶️',t:'Tingkatkan hasil cabai secara alami?'},{i:'🧄',t:'Musim tanam dan panen bawang putih?'},{i:'🫚',t:'Tumpang sari jahe dengan tanaman lain?'},{i:'🌿',t:'Kunyit — tanah dan jarak tanam terbaik?'},{i:'🌶️',t:'Pengeringan cabai untuk kualitas ekspor?'},{i:'🧅',t:'Budidaya bawang merah untuk pasar premium?'}] },
-    { id:'fruits',     icon:'🍌', label:'Buah-buahan',   qs:[{i:'🍌',t:'Perawatan tandan pisang setelah berbunga?'},{i:'🥭',t:'Pemangkasan pohon mangga agar banyak buah?'},{i:'🍍',t:'Manajemen ratoon nanas?'},{i:'🍉',t:'Penyerbukan semangka secara manual?'},{i:'🍈',t:'Jenis kelamin pepaya — jantan, betina, hermafrodit?'},{i:'🫐',t:'Sistem rambatan buah naga?'}] },
-    { id:'analysis',   icon:'📊', label:'Analisis Lahan', qs:[{i:'📊',t:'Cara baca laporan uji tanah?'},{i:'🗺️',t:'Pemetaan zona hasil rendah di lahan saya?'},{i:'🛰️',t:'Pakai citra satelit untuk pantau tanaman?'},{i:'📏',t:'Hitung kebutuhan pupuk per hektar?'},{i:'🔬',t:'Kapan kirim tanah ke lab untuk uji?'},{i:'💧',t:'Uji kualitas air untuk irigasi?'}] },
-    { id:'composting', icon:'♻️', label:'Pengomposan',   qs:[{i:'♻️',t:'Kascing dari sisa dapur?'},{i:'🌡️',t:'Pengomposan panas — suhu ideal?'},{i:'🍂',t:'Rasio karbon dan nitrogen dalam kompos?'},{i:'💧',t:'Kadar air dalam tumpukan kompos?'},{i:'⏱️',t:'Berapa lama sampai kompos siap pakai?'},{i:'🌱',t:'Teh kompos — cara buat dan aplikasinya?'}] },
-  ],
-};
-
-/* ─── STRINGS ─── */
 const STR = {
-  en: { msg:"Hey there, farmer. What's growing today?", sub:"Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.", catLabel:"Browse categories", nc:"New conversation", ph:"Ask about your crops...", lang:"Language" },
-  id: { msg:"Hei petani. Apa yang sedang tumbuh hari ini?", sub:"Tanya apa saja soal tanaman, tanah, hama, atau panen. Saya kasih saran yang langsung dan praktis.", catLabel:"Jelajahi kategori", nc:"Percakapan baru", ph:"Tanya soal tanamanmu...", lang:"Bahasa" },
-  es: { msg:"Hola agricultor. ¿Qué está creciendo hoy?", sub:"Pregunta sobre cultivos, suelo, plagas o cosecha. Te doy consejos directos y prácticos.", catLabel:"Explorar categorías", nc:"Nueva conversación", ph:"Pregunta sobre tus cultivos...", lang:"Idioma" },
-  hi: { msg:"नमस्ते किसान। आज क्या उग रहा है?", sub:"फसल, मिट्टी, कीट या कटाई के बारे में कुछ भी पूछें। सीधी और व्यावहारिक सलाह मिलेगी।", catLabel:"श्रेणियां देखें", nc:"नई बातचीत", ph:"अपनी फसल के बारे में पूछें...", lang:"भाषा" },
-  fr: { msg:"Bonjour agriculteur. Qu'est-ce qui pousse aujourd'hui?", sub:"Posez vos questions sur les cultures, le sol, les nuisibles ou la récolte.", catLabel:"Parcourir les catégories", nc:"Nouvelle conversation", ph:"Posez une question sur vos cultures...", lang:"Langue" },
-  pt: { msg:"Olá agricultor. O que está crescendo hoje?", sub:"Pergunte sobre culturas, solo, pragas ou colheita. Darei conselhos diretos e práticos.", catLabel:"Explorar categorias", nc:"Nova conversa", ph:"Pergunte sobre suas plantações...", lang:"Idioma" },
-  ja: { msg:"こんにちは農家さん。今日は何が育っていますか?", sub:"作物、土壌、害虫、収穫について何でも聞いてください。実用的なアドバイスをします。", catLabel:"カテゴリを見る", nc:"新しい会話", ph:"作物について質問してください...", lang:"言語" },
-  sw: { msg:"Habari mkulima. Nini kinakua leo?", sub:"Niulize chochote kuhusu mazao, udongo, wadudu, au mavuno.", catLabel:"Vinjari kategoria", nc:"Mazungumzo mapya", ph:"Uliza kuhusu mazao yako...", lang:"Lugha" },
-  bn: { msg:"নমস্কার কৃষক। আজ কী বাড়ছে?", sub:"ফসল, মাটি, পোকামাকড় বা ফসল কাটা নিয়ে যেকোনো প্রশ্ন করুন।", catLabel:"বিভাগ দেখুন", nc:"নতুন কথোপকথন", ph:"আপনার ফসল সম্পর্কে জিজ্ঞেস করুন...", lang:"ভাষা" },
-  vi: { msg:"Xin chào nông dân. Hôm nay đang trồng gì?", sub:"Hỏi tôi về cây trồng, đất, sâu bệnh hoặc thu hoạch.", catLabel:"Duyệt danh mục", nc:"Cuộc trò chuyện mới", ph:"Hỏi về cây trồng của bạn...", lang:"Ngôn ngữ" },
-  th: { msg:"สวัสดีเกษตรกร วันนี้กำลังปลูกอะไรอยู่?", sub:"ถามฉันเกี่ยวกับพืชผล ดิน แมลงศัตรูพืช หรือการเก็บเกี่ยว", catLabel:"เลือกหมวดหมู่", nc:"บทสนทนาใหม่", ph:"ถามเกี่ยวกับพืชของคุณ...", lang:"ภาษา" },
-  tl: { msg:"Kamusta magsasaka. Ano ang lumalaki ngayon?", sub:"Magtanong tungkol sa iyong mga pananim, lupa, peste, o pag-aani.", catLabel:"I-browse ang mga kategorya", nc:"Bagong usapan", ph:"Magtanong tungkol sa iyong pananim...", lang:"Wika" },
-  am: { msg:"ሰላም ገበሬ። ዛሬ ምን እያደገ ነው?", sub:"ስለ ሰብሎ፣ ምድር፣ ተባዮች ወይም ምርት ማንኛውንም ነገር ይጠይቁኝ።", catLabel:"ምድቦችን ያስሱ", nc:"አዲስ ውይይት", ph:"ስለ ሰብሎዎ ይጠይቁ...", lang:"ቋንቋ" },
-  my: { msg:"မင်္ဂလာပါ တောင်သူ။ ဒီနေ့ ဘာစိုက်နေပါသလဲ?", sub:"သီးနှံ၊ မြေ၊ ပိုးမွှား သို့မဟုတ် အမွှေးအကြိုင်နှင့်ပတ်သက်ပြီး မေးပါ။", catLabel:"အမျိုးအစားများကြည့်ရှုပါ", nc:"စကားဝိုင်းအသစ်", ph:"သင့်သီးနှံများအကြောင်းမေးပါ...", lang:"ဘာသာစကား" },
-  tr: { msg:"Merhaba çiftçi. Bugün ne yetişiyor?", sub:"Ürünler, toprak, zararlılar veya hasat hakkında her şeyi sorun.", catLabel:"Kategorilere göz at", nc:"Yeni konuşma", ph:"Ürünleriniz hakkında sorun...", lang:"Dil" },
+  en:{msg:"Hey there, farmer. What's growing today?",sub:"Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.",catLabel:"Browse categories",nc:"New conversation",ph:"Ask about your crops...",hist:"Chat history",clearAll:"Clear all",histEmpty:"No saved conversations yet.\nStart a chat and it'll appear here.",back:"Back",langSheet:"Language",histBtn:"History"},
+  id:{msg:"Hei petani. Apa yang sedang tumbuh hari ini?",sub:"Tanya apa saja soal tanaman, tanah, hama, atau panen. Saya kasih saran yang langsung dan praktis.",catLabel:"Jelajahi kategori",nc:"Percakapan baru",ph:"Tanya soal tanamanmu...",hist:"Riwayat chat",clearAll:"Hapus semua",histEmpty:"Belum ada percakapan tersimpan.\nMulai chat dan akan muncul di sini.",back:"Kembali",langSheet:"Bahasa",histBtn:"Riwayat"},
+  es:{msg:"Hola agricultor. ¿Qué está creciendo hoy?",sub:"Pregunta sobre cultivos, suelo, plagas o cosecha. Te doy consejos directos y prácticos.",catLabel:"Explorar categorías",nc:"Nueva conversación",ph:"Pregunta sobre tus cultivos...",hist:"Historial de chat",clearAll:"Borrar todo",histEmpty:"Aún no hay conversaciones guardadas.",back:"Volver",langSheet:"Idioma",histBtn:"Historial"},
+  hi:{msg:"नमस्ते किसान। आज क्या उग रहा है?",sub:"फसल, मिट्टी, कीट या कटाई के बारे में कुछ भी पूछें।",catLabel:"श्रेणियां देखें",nc:"नई बातचीत",ph:"अपनी फसल के बारे में पूछें...",hist:"चैट इतिहास",clearAll:"सब हटाएं",histEmpty:"अभी कोई बातचीत नहीं।",back:"वापस",langSheet:"भाषा",histBtn:"इतिहास"},
+  fr:{msg:"Bonjour agriculteur. Qu'est-ce qui pousse aujourd'hui?",sub:"Posez vos questions sur les cultures, le sol, les nuisibles ou la récolte.",catLabel:"Parcourir les catégories",nc:"Nouvelle conversation",ph:"Posez une question sur vos cultures...",hist:"Historique des chats",clearAll:"Tout effacer",histEmpty:"Aucune conversation sauvegardée.",back:"Retour",langSheet:"Langue",histBtn:"Historique"},
+  pt:{msg:"Olá agricultor. O que está crescendo hoje?",sub:"Pergunte sobre culturas, solo, pragas ou colheita.",catLabel:"Explorar categorias",nc:"Nova conversa",ph:"Pergunte sobre suas plantações...",hist:"Histórico de chat",clearAll:"Limpar tudo",histEmpty:"Nenhuma conversa salva ainda.",back:"Voltar",langSheet:"Idioma",histBtn:"Histórico"},
+  ja:{msg:"こんにちは農家さん。今日は何が育っていますか?",sub:"作物、土壌、害虫、収穫について何でも聞いてください。",catLabel:"カテゴリを見る",nc:"新しい会話",ph:"作物について質問してください...",hist:"チャット履歴",clearAll:"すべて削除",histEmpty:"保存された会話はまだありません。",back:"戻る",langSheet:"言語",histBtn:"履歴"},
+  sw:{msg:"Habari mkulima. Nini kinakua leo?",sub:"Niulize chochote kuhusu mazao, udongo, wadudu, au mavuno.",catLabel:"Vinjari kategoria",nc:"Mazungumzo mapya",ph:"Uliza kuhusu mazao yako...",hist:"Historia ya mazungumzo",clearAll:"Futa yote",histEmpty:"Hakuna mazungumzo yaliyohifadhiwa.",back:"Rudi",langSheet:"Lugha",histBtn:"Historia"},
+  bn:{msg:"নমস্কার কৃষক। আজ কী বাড়ছে?",sub:"ফসল, মাটি, পোকামাকড় বা ফসল কাটা নিয়ে যেকোনো প্রশ্ন করুন।",catLabel:"বিভাগ দেখুন",nc:"নতুন কথোপকথন",ph:"আপনার ফসল সম্পর্কে জিজ্ঞেস করুন...",hist:"চ্যাট ইতিহাস",clearAll:"সব মুছুন",histEmpty:"এখনো কোনো কথোপকথন সংরক্ষিত নেই।",back:"ফিরে যান",langSheet:"ভাষা",histBtn:"ইতিহাস"},
+  vi:{msg:"Xin chào nông dân. Hôm nay đang trồng gì?",sub:"Hỏi tôi về cây trồng, đất, sâu bệnh hoặc thu hoạch.",catLabel:"Duyệt danh mục",nc:"Cuộc trò chuyện mới",ph:"Hỏi về cây trồng của bạn...",hist:"Lịch sử trò chuyện",clearAll:"Xóa tất cả",histEmpty:"Chưa có cuộc trò chuyện được lưu.",back:"Quay lại",langSheet:"Ngôn ngữ",histBtn:"Lịch sử"},
+  th:{msg:"สวัสดีเกษตรกร วันนี้กำลังปลูกอะไรอยู่?",sub:"ถามฉันเกี่ยวกับพืชผล ดิน แมลงศัตรูพืช หรือการเก็บเกี่ยว",catLabel:"เลือกหมวดหมู่",nc:"บทสนทนาใหม่",ph:"ถามเกี่ยวกับพืชของคุณ...",hist:"ประวัติแชท",clearAll:"ลบทั้งหมด",histEmpty:"ยังไม่มีบทสนทนาที่บันทึกไว้",back:"กลับ",langSheet:"ภาษา",histBtn:"ประวัติ"},
+  tl:{msg:"Kamusta magsasaka. Ano ang lumalaki ngayon?",sub:"Magtanong tungkol sa iyong mga pananim, lupa, peste, o pag-aani.",catLabel:"I-browse ang mga kategorya",nc:"Bagong usapan",ph:"Magtanong tungkol sa iyong pananim...",hist:"Kasaysayan ng chat",clearAll:"Burahin lahat",histEmpty:"Wala pang naka-save na usapan.",back:"Bumalik",langSheet:"Wika",histBtn:"Kasaysayan"},
+  am:{msg:"ሰላም ገበሬ። ዛሬ ምን እያደገ ነው?",sub:"ስለ ሰብሎ፣ ምድር፣ ተባዮች ወይም ምርት ማንኛውንም ነገር ይጠይቁኝ።",catLabel:"ምድቦችን ያስሱ",nc:"አዲስ ውይይት",ph:"ስለ ሰብሎዎ ይጠይቁ...",hist:"የቻት ታሪክ",clearAll:"ሁሉንም ሰርዝ",histEmpty:"እስካሁን ምንም ውይይት አልተቀመጠም።",back:"ተመለስ",langSheet:"ቋንቋ",histBtn:"ታሪክ"},
+  my:{msg:"မင်္ဂလာပါ တောင်သူ။ ဒီနေ့ ဘာစိုက်နေပါသလဲ?",sub:"သီးနှံ၊ မြေ၊ ပိုးမွှား သို့မဟုတ် အမွှေးအကြိုင်နှင့်ပတ်သက်ပြီး မေးပါ။",catLabel:"အမျိုးအစားများကြည့်ရှုပါ",nc:"စကားဝိုင်းအသစ်",ph:"သင့်သီးနှံများအကြောင်းမေးပါ...",hist:"ချတ်မှတ်တမ်း",clearAll:"အားလုံးဖျက်ရန်",histEmpty:"သိမ်းထားသောစကားဝိုင်းမရှိသေးပါ",back:"နောက်သို့",langSheet:"ဘာသာစကား",histBtn:"မှတ်တမ်း"},
+  tr:{msg:"Merhaba çiftçi. Bugün ne yetişiyor?",sub:"Ürünler, toprak, zararlılar veya hasat hakkında her şeyi sorun.",catLabel:"Kategorilere göz at",nc:"Yeni konuşma",ph:"Ürünleriniz hakkında sorun...",hist:"Sohbet geçmişi",clearAll:"Tümünü temizle",histEmpty:"Henüz kayıtlı konuşma yok.",back:"Geri",langSheet:"Dil",histBtn:"Geçmiş"},
 };
 
-// fallback: use 'en' categories for langs without specific cats
-const getCats = (lang) => CATEGORIES[lang] || CATEGORIES['en'];
+const CATS_EN = [
+  {id:'pests',     icon:'🪲',label:'Pests',      qs:[{i:'🪲',t:'How to control aphids on cabbage?'},{i:'🐛',t:'Best organic spray for caterpillars?'},{i:'🐀',t:'Rodent control in rice paddies?'},{i:'🦟',t:'Stop thrips on chili plants fast?'},{i:'🐌',t:'Keep slugs away from young seedlings?'},{i:'🪳',t:'Whitefly on tomatoes — what works?'},{i:'🐝',t:'Prevent stem borers in corn?'},{i:'🐜',t:'Ant colonies damaging root crops?'}]},
+  {id:'disease',   icon:'🦠',label:'Disease',    qs:[{i:'🍂',t:'Yellow leaves on my paddy — why?'},{i:'🍄',t:'Fungal blight on corn — treatment?'},{i:'🫙',t:'Bacterial wilt on tomatoes — cure?'},{i:'💀',t:'Root rot in watermelon — save it?'},{i:'🌫️',t:'Powdery mildew on cucumber leaves?'},{i:'🟤',t:'Brown spots spreading on rice?'},{i:'🌿',t:'Mosaic virus on chili — remove plant?'},{i:'🔴',t:'Red rust on wheat leaves?'}]},
+  {id:'soil',      icon:'🪨',label:'Soil',        qs:[{i:'🪨',t:'Test soil pH at home easily?'},{i:'💩',t:'Best compost NPK ratio for veggies?'},{i:'🌿',t:'Cover crops that fix nitrogen?'},{i:'🧪',t:'When to lime acidic soil?'},{i:'🌱',t:'Sandy soil fix for water retention?'},{i:'🔬',t:'Soil structure — how to improve tilth?'},{i:'🌍',t:'Subsoil compaction — break it cheaply?'},{i:'💧',t:'Waterlogged soil — improve drainage?'}]},
+  {id:'water',     icon:'💧',label:'Irrigation',  qs:[{i:'💧',t:'Drip vs sprinkler — which suits me?'},{i:'🌊',t:'Water depth for paddy each week?'},{i:'⏰',t:'Best hour of day to irrigate?'},{i:'🌡️',t:'Dry-season irrigation schedule?'},{i:'🚿',t:'Water-saving tips for small farms?'},{i:'📏',t:'How deep should irrigation reach?'},{i:'⚡',t:'Solar pump setup for remote field?'},{i:'🪣',t:'Rainwater harvesting for farming?'}]},
+  {id:'harvest',   icon:'🌾',label:'Harvest',     qs:[{i:'🌾',t:'Signs paddy is ready to harvest?'},{i:'🍅',t:'Pick tomatoes at peak ripeness?'},{i:'📅',t:'Best time to harvest to boost yield?'},{i:'🌽',t:'When does corn reach sweetness peak?'},{i:'🫑',t:'Chili — harvest green or wait red?'},{i:'🥦',t:'Cut broccoli before it flowers?'},{i:'🍌',t:'Banana cutting — which bunch first?'},{i:'🧅',t:'Onion — when to stop watering before harvest?'}]},
+  {id:'market',    icon:'💰',label:'Market',      qs:[{i:'💰',t:'Best time to sell rice this season?'},{i:'📈',t:'How to negotiate with middlemen?'},{i:'🏪',t:'Sell directly to market — how to start?'},{i:'📦',t:'Post-harvest storage to keep grade?'},{i:'🤝',t:'Find bulk buyers for my crops?'},{i:'💵',t:'Chili price outlook for this month?'},{i:'🧾',t:'How to get a fair price for produce?'},{i:'🚛',t:'Transport crops to market cheaply?'}]},
+  {id:'weather',   icon:'🌦️',label:'Weather',     qs:[{i:'🌧️',t:'Best crops to plant in rainy season?'},{i:'☀️',t:'Drought-tolerant crops for long dry?'},{i:'🌪️',t:'Protect plants from strong wind?'},{i:'🌡️',t:'Heat stress in crops — manage it?'},{i:'⛈️',t:'Flood recovery plan for my field?'},{i:'🌫️',t:'Fog and frost damage protection?'},{i:'🌬️',t:'Wind breaks — best trees to plant?'},{i:'📊',t:'Read a seasonal weather forecast?'}]},
+  {id:'organic',   icon:'🌿',label:'Organic',     qs:[{i:'🌿',t:'Homemade neem oil pesticide?'},{i:'🐝',t:'Attract bees and pollinators to farm?'},{i:'🐛',t:'Beneficial bugs to keep on my field?'},{i:'♻️',t:'Liquid compost from kitchen waste?'},{i:'🌱',t:'Companion planting — what grows together?'},{i:'🧄',t:'Garlic-chili spray — recipe?'},{i:'🌾',t:'Fermented plant juice (FPJ) for crops?'},{i:'🍵',t:'Compost tea application timing?'}]},
+  {id:'seeds',     icon:'🫘',label:'Seeds',       qs:[{i:'🫘',t:'Select the best seeds for planting?'},{i:'💦',t:'Seed soaking duration before planting?'},{i:'🌡️',t:'Germination temperature for each crop?'},{i:'📦',t:'Store seeds to keep them viable?'},{i:'🔬',t:'Germination test at home — how?'},{i:'🧬',t:'Hybrid vs open-pollinated seeds?'},{i:'📅',t:'Seed viability — how long is too long?'},{i:'🫙',t:'Collect and dry seeds from own harvest?'}]},
+  {id:'livestock', icon:'🐄',label:'Livestock',   qs:[{i:'🐄',t:'Integrate goats with crop farming?'},{i:'🐓',t:'Use chicken manure safely on crops?'},{i:'🐟',t:'Fish pond setup beside rice field?'},{i:'🐝',t:'Start beekeeping for farm income?'},{i:'🐐',t:'Goats for weed control strategy?'},{i:'🦆',t:'Ducks for pest control in paddy?'},{i:'🐖',t:'Pig waste as biogas for the farm?'},{i:'🐇',t:'Rabbit composting system?'}]},
+  {id:'tools',     icon:'🚜',label:'Farm Tools',  qs:[{i:'🚜',t:'Small tractor vs walk-behind tractor?'},{i:'🔧',t:'Maintain hand sprayer for long life?'},{i:'⚡',t:'Solar drip pump — worth it?'},{i:'🌡️',t:'Soil moisture meter — which to buy?'},{i:'📱',t:'Best apps to track crop progress?'},{i:'✂️',t:'Pruning tools for fruit trees?'},{i:'🪚',t:'Sharpening machete and hoe at home?'},{i:'🌡️',t:'Refractometer — why farmers use it?'}]},
+  {id:'veggies',   icon:'🥬',label:'Vegetables',  qs:[{i:'🥬',t:'Grow spinach in hot tropical climate?'},{i:'🥕',t:'Carrot farming in sandy soil — tips?'},{i:'🫑',t:'Bell pepper care from seedling to fruit?'},{i:'🥒',t:'Cucumber trellising for higher yield?'},{i:'🧅',t:'Onion planting depth and spacing?'},{i:'🥦',t:'Kale for year-round harvest?'},{i:'🌽',t:'Sweet corn vs field corn — difference?'},{i:'🍆',t:'Eggplant care to avoid fruit drop?'}]},
+  {id:'grains',    icon:'🌾',label:'Grains & Rice',qs:[{i:'🌾',t:'Rice varieties best for flood areas?'},{i:'🌽',t:'Corn spacing for maximum yield?'},{i:'🫘',t:'Soybean nitrogen fixation benefits?'},{i:'🌾',t:'Paddy water management by growth stage?'},{i:'🫙',t:'Small-scale rice milling options?'},{i:'🌾',t:'SRI method — is it better than conventional?'},{i:'🫛',t:'Mung bean after paddy — good idea?'},{i:'🍚',t:'Why is my rice yield dropping?'}]},
+  {id:'spices',    icon:'🌶️',label:'Spices & Chili',qs:[{i:'🌶️',t:'Boost chili yield naturally?'},{i:'🧄',t:'Garlic growing season and harvest time?'},{i:'🫚',t:'Ginger intercropping with other crops?'},{i:'🌿',t:'Turmeric — best soil and plant spacing?'},{i:'🌶️',t:'Dry chili for export quality?'},{i:'🧅',t:'Shallot growing for premium market?'},{i:'🌿',t:'Lemongrass planting — commercial use?'},{i:'🌸',t:'Cardamom — can I grow it here?'}]},
+  {id:'fruits',    icon:'🍌',label:'Fruits',      qs:[{i:'🍌',t:'Banana bunch care after flowering?'},{i:'🥭',t:'Mango tree pruning for more fruit?'},{i:'🍍',t:'Pineapple ratoon crop management?'},{i:'🍉',t:'Watermelon hand pollination guide?'},{i:'🍈',t:'Papaya — male vs hermaphrodite?'},{i:'🫐',t:'Dragon fruit trellis system setup?'},{i:'🍋',t:'Citrus nutrient deficiency — signs?'},{i:'🍊',t:'Jackfruit harvesting at the right time?'}]},
+  {id:'ornamental',icon:'🌸',label:'Ornamental',  qs:[{i:'🌸',t:'Anthurium leaf yellowing — why?'},{i:'🌺',t:'Orchid care in tropical humidity?'},{i:'🌻',t:'Sunflower for cut flower market?'},{i:'🪴',t:'Indoor plants best for high humidity?'},{i:'🌿',t:'Propagate ornamentals by cutting?'},{i:'🌹',t:'Rose plant care in hot climate?'},{i:'🌼',t:'Chrysanthemum for local flower market?'},{i:'🎋',t:'Bamboo landscaping — varieties?'}]},
+  {id:'analysis',  icon:'📊',label:'Land Analysis',qs:[{i:'📊',t:'Read a soil test report step by step?'},{i:'🗺️',t:'Map low-yield zones in my field?'},{i:'🛰️',t:'Use satellite images to monitor crops?'},{i:'📏',t:'Calculate fertilizer needs per hectare?'},{i:'🔬',t:'When should I send soil to a lab?'},{i:'💧',t:'Water quality test before irrigation?'},{i:'📐',t:'Calculate how many plants per hectare?'},{i:'🌍',t:'Slope and erosion management?'}]},
+  {id:'composting',icon:'♻️',label:'Composting',  qs:[{i:'♻️',t:'Vermicompost from kitchen scraps?'},{i:'🌡️',t:'Hot composting — ideal temperature range?'},{i:'🍂',t:'Carbon to nitrogen ratio in compost?'},{i:'💧',t:'Right moisture level in compost pile?'},{i:'⏱️',t:'How long until compost is ready to use?'},{i:'🌱',t:'Compost tea — make and apply correctly?'},{i:'🐛',t:'Bokashi fermentation for fast compost?'},{i:'🌾',t:'Rice straw composting at home?'}]},
+];
 
-let lang = 'en';
-let activeCat = 0;
-let msgs = [];
-let typing = false;
+const CATS_ID = [
+  {id:'pests',     icon:'🪲',label:'Hama',           qs:[{i:'🪲',t:'Kendalikan kutu daun pada kol?'},{i:'🐛',t:'Semprotan organik terbaik untuk ulat?'},{i:'🐀',t:'Pengendalian tikus di sawah?'},{i:'🦟',t:'Atasi thrips pada cabai dengan cepat?'},{i:'🐌',t:'Jauhkan siput dari bibit muda?'},{i:'🪳',t:'Kutu kebul tomat — solusinya?'},{i:'🐝',t:'Cegah penggerek batang jagung?'},{i:'🐜',t:'Koloni semut merusak umbi?'}]},
+  {id:'disease',   icon:'🦠',label:'Penyakit',       qs:[{i:'🍂',t:'Daun kuning pada padi — kenapa?'},{i:'🍄',t:'Hawar jamur jagung — cara obati?'},{i:'🫙',t:'Layu bakteri tomat — obatnya?'},{i:'💀',t:'Busuk akar semangka — cara selamatkan?'},{i:'🌫️',t:'Embun tepung mentimun?'},{i:'🟤',t:'Bercak coklat menyebar di padi?'},{i:'🌿',t:'Virus mosaik cabai — cabut tanaman?'},{i:'🔴',t:'Karat merah pada gandum?'}]},
+  {id:'soil',      icon:'🪨',label:'Tanah',           qs:[{i:'🪨',t:'Uji pH tanah di rumah?'},{i:'💩',t:'Rasio NPK kompos terbaik untuk sayur?'},{i:'🌿',t:'Tanaman penutup fiksasi nitrogen?'},{i:'🧪',t:'Kapan menambah kapur ke tanah asam?'},{i:'🌱',t:'Perbaiki tanah berpasir agar tahan air?'},{i:'🔬',t:'Perbaiki struktur tanah — bagaimana?'},{i:'🌍',t:'Pemadatan lapisan bawah tanah?'},{i:'💧',t:'Tanah tergenang — perbaiki drainase?'}]},
+  {id:'water',     icon:'💧',label:'Irigasi',         qs:[{i:'💧',t:'Irigasi tetes vs sprinkler mana cocok?'},{i:'🌊',t:'Ketinggian air sawah tiap minggu?'},{i:'⏰',t:'Waktu terbaik irigasi dalam sehari?'},{i:'🌡️',t:'Jadwal irigasi musim kemarau?'},{i:'🚿',t:'Tips hemat air untuk petani kecil?'},{i:'📏',t:'Kedalaman irigasi ideal?'},{i:'⚡',t:'Pompa tenaga surya untuk ladang jauh?'},{i:'🪣',t:'Tampung air hujan untuk pertanian?'}]},
+  {id:'harvest',   icon:'🌾',label:'Panen',           qs:[{i:'🌾',t:'Tanda padi siap dipanen?'},{i:'🍅',t:'Petik tomat di kematangan terbaik?'},{i:'📅',t:'Waktu panen terbaik tingkatkan hasil?'},{i:'🌽',t:'Kapan jagung mencapai puncak manisnya?'},{i:'🫑',t:'Cabai — panen hijau atau tunggu merah?'},{i:'🥦',t:'Potong brokoli sebelum berbunga?'},{i:'🍌',t:'Potong tandan pisang — mana lebih dulu?'},{i:'🧅',t:'Bawang — kapan hentikan siram sebelum panen?'}]},
+  {id:'market',    icon:'💰',label:'Pasar',           qs:[{i:'💰',t:'Waktu terbaik jual beras musim ini?'},{i:'📈',t:'Cara negosiasi dengan tengkulak?'},{i:'🏪',t:'Jual langsung ke pasar — mulai dari mana?'},{i:'📦',t:'Simpan hasil panen agar tetap berkualitas?'},{i:'🤝',t:'Cari pembeli massal untuk hasil tani?'},{i:'💵',t:'Proyeksi harga cabai bulan ini?'},{i:'🧾',t:'Dapat harga adil untuk hasil tani?'},{i:'🚛',t:'Angkut hasil tani ke pasar dengan murah?'}]},
+  {id:'weather',   icon:'🌦️',label:'Cuaca',           qs:[{i:'🌧️',t:'Tanaman terbaik untuk musim hujan?'},{i:'☀️',t:'Tanaman tahan kering untuk kemarau?'},{i:'🌪️',t:'Lindungi tanaman dari angin kencang?'},{i:'🌡️',t:'Stres panas pada tanaman — cara atasi?'},{i:'⛈️',t:'Rencana pemulihan setelah banjir?'},{i:'🌫️',t:'Perlindungan dari kabut dan embun beku?'},{i:'🌬️',t:'Pohon penahan angin yang bagus?'},{i:'📊',t:'Cara baca prakiraan cuaca musiman?'}]},
+  {id:'organic',   icon:'🌿',label:'Organik',         qs:[{i:'🌿',t:'Pestisida minyak nimba buatan sendiri?'},{i:'🐝',t:'Tarik lebah dan penyerbuk ke kebun?'},{i:'🐛',t:'Serangga bermanfaat yang perlu dijaga?'},{i:'♻️',t:'Kompos cair dari sisa dapur?'},{i:'🌱',t:'Tanam pendamping — apa yang cocok berdampingan?'},{i:'🧄',t:'Semprotan bawang putih-cabai — resepnya?'},{i:'🌾',t:'Jus tanaman fermentasi (FPJ) untuk tanaman?'},{i:'🍵',t:'Waktu aplikasi teh kompos?'}]},
+  {id:'seeds',     icon:'🫘',label:'Benih',           qs:[{i:'🫘',t:'Pilih benih terbaik untuk tanam?'},{i:'💦',t:'Durasi rendam benih sebelum tanam?'},{i:'🌡️',t:'Suhu perkecambahan tiap tanaman?'},{i:'📦',t:'Simpan benih agar tetap viable?'},{i:'🔬',t:'Uji perkecambahan di rumah — bagaimana?'},{i:'🧬',t:'Benih hibrida vs benih lokal?'},{i:'📅',t:'Daya simpan benih — kapan kadaluarsa?'},{i:'🫙',t:'Kumpul dan keringkan benih dari panen sendiri?'}]},
+  {id:'livestock', icon:'🐄',label:'Ternak',          qs:[{i:'🐄',t:'Integrasi kambing dengan tanaman?'},{i:'🐓',t:'Pakai kotoran ayam dengan aman di tanaman?'},{i:'🐟',t:'Setup kolam ikan di sebelah sawah?'},{i:'🐝',t:'Mulai budi daya lebah madu untuk income?'},{i:'🐐',t:'Strategi kambing untuk kendalikan gulma?'},{i:'🦆',t:'Bebek untuk pengendalian hama padi?'},{i:'🐖',t:'Limbah babi sebagai biogas untuk ladang?'},{i:'🐇',t:'Sistem kompos dari kelinci?'}]},
+  {id:'tools',     icon:'🚜',label:'Alat Tani',       qs:[{i:'🚜',t:'Traktor kecil vs traktor tangan — kapan?'},{i:'🔧',t:'Rawat sprayer manual agar awet?'},{i:'⚡',t:'Pompa tetes tenaga surya — worth it?'},{i:'🌡️',t:'Alat ukur kelembaban tanah — beli yang mana?'},{i:'📱',t:'Aplikasi terbaik pantau perkembangan tanaman?'},{i:'✂️',t:'Alat pangkas pohon buah?'},{i:'🪚',t:'Asah parang dan cangkul di rumah?'},{i:'🌡️',t:'Refraktometer — kenapa petani pakai?'}]},
+  {id:'veggies',   icon:'🥬',label:'Sayuran',         qs:[{i:'🥬',t:'Tanam bayam di iklim tropis panas?'},{i:'🥕',t:'Wortel di tanah berpasir — tips?'},{i:'🫑',t:'Perawatan paprika dari bibit sampai buah?'},{i:'🥒',t:'Rambatan mentimun untuk hasil lebih besar?'},{i:'🧅',t:'Kedalaman dan jarak tanam bawang?'},{i:'🥦',t:'Kale untuk panen sepanjang tahun?'},{i:'🌽',t:'Jagung manis vs jagung biasa — bedanya?'},{i:'🍆',t:'Perawatan terong agar tidak rontok buah?'}]},
+  {id:'grains',    icon:'🌾',label:'Padi & Serealia', qs:[{i:'🌾',t:'Varietas padi terbaik untuk daerah banjir?'},{i:'🌽',t:'Jarak tanam jagung untuk hasil maksimal?'},{i:'🫘',t:'Manfaat fiksasi nitrogen kedelai?'},{i:'🌾',t:'Manajemen air sawah per fase tumbuh?'},{i:'🫙',t:'Pilihan penggilingan padi skala kecil?'},{i:'🌾',t:'Metode SRI — lebih baik dari konvensional?'},{i:'🫛',t:'Kacang hijau setelah padi — bagus?'},{i:'🍚',t:'Kenapa hasil padi saya terus menurun?'}]},
+  {id:'spices',    icon:'🌶️',label:'Cabai & Rempah', qs:[{i:'🌶️',t:'Tingkatkan hasil cabai secara alami?'},{i:'🧄',t:'Musim tanam dan panen bawang putih?'},{i:'🫚',t:'Tumpang sari jahe dengan tanaman lain?'},{i:'🌿',t:'Kunyit — tanah dan jarak tanam terbaik?'},{i:'🌶️',t:'Keringkan cabai untuk kualitas ekspor?'},{i:'🧅',t:'Budi daya bawang merah pasar premium?'},{i:'🌿',t:'Serai wangi — penanaman komersial?'},{i:'🌸',t:'Kapulaga — bisa tanam di sini?'}]},
+  {id:'fruits',    icon:'🍌',label:'Buah-buahan',     qs:[{i:'🍌',t:'Perawatan tandan pisang setelah berbunga?'},{i:'🥭',t:'Pemangkasan pohon mangga agar banyak buah?'},{i:'🍍',t:'Manajemen ratoon nanas?'},{i:'🍉',t:'Panduan penyerbukan semangka manual?'},{i:'🍈',t:'Pepaya jantan vs hermaprodit?'},{i:'🫐',t:'Setup sistem rambatan buah naga?'},{i:'🍋',t:'Kekurangan nutrisi jeruk — tandanya apa?'},{i:'🍊',t:'Nangka — waktu panen yang tepat?'}]},
+  {id:'ornamental',icon:'🌸',label:'Tanaman Hias',    qs:[{i:'🌸',t:'Daun anthurium menguning — kenapa?'},{i:'🌺',t:'Perawatan anggrek di kelembaban tropis?'},{i:'🌻',t:'Bunga matahari untuk pasar bunga potong?'},{i:'🪴',t:'Tanaman dalam ruangan terbaik untuk lembab?'},{i:'🌿',t:'Perbanyak tanaman hias dari stek?'},{i:'🌹',t:'Perawatan mawar di iklim panas?'},{i:'🌼',t:'Krisan untuk pasar bunga lokal?'},{i:'🎋',t:'Bambu untuk lansekap — varietasnya?'}]},
+  {id:'analysis',  icon:'📊',label:'Analisis Lahan',  qs:[{i:'📊',t:'Cara baca laporan uji tanah step by step?'},{i:'🗺️',t:'Pemetaan zona hasil rendah di lahan saya?'},{i:'🛰️',t:'Pakai citra satelit pantau tanaman?'},{i:'📏',t:'Hitung kebutuhan pupuk per hektar?'},{i:'🔬',t:'Kapan kirim tanah ke laboratorium?'},{i:'💧',t:'Uji kualitas air sebelum irigasi?'},{i:'📐',t:'Hitung berapa tanaman per hektar?'},{i:'🌍',t:'Kelola kemiringan lahan dan erosi?'}]},
+  {id:'composting',icon:'♻️',label:'Pengomposan',     qs:[{i:'♻️',t:'Kascing dari sisa dapur?'},{i:'🌡️',t:'Pengomposan panas — suhu ideal?'},{i:'🍂',t:'Rasio karbon dan nitrogen dalam kompos?'},{i:'💧',t:'Kadar air ideal dalam tumpukan kompos?'},{i:'⏱️',t:'Berapa lama sampai kompos siap pakai?'},{i:'🌱',t:'Teh kompos — cara buat dan aplikasinya?'},{i:'🐛',t:'Fermentasi bokashi untuk kompos cepat?'},{i:'🌾',t:'Pengomposan jerami padi di rumah?'}]},
+];
 
-/* ─── INIT ─── */
+const getCats = (lang) => lang === 'id' ? CATS_ID : CATS_EN;
+
+/* ════════════ STATE ════════════ */
+let lang       = localStorage.getItem('tv_lang') || 'en';
+let activeCat  = 0;
+let msgs       = [];
+let typing     = false;
+let sessions   = JSON.parse(localStorage.getItem('tv_sessions') || '[]');
+let currentSID = null; // null = new chat
+
+/* ════════════ PAGES ════════════ */
+function goChat() {
+  document.getElementById('chatPage').className = 'page visible';
+  document.getElementById('histPage').className = 'page hidden-right';
+}
+function goHistory() {
+  renderHistory();
+  document.getElementById('chatPage').className = 'page hidden-left';
+  document.getElementById('histPage').className = 'page visible';
+}
+
+/* ════════════ INIT ════════════ */
 function init() {
-  renderLangList();
-  renderCategories();
   applyLang();
+  renderLangList();
+  updateHistBadge();
 }
 
 function applyLang() {
   const s = STR[lang] || STR.en;
-  document.getElementById('wMsg').textContent = s.msg;
-  document.getElementById('wSub').textContent = s.sub;
-  document.getElementById('catLabel').textContent = s.catLabel;
-  document.getElementById('newLabel').textContent = s.nc;
-  document.getElementById('inp').placeholder = s.ph;
-  document.title = 'Terrova';
+  document.getElementById('wMsg').textContent       = s.msg;
+  document.getElementById('wSub').textContent       = s.sub;
+  document.getElementById('catLabel').textContent   = s.catLabel;
+  document.getElementById('newLabel').textContent   = s.nc;
+  document.getElementById('newLabel2').textContent  = s.histBtn;
+  document.getElementById('inp').placeholder        = s.ph;
+  document.getElementById('histTitle').textContent  = s.hist;
+  document.getElementById('clearAllBtn').textContent= s.clearAll;
+  document.getElementById('langSheetTitle').textContent = s.langSheet;
   renderCategories();
 }
 
+/* ════════════ LANG ════════════ */
+function openSheet()  { document.getElementById('overlay').classList.add('open'); }
+function closeSheet() { document.getElementById('overlay').classList.remove('open'); }
+function outsideClose(e) { if(e.target===document.getElementById('overlay')) closeSheet(); }
+
 function renderLangList() {
-  const ul = document.getElementById('langList');
-  ul.innerHTML = LANGS.map(l => `
+  document.getElementById('langList').innerHTML = LANGS.map(l=>`
     <li class="lang-item${l.c===lang?' active':''}" onclick="setLang('${l.c}')">
       <span class="flag">${l.f}</span>
       <div class="lang-item-copy">
@@ -724,24 +938,42 @@ function renderLangList() {
     </li>`).join('');
 }
 
+function setLang(code) {
+  lang = code;
+  activeCat = 0;
+  localStorage.setItem('tv_lang', code);
+  const l = LANGS.find(x=>x.c===code);
+  document.getElementById('hFlag').textContent = l.f;
+  document.getElementById('hCode').textContent = code.toUpperCase();
+  document.getElementById('langList').querySelectorAll('.lang-item').forEach((el,i)=>{
+    el.classList.toggle('active', LANGS[i].c===code);
+  });
+  applyLang();
+  setTimeout(closeSheet, 240);
+}
+
+/* ════════════ CATEGORIES ════════════ */
 function renderCategories() {
   const cats = getCats(lang);
-  activeCat = Math.min(activeCat, cats.length - 1);
+  activeCat  = Math.min(activeCat, cats.length-1);
 
-  // chips
-  const scroll = document.getElementById('catScroll');
-  scroll.innerHTML = cats.map((cat, i) => `
+  document.getElementById('catScroll').innerHTML = cats.map((c,i)=>`
     <button class="cat-chip${i===activeCat?' active':''}" onclick="selectCat(${i})">
-      <span class="chip-icon">${cat.icon}</span>${cat.label}
+      <span class="chip-icon">${c.icon}</span>${c.label}
     </button>`).join('');
 
-  // prompts
   renderPrompts(cats[activeCat]);
+
+  // scroll active chip into view
+  requestAnimationFrame(()=>{
+    const scroll = document.getElementById('catScroll');
+    const active = scroll.querySelector('.cat-chip.active');
+    if(active) active.scrollIntoView({inline:'center', behavior:'smooth', block:'nearest'});
+  });
 }
 
 function renderPrompts(cat) {
-  const grid = document.getElementById('qsGrid');
-  grid.innerHTML = cat.qs.map(q => `
+  document.getElementById('qsGrid').innerHTML = cat.qs.map(q=>`
     <button class="q-btn" data-cat="${cat.id}" onclick="useQ(this)">
       <span class="q-icon">${q.i}</span>
       <span class="q-text">${q.t}</span>
@@ -759,48 +991,46 @@ function useQ(btn) {
   send();
 }
 
-/* ─── LANG SHEET ─── */
-function openSheet() { document.getElementById('overlay').classList.add('open'); }
-function closeSheet() { document.getElementById('overlay').classList.remove('open'); }
-function outsideClose(e) { if(e.target===document.getElementById('overlay')) closeSheet(); }
-
-function setLang(code) {
-  lang = code;
-  activeCat = 0;
-  const l = LANGS.find(x=>x.c===code);
-  document.getElementById('hFlag').textContent = l.f;
-  document.getElementById('hCode').textContent = l.c.toUpperCase();
-  document.getElementById('langList').querySelectorAll('.lang-item').forEach((el,i)=>{
-    el.classList.toggle('active', LANGS[i].c===code);
-  });
-  applyLang();
-  setTimeout(closeSheet, 220);
-}
-
-/* ─── CHAT ─── */
+/* ════════════ CHAT ════════════ */
 function resize(el) {
   el.style.height = 'auto';
-  el.style.height = Math.min(el.scrollHeight, 96) + 'px';
+  el.style.height = Math.min(el.scrollHeight, 96)+'px';
+}
+function onKey(e) {
+  if(e.key==='Enter' && !e.shiftKey){ e.preventDefault(); send(); }
 }
 
-function onKey(e) {
-  if(e.key==='Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+function fmtTime() {
+  const d = new Date();
+  return d.getHours().toString().padStart(2,'0')+':'+d.getMinutes().toString().padStart(2,'0');
+}
+function fmtDate(ts) {
+  const d = new Date(ts);
+  const now = new Date();
+  const diff = now - d;
+  if(diff < 86400000 && d.getDate()===now.getDate()) return 'Today';
+  if(diff < 172800000) return 'Yesterday';
+  return d.toLocaleDateString(undefined, {month:'short',day:'numeric'});
 }
 
 const RESPONSES = {
-  en: [
+  en:[
     "Great question! Based on common farming practices, here's what you should know: start by observing the symptoms closely — timing and pattern matter a lot. Early intervention usually gives the best results.",
     "Farmers in similar conditions have found that the key is consistency. Whether it's watering schedule or pest management, regularity is more important than intensity.",
     "This depends on your soil type and local climate. Generally, testing your soil pH first gives you a clear direction. Most crops prefer a pH between 6.0 and 7.0.",
-    "The best approach here is integrated — combine organic methods with good timing. Chemical solutions should always be the last resort, not the first.",
-    "For your region, the timing is crucial. Plan 2-3 weeks ahead of the expected season change. Preparation now means a better harvest later.",
+    "The best approach here is integrated — combine organic methods with good timing. Chemical solutions should always be a last resort, not the first.",
+    "For your region, timing is crucial. Plan 2–3 weeks ahead of the expected season change. Preparation now means a better harvest later.",
+    "Many experienced farmers recommend starting small and observing results before scaling. Document what works in your specific conditions — local knowledge is irreplaceable.",
+    "The root cause is often in the soil. Before trying surface-level solutions, check drainage, organic matter content, and pH. These three factors affect almost every crop problem.",
   ],
-  id: [
-    "Pertanyaan bagus! Berdasarkan praktik pertanian yang umum, ini yang perlu kamu ketahui: mulailah dengan mengamati gejala secara dekat — waktu dan pola sangat penting.",
+  id:[
+    "Pertanyaan bagus! Berdasarkan praktik pertanian umum, mulailah dengan mengamati gejala secara dekat — waktu dan pola sangat penting. Intervensi dini biasanya memberikan hasil terbaik.",
     "Petani dalam kondisi serupa menemukan bahwa kuncinya adalah konsistensi. Baik jadwal penyiraman maupun pengendalian hama, keteraturan lebih penting dari intensitas.",
     "Ini tergantung pada jenis tanah dan iklim lokalmu. Secara umum, uji pH tanah terlebih dahulu memberi arahan yang jelas. Sebagian besar tanaman menyukai pH antara 6,0 dan 7,0.",
     "Pendekatan terbaik di sini adalah terpadu — kombinasikan metode organik dengan waktu yang tepat. Solusi kimia harus selalu menjadi pilihan terakhir.",
-    "Untuk daerahmu, waktunya sangat penting. Rencanakan 2-3 minggu sebelum pergantian musim. Persiapan sekarang berarti panen yang lebih baik nanti.",
+    "Untuk daerahmu, waktunya sangat penting. Rencanakan 2–3 minggu sebelum pergantian musim. Persiapan sekarang berarti panen yang lebih baik nanti.",
+    "Banyak petani berpengalaman menyarankan untuk mulai skala kecil dan amati hasilnya sebelum memperluas. Catat apa yang berhasil di kondisi spesifikmu — pengetahuan lokal tak tergantikan.",
+    "Akar masalahnya sering ada di tanah. Sebelum mencoba solusi di permukaan, periksa drainase, kandungan bahan organik, dan pH. Ketiga faktor ini mempengaruhi hampir semua masalah tanaman.",
   ],
 };
 
@@ -809,47 +1039,51 @@ function getResponse() {
   return arr[Math.floor(Math.random()*arr.length)];
 }
 
-function addMsg(text, who) {
-  msgs.push({text, who});
+function addMsgEl(text, who, time) {
   const chat = document.getElementById('chat');
-  const row = document.createElement('div');
+  const row  = document.createElement('div');
   row.className = `row ${who}`;
 
-  const av = document.createElement('div');
+  const av  = document.createElement('div');
   av.className = `av ${who}`;
   av.textContent = who==='ai' ? '✦' : '↑';
 
-  const bub = document.createElement('div');
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'display:flex;flex-direction:column;gap:2px;max-width:80%';
+
+  const bub  = document.createElement('div');
   bub.className = 'bubble';
+  bub.style.maxWidth = '100%';
   bub.textContent = text;
 
-  row.appendChild(av);
-  row.appendChild(bub);
+  const t = document.createElement('div');
+  t.className = 'msg-time';
+  t.textContent = time || fmtTime();
+
+  wrap.appendChild(bub);
+  wrap.appendChild(t);
+
+  if(who==='user'){ row.appendChild(wrap); row.appendChild(av); }
+  else            { row.appendChild(av);   row.appendChild(wrap); }
+
   chat.appendChild(row);
   chat.scrollTop = chat.scrollHeight;
-  return row;
 }
 
 function showTyping() {
   const chat = document.getElementById('chat');
-  const row = document.createElement('div');
+  const row  = document.createElement('div');
   row.className = 'row ai';
   row.id = 'typingRow';
-
   const av = document.createElement('div');
-  av.className = 'av ai';
-  av.textContent = '✦';
-
+  av.className = 'av ai'; av.textContent = '✦';
   const bub = document.createElement('div');
   bub.className = 'bubble';
   bub.innerHTML = '<div class="typing-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>';
-
-  row.appendChild(av);
-  row.appendChild(bub);
+  row.appendChild(av); row.appendChild(bub);
   chat.appendChild(row);
   chat.scrollTop = chat.scrollHeight;
 }
-
 function removeTyping() {
   const t = document.getElementById('typingRow');
   if(t) t.remove();
@@ -857,45 +1091,176 @@ function removeTyping() {
 
 async function send() {
   if(typing) return;
-  const inp = document.getElementById('inp');
+  const inp  = document.getElementById('inp');
   const text = inp.value.trim();
   if(!text) return;
 
   inp.value = '';
   inp.style.height = 'auto';
 
-  // hide welcome on first message
+  const time = fmtTime();
+
   if(msgs.length===0) {
-    document.getElementById('welcomeCard').style.display='none';
-    document.getElementById('qsWrap').style.display='none';
+    document.getElementById('welcomeCard').style.cssText = 'opacity:0;transform:translateY(-8px);transition:all .25s;pointer-events:none';
+    document.getElementById('qsWrap').style.cssText      = 'opacity:0;transform:translateY(-8px);transition:all .25s;pointer-events:none';
+    setTimeout(()=>{
+      document.getElementById('welcomeCard').style.display = 'none';
+      document.getElementById('qsWrap').style.display      = 'none';
+    }, 260);
   }
 
-  addMsg(text, 'user');
+  msgs.push({role:'user', text, time});
+  addMsgEl(text, 'user', time);
+
   typing = true;
   document.getElementById('sendBtn').disabled = true;
 
   showTyping();
-  await new Promise(r=>setTimeout(r, 1200+Math.random()*800));
+  await new Promise(r=>setTimeout(r, 1100+Math.random()*900));
   removeTyping();
 
-  addMsg(getResponse(), 'ai');
+  const reply = getResponse();
+  const rtime = fmtTime();
+  msgs.push({role:'ai', text:reply, time:rtime});
+  addMsgEl(reply, 'ai', rtime);
+
   typing = false;
   document.getElementById('sendBtn').disabled = false;
+
+  // auto-save session
+  saveSession();
+  updateHistBadge();
 }
 
 function newChat() {
-  msgs = [];
-  typing = false;
+  // save current chat first
+  if(msgs.length>0) saveSession();
+
+  msgs       = [];
+  currentSID = null;
+  typing     = false;
   document.getElementById('sendBtn').disabled = false;
+
   const chat = document.getElementById('chat');
-  // remove all message rows
   chat.querySelectorAll('.row').forEach(r=>r.remove());
-  document.getElementById('welcomeCard').style.display='';
-  document.getElementById('qsWrap').style.display='';
+
+  const wc = document.getElementById('welcomeCard');
+  const qw = document.getElementById('qsWrap');
+  wc.style.display = '';
+  qw.style.display = '';
+  wc.style.cssText = '';
+  qw.style.cssText = '';
+
   activeCat = 0;
   renderCategories();
+  chat.scrollTop = 0;
+
+  showToast( STR[lang]?.nc || 'New conversation' );
 }
 
+/* ════════════ SESSION STORAGE ════════════ */
+function saveSession() {
+  if(msgs.length === 0) return;
+  const preview = msgs[0].text;
+  const ts      = Date.now();
+
+  if(currentSID) {
+    const idx = sessions.findIndex(s=>s.id===currentSID);
+    if(idx !== -1) {
+      sessions[idx] = { id:currentSID, ts, preview, msgs:[...msgs] };
+    } else {
+      currentSID = null;
+    }
+  }
+
+  if(!currentSID) {
+    currentSID = 'sid_'+ts;
+    sessions.unshift({ id:currentSID, ts, preview, msgs:[...msgs] });
+    if(sessions.length > 50) sessions = sessions.slice(0,50);
+  }
+
+  localStorage.setItem('tv_sessions', JSON.stringify(sessions));
+}
+
+function loadSession(sid) {
+  const s = sessions.find(x=>x.id===sid);
+  if(!s) return;
+
+  // save current first
+  if(msgs.length>0) saveSession();
+
+  msgs = [...s.msgs];
+  currentSID = sid;
+
+  const chat = document.getElementById('chat');
+  chat.querySelectorAll('.row').forEach(r=>r.remove());
+
+  document.getElementById('welcomeCard').style.display = 'none';
+  document.getElementById('qsWrap').style.display      = 'none';
+
+  msgs.forEach(m => addMsgEl(m.text, m.role, m.time));
+  goChat();
+}
+
+function deleteSession(sid, e) {
+  e.stopPropagation();
+  sessions = sessions.filter(s=>s.id!==sid);
+  localStorage.setItem('tv_sessions', JSON.stringify(sessions));
+  if(currentSID===sid){ msgs=[]; currentSID=null; }
+  renderHistory();
+  updateHistBadge();
+}
+
+function clearAll() {
+  if(sessions.length===0) return;
+  sessions=[]; currentSID=null; msgs=[];
+  localStorage.setItem('tv_sessions','[]');
+  renderHistory();
+  updateHistBadge();
+  showToast('Cleared');
+}
+
+function updateHistBadge() {
+  const badge = document.getElementById('histBadge');
+  const n = sessions.length;
+  badge.textContent = n>9?'9+':String(n);
+  badge.classList.toggle('show', n>0);
+}
+
+function renderHistory() {
+  const list = document.getElementById('histList');
+  if(sessions.length===0){
+    const s = STR[lang]||STR.en;
+    list.innerHTML = `<div class="hist-empty">
+      <div class="hist-empty-icon">🌱</div>
+      <div class="hist-empty-text">${s.histEmpty.replace('\n','<br>')}</div>
+    </div>`;
+    return;
+  }
+  list.innerHTML = sessions.map((s,i)=>`
+    <div class="hist-session" style="animation-delay:${i*0.04}s" onclick="loadSession('${s.id}')">
+      <div class="hist-session-top">
+        <span class="hist-session-date">${fmtDate(s.ts)}</span>
+        <span class="hist-session-count">${s.msgs.length} msg${s.msgs.length!==1?'s':''}</span>
+      </div>
+      <div class="hist-session-preview">${escHtml(s.preview)}</div>
+      <button class="hist-session-del" onclick="deleteSession('${s.id}',event)" title="Delete">✕</button>
+    </div>`).join('');
+}
+
+function escHtml(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* ════════════ TOAST ════════════ */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2000);
+}
+
+/* ════════════ START ════════════ */
 init();
 </script>
 </body>

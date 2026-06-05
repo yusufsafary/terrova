@@ -469,6 +469,28 @@ body {
 }
 .row.user .msg-time { text-align: right; }
 
+/* ─── SHARE TO X ─── */
+.share-x-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 5px 12px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  transition: background .15s, opacity .15s;
+  text-decoration: none;
+  line-height: 1;
+}
+.share-x-btn:hover { background: #222; }
+.share-x-btn svg { flex-shrink: 0; }
+
 /* ─── TYPING ─── */
 .typing-dots { display:flex;gap:5px;align-items:center;padding:4px 2px; }
 .dot {
@@ -1774,6 +1796,24 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   font-weight: 600;
   cursor: pointer;
 }
+.tq-share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 10px 22px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 10px;
+  transition: background .15s;
+  text-decoration: none;
+}
+.tq-share-btn:hover { background: #222; }
 
 /* progress bar */
 .tq-progress {
@@ -1913,6 +1953,11 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
             <div class="tq-done-icon" id="tqDoneIcon">🏆</div>
             <div class="tq-done-title" id="tqDoneTitle">Quiz Selesai!</div>
             <div class="tq-done-sub" id="tqDoneSub">Kamu menjawab 0 dari 15 benar.</div>
+            <a class="tq-share-btn" id="tqShareBtn" href="#" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              Share my score
+            </a>
+            <br>
             <button class="tq-restart" onclick="tqRestart()">Coba Lagi →</button>
           </div>
         </div>
@@ -2925,7 +2970,7 @@ function getResponse() {
 }
 
 
-function addMsgEl(text, who, time) {
+function addMsgEl(text, who, time, topic) {
   const chat = document.getElementById('chat');
   const row  = document.createElement('div');
   row.className = `row ${who}`;
@@ -2949,6 +2994,20 @@ function addMsgEl(text, who, time) {
 
   wrap.appendChild(bub);
   wrap.appendChild(t);
+
+  if (who === 'ai' && topic) {
+    const tweetText = '🌱 Rova just helped me with ' + topic + ' via @terrova_ai terrova.app';
+    const tweetUrl  = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText);
+    const shareBtn  = document.createElement('a');
+    shareBtn.className = 'share-x-btn';
+    shareBtn.href      = tweetUrl;
+    shareBtn.target    = '_blank';
+    shareBtn.rel       = 'noopener noreferrer';
+    shareBtn.innerHTML =
+      '<svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.747l7.73-8.835L1.254 2.25H8.08l4.259 5.631 5.905-5.631Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>' +
+      'Share';
+    wrap.appendChild(shareBtn);
+  }
 
   if(who==='user'){ row.appendChild(wrap); row.appendChild(av); }
   else            { row.appendChild(av);   row.appendChild(wrap); }
@@ -3010,7 +3069,9 @@ async function send() {
   const reply = getResponse();
   const rtime = fmtTime();
   msgs.push({role:'ai', text:reply, time:rtime});
-  addMsgEl(reply, 'ai', rtime);
+  const cats = getCats(lang);
+  const topic = (cats[activeCat] && cats[activeCat].label) ? cats[activeCat].label : 'farming';
+  addMsgEl(reply, 'ai', rtime, topic);
 
   typing = false;
   document.getElementById('sendBtn').disabled = false;
@@ -3338,6 +3399,8 @@ function tqShowDone() {
   document.getElementById('tqDoneIcon').textContent  = icon;
   document.getElementById('tqDoneTitle').textContent = title;
   document.getElementById('tqDoneSub').textContent   = 'Skor kamu ' + _tqScore + ' poin dari ' + total + ' soal. Masih ingin belajar? Tanya Rova!';
+  const tqTweetText = '🌱 I scored ' + _tqScore + ' pts on the Tani Quiz via @terrova_ai terrova.app';
+  document.getElementById('tqShareBtn').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tqTweetText);
   document.getElementById('tqDone').classList.add('show');
 }
 

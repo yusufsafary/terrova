@@ -2044,7 +2044,6 @@ function applyLang() {
   document.getElementById('wSub').textContent       = s.sub;
   document.getElementById('catLabel').textContent   = s.catLabel;
   document.getElementById('newLabel').textContent   = s.nc;
-  document.getElementById('newLabel2').textContent  = s.histBtn;
   document.getElementById('inp').placeholder        = s.ph;
   document.getElementById('histTitle').textContent  = s.hist;
   document.getElementById('clearAllBtn').textContent= s.clearAll;
@@ -2490,6 +2489,7 @@ function clearAll() {
 
 function updateHistBadge() {
   const badge = document.getElementById('histBadge');
+  if (!badge) return;
   const n = sessions.length;
   badge.textContent = n>9?'9+':String(n);
   badge.classList.toggle('show', n>0);

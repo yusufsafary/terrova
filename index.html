@@ -1252,54 +1252,45 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 
 /* ── PARTNER LOGOS ── */
 .partner-strip {
-  margin-top: 20px;
   display: flex;
   align-items: center;
-  gap: 10px;
-}
-.partner-strip::before,
-.partner-strip::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(11,10,8,.10));
-}
-.partner-strip::after {
-  background: linear-gradient(90deg, rgba(11,10,8,.10), transparent);
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
 }
 .partner-logos {
   display: flex;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
+  flex-wrap: wrap;
 }
 .partner-logo-item {
   display: flex;
   align-items: center;
-  gap: 6px;
-  padding: 5px 10px 5px 6px;
+  gap: 7px;
+  padding: 6px 13px 6px 7px;
   border-radius: 100px;
-  border: 1px solid rgba(11,10,8,.08);
-  background: rgba(255,255,255,.7);
-  backdrop-filter: blur(4px);
+  border: 1px solid rgba(11,10,8,.09);
+  background: rgba(255,255,255,.85);
+  box-shadow: 0 1px 4px rgba(11,10,8,.06);
   flex-shrink: 0;
 }
 .partner-logo-item img {
-  height: 18px;
-  width: 18px;
+  height: 24px;
+  width: 24px;
   display: block;
   object-fit: contain;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 .partner-logo-item svg {
-  height: 20px;
-  width: 20px;
+  height: 26px;
+  width: 26px;
   flex-shrink: 0;
 }
 .partner-logo-name {
-  font-size: 10.5px;
-  font-weight: 500;
-  color: var(--warm-5);
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--ink);
   white-space: nowrap;
   letter-spacing: -0.01em;
 }
@@ -1454,30 +1445,30 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 
 /* ── HOME HERO (clean, no card) ── */
 .home-hero {
-  padding: 24px 18px 16px;
+  padding: 26px 20px 18px;
   animation: fadeUp .5s cubic-bezier(.22,.68,0,1.2) both;
 }
 .hero-title {
   font-family: 'Instrument Serif', serif;
-  font-size: 27px;
+  font-size: 28px;
   font-weight: 400;
   color: var(--ink);
-  line-height: 1.3;
+  line-height: 1.28;
   margin-bottom: 10px;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.025em;
 }
 .hero-sub {
   font-size: 13px;
   font-weight: 300;
   color: var(--warm-4);
-  line-height: 1.72;
-  margin-bottom: 20px;
-  max-width: 300px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+  max-width: 310px;
   letter-spacing: 0.005em;
 }
 .hero-chips {
   display: flex;
-  gap: 7px;
+  gap: 6px;
   flex-wrap: nowrap;
 }
 .hero-chip {
@@ -1487,10 +1478,10 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   background: var(--white);
   border: 1px solid #E0D9CC;
   border-radius: 100px;
-  padding: 5px 13px;
+  padding: 5px 12px;
   white-space: nowrap;
   letter-spacing: 0.01em;
-  box-shadow: 0 1px 3px rgba(11,10,8,.06);
+  box-shadow: 0 1px 3px rgba(11,10,8,.05);
 }
 
 /* ── SKELETON LOADING ── */
@@ -1860,12 +1851,6 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 
     <div class="chat" id="chat">
       <div class="home-hero" id="welcomeCard">
-        <h2 class="hero-title" id="wMsg">Hey there, farmer.<br>What's growing today?</h2>
-        <p class="hero-sub" id="wSub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</p>
-        <div class="hero-chips">
-          <span class="hero-chip">🌐 15 languages</span>
-          <span class="hero-chip">🌱 50+ crop types</span>
-        </div>
 
         <div class="partner-strip">
           <div class="partner-logos">
@@ -1891,6 +1876,14 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 
           </div>
         </div>
+
+        <h2 class="hero-title" id="wMsg">Hey there, farmer.<br>What's growing today?</h2>
+        <p class="hero-sub" id="wSub">Ask me anything about your crops, soil, pests, or harvest. I'll give you straight, practical advice.</p>
+        <div class="hero-chips">
+          <span class="hero-chip">🌐 15 languages</span>
+          <span class="hero-chip">🌱 50+ crop types</span>
+        </div>
+
       </div>
 
       <div class="qs-wrap" id="qsWrap">

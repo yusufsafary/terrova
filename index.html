@@ -1,685 +1,627 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Terrova - The Digital Twin Platform for Agriculture">
-<meta name="theme-color" content="#1F8F5F">
-<title>Terrova — The Digital Twin Platform for Agriculture</title>
-<link rel="manifest" href="#" crossorigin="use-credentials">
+<meta name="description" content="Terrova AI — The Digital Twin Platform for Agriculture. Build a living digital identity for every farm on Earth.">
+<meta name="theme-color" content="#1C3829">
+<meta property="og:title" content="Terrova AI">
+<meta property="og:description" content="The Digital Twin Platform for Agriculture">
+<meta property="og:image" content="/logo.png">
+<title>Terrova AI — Digital Twin for Agriculture</title>
 <script>
-  // Unregister old service workers immediately
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for (let reg of registrations) { reg.unregister(); }
-    });
-    // Clear all caches
-    if ('caches' in window) {
-      caches.keys().then(function(names) {
-        for (let name of names) { caches.delete(name); }
-      });
-    }
-  }
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then(r => r.forEach(s => s.unregister()));
+  if ('caches' in window) caches.keys().then(k => k.forEach(n => caches.delete(n)));
+}
 </script>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap');
+
   :root {
-    --primary: #1F8F5F;
-    --secondary: #2FBF71;
-    --bg: #F7FAF8;
-    --card: #FFFFFF;
-    --text: #101828;
-    --muted: #667085;
-    --success: #12B76A;
-    --warning: #F79009;
-    --danger: #F04438;
-    --border: #E4E7EC;
-    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07), 0 2px 4px -1px rgba(0,0,0,.05);
-    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.07), 0 4px 6px -2px rgba(0,0,0,.04);
-    --radius: 12px;
-    --radius-lg: 20px;
-    --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    --transition: all .2s cubic-bezier(.4,0,.2,1);
-    --glass: rgba(255,255,255,.7);
-    --glass-border: rgba(255,255,255,.5);
+    --green-900: #0F2218;
+    --green-800: #1C3829;
+    --green-700: #234733;
+    --green-600: #2A5540;
+    --green-400: #3A7A58;
+    --green-200: #A8C5B5;
+    --green-100: #D6E8DF;
+    --green-50:  #F0F6F2;
+    --gold:      #C9A84C;
+    --gold-light:#E2C97A;
+    --gold-dark: #A8862F;
+    --cream:     #FAF8F3;
+    --white:     #FFFFFF;
+    --text-dark: #0F1F17;
+    --text-mid:  #3A5045;
+    --text-muted:#6B8A7A;
+    --border:    #D6E8DF;
+    --shadow-sm: 0 1px 3px rgba(15,34,24,.08);
+    --shadow-md: 0 4px 16px rgba(15,34,24,.10);
+    --shadow-lg: 0 12px 40px rgba(15,34,24,.14);
+    --shadow-xl: 0 24px 64px rgba(15,34,24,.18);
+    --r:         14px;
+    --r-lg:      22px;
+    --r-xl:      32px;
+    --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --serif:     'DM Serif Display', Georgia, serif;
   }
-  [data-theme="dark"] {
-    --bg: #0D1117;
-    --card: #161B22;
-    --text: #F0F6FC;
-    --muted: #8B949E;
-    --border: #30363D;
-    --glass: rgba(22,27,34,.8);
-    --glass-border: rgba(48,54,61,.6);
-    --shadow: 0 1px 3px rgba(0,0,0,.4);
-    --shadow-md: 0 4px 6px -1px rgba(0,0,0,.4);
-    --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.4);
-  }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; font-size: 16px; }
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    line-height: 1.6;
-    overflow-x: hidden;
-    transition: background .3s, color .3s;
+  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { font-family: var(--font); background: var(--cream); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { cursor: pointer; font-family: var(--font); border: none; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-thumb { background: var(--green-200); border-radius: 3px; }
+
+  /* ── UTILS ── */
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+  .tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-100); color: var(--green-700);
+    border: 1px solid var(--border); border-radius: 100px;
+    padding: 4px 13px; font-size: 12px; font-weight: 600; letter-spacing: .3px;
   }
-  a { color: var(--primary); text-decoration: none; }
-  img { max-width: 100%; }
-  button { cursor: pointer; font-family: var(--font); }
+  .tag-gold {
+    background: rgba(201,168,76,.12); color: var(--gold-dark);
+    border-color: rgba(201,168,76,.3);
+  }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  /* ── BUTTONS ── */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 13px 24px; border-radius: 12px; font-size: 15px; font-weight: 600;
+    border: none; transition: all .2s cubic-bezier(.4,0,.2,1); white-space: nowrap;
+    cursor: pointer; font-family: var(--font);
+  }
+  .btn-primary {
+    background: var(--green-800); color: var(--cream);
+    box-shadow: 0 2px 8px rgba(28,56,41,.25);
+  }
+  .btn-primary:hover { background: var(--green-700); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(28,56,41,.3); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-gold {
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--green-900); box-shadow: 0 2px 10px rgba(201,168,76,.3);
+  }
+  .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(201,168,76,.4); filter: brightness(1.05); }
+  .btn-outline {
+    background: transparent; color: var(--green-800);
+    border: 1.5px solid var(--border);
+  }
+  .btn-outline:hover { border-color: var(--green-400); background: var(--green-50); }
+  .btn-ghost-white {
+    background: rgba(255,255,255,.12); color: white;
+    border: 1.5px solid rgba(255,255,255,.2); backdrop-filter: blur(8px);
+  }
+  .btn-ghost-white:hover { background: rgba(255,255,255,.2); }
+  .btn-sm { padding: 9px 18px; font-size: 13px; border-radius: 10px; }
+  .btn-lg { padding: 15px 32px; font-size: 16px; border-radius: 14px; }
 
-  /* ======= NAV ======= */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 24px; height: 60px;
-    background: var(--glass);
+  /* ══════════════════════════════════
+     NAV
+  ══════════════════════════════════ */
+  #nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: 64px; display: flex; align-items: center;
+    padding: 0 20px;
+    transition: background .3s, box-shadow .3s;
+  }
+  #nav.scrolled {
+    background: rgba(250,248,243,.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--glass-border);
-    transition: var(--transition);
+    box-shadow: 0 1px 0 var(--border);
   }
-  .nav-logo { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 18px; color: var(--text); }
-  .nav-logo-icon { width: 30px; height: 30px; background: linear-gradient(135deg,var(--primary),var(--secondary)); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-  .nav-logo-icon svg { width: 18px; height: 18px; fill: white; }
-  .nav-links { display: flex; gap: 6px; align-items: center; }
-  .nav-links a { padding: 6px 12px; border-radius: 8px; font-size: 14px; color: var(--muted); font-weight: 500; transition: var(--transition); }
-  .nav-links a:hover { color: var(--text); background: var(--border); }
-  .nav-right { display: flex; gap: 8px; align-items: center; }
-  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: 10px; font-size: 14px; font-weight: 600; border: none; transition: var(--transition); white-space: nowrap; }
-  .btn-primary { background: var(--primary); color: white; }
-  .btn-primary:hover { background: #177a52; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(31,143,95,.35); }
-  .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--border); }
-  .btn-outline:hover { background: var(--border); }
-  .btn-ghost { background: transparent; color: var(--muted); border: none; padding: 8px; border-radius: 8px; }
-  .btn-ghost:hover { background: var(--border); color: var(--text); }
-  .btn-lg { padding: 12px 24px; font-size: 15px; border-radius: 12px; }
-  .btn-xl { padding: 14px 28px; font-size: 16px; border-radius: 14px; }
-
-  /* Language Selector */
-  .lang-select { position: relative; }
-  .lang-btn { display: flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 8px; background: var(--border); border: none; color: var(--text); font-size: 13px; font-weight: 500; cursor: pointer; transition: var(--transition); }
-  .lang-btn:hover { background: var(--primary); color: white; }
-  .lang-dropdown { position: absolute; top: calc(100% + 8px); right: 0; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 6px; min-width: 160px; box-shadow: var(--shadow-lg); z-index: 200; display: none; }
-  .lang-dropdown.open { display: block; animation: fadeIn .15s ease; }
-  .lang-option { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; font-size: 13px; cursor: pointer; color: var(--text); transition: var(--transition); }
-  .lang-option:hover { background: var(--bg); }
-  .lang-option.active { color: var(--primary); font-weight: 600; }
-
-  /* Theme toggle */
-  .theme-toggle { width: 36px; height: 36px; border-radius: 8px; border: 1.5px solid var(--border); background: var(--card); display: flex; align-items: center; justify-content: center; color: var(--muted); transition: var(--transition); }
-  .theme-toggle:hover { border-color: var(--primary); color: var(--primary); }
-
-  /* Hamburger */
-  .hamburger { display: none; flex-direction: column; gap: 4px; padding: 8px; border-radius: 8px; background: transparent; border: none; cursor: pointer; }
-  .hamburger span { display: block; width: 20px; height: 2px; background: var(--text); border-radius: 2px; transition: var(--transition); }
-
-  /* Mobile nav */
-  .mobile-nav { display: none; position: fixed; inset: 0; z-index: 99; background: var(--bg); padding: 80px 24px 24px; flex-direction: column; gap: 8px; }
-  .mobile-nav.open { display: flex; }
-  .mobile-nav a { padding: 14px 16px; border-radius: 10px; font-size: 16px; font-weight: 500; color: var(--text); border-bottom: 1px solid var(--border); }
-
-  /* ======= HERO ======= */
-  .hero {
-    min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-    padding: 100px 24px 60px; text-align: center; position: relative; overflow: hidden;
+  .nav-inner {
+    max-width: 1080px; margin: 0 auto; width: 100%;
+    display: flex; align-items: center; gap: 8px;
   }
-  .hero-bg {
-    position: absolute; inset: 0; z-index: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(47,191,113,.12) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(31,143,95,.07) 0%, transparent 70%);
+  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+  .nav-logo img { height: 32px; width: auto; }
+  .nav-logo-text {
+    font-family: var(--serif); font-size: 18px; letter-spacing: 1px;
+    color: var(--green-800);
   }
-  .hero-content { position: relative; z-index: 1; max-width: 780px; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(31,143,95,.1); color: var(--primary); border: 1px solid rgba(31,143,95,.2); border-radius: 100px; padding: 5px 14px; font-size: 13px; font-weight: 600; margin-bottom: 24px; }
-  .hero-badge span { width: 6px; height: 6px; background: var(--secondary); border-radius: 50%; animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.4)} }
-  .hero h1 { font-size: clamp(36px,6vw,64px); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin-bottom: 20px; color: var(--text); }
-  .hero h1 span { background: linear-gradient(135deg,var(--primary),var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-  .hero-desc { font-size: clamp(16px,2vw,19px); color: var(--muted); max-width: 580px; margin: 0 auto 36px; line-height: 1.7; }
-  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 60px; }
-  .hero-stats { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
-  .hero-stat { text-align: center; }
-  .hero-stat-num { font-size: 28px; font-weight: 800; color: var(--text); }
-  .hero-stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
-  .hero-illustration { position: relative; z-index: 1; margin-top: 60px; width: 100%; max-width: 720px; }
+  .nav-logo-text sup { font-family: var(--font); font-size: 10px; font-weight: 700; color: var(--gold); vertical-align: super; }
+  .nav-links { display: flex; gap: 2px; margin-left: 24px; }
+  .nav-links a {
+    padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 500;
+    color: var(--text-mid); transition: all .15s;
+  }
+  .nav-links a:hover { color: var(--green-800); background: var(--green-50); }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .nav-ham { display: none; flex-direction: column; gap: 4.5px; padding: 8px; background: none; border: none; cursor: pointer; }
+  .nav-ham span { display: block; width: 22px; height: 2px; background: var(--green-800); border-radius: 2px; transition: all .25s; }
 
-  /* ======= SECTIONS ======= */
-  section { padding: 80px 24px; }
-  .container { max-width: 1100px; margin: 0 auto; }
-  .section-header { text-align: center; margin-bottom: 56px; }
-  .section-badge { display: inline-block; background: rgba(31,143,95,.1); color: var(--primary); border-radius: 100px; padding: 4px 14px; font-size: 12px; font-weight: 700; letter-spacing: .5px; text-transform: uppercase; margin-bottom: 12px; }
-  .section-title { font-size: clamp(26px,4vw,40px); font-weight: 800; letter-spacing: -1px; line-height: 1.2; margin-bottom: 12px; }
-  .section-desc { font-size: 16px; color: var(--muted); max-width: 520px; margin: 0 auto; }
+  /* Mobile nav drawer */
+  .mobile-drawer {
+    display: none; position: fixed; inset: 0; z-index: 199;
+    background: var(--cream); flex-direction: column;
+    padding: 80px 24px 40px;
+  }
+  .mobile-drawer.open { display: flex; animation: slideDown .25s ease; }
+  @keyframes slideDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
+  .mobile-drawer a {
+    padding: 16px 0; font-size: 17px; font-weight: 500;
+    color: var(--text-dark); border-bottom: 1px solid var(--border);
+  }
+  .mobile-drawer .mobile-cta { margin-top: 24px; }
 
-  /* ======= CARDS ======= */
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); transition: var(--transition); }
-  .card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-  .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
-  .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-  .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+  /* ══════════════════════════════════
+     HERO
+  ══════════════════════════════════ */
+  #hero {
+    min-height: 100dvh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: var(--green-800);
+    position: relative; overflow: hidden;
+    padding: 100px 20px 80px;
+    text-align: center;
+  }
+  .hero-noise {
+    position: absolute; inset: 0; opacity: .04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  .hero-glow-1 {
+    position: absolute; width: 600px; height: 600px;
+    border-radius: 50%; top: -200px; left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(201,168,76,.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-glow-2 {
+    position: absolute; width: 400px; height: 400px;
+    border-radius: 50%; bottom: -150px; right: -100px;
+    background: radial-gradient(circle, rgba(58,122,88,.35) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 700px; }
+  .hero-logo {
+    width: 88px; height: 88px; border-radius: 24px;
+    overflow: hidden; margin: 0 auto 28px;
+    box-shadow: 0 0 0 1px rgba(201,168,76,.3), 0 8px 32px rgba(0,0,0,.3);
+  }
+  .hero-logo img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-eyebrow {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 20px;
+  }
+  .hero-h1 {
+    font-family: var(--serif); font-size: clamp(38px, 7vw, 64px);
+    font-weight: 400; line-height: 1.1; letter-spacing: -.5px;
+    color: var(--cream); margin-bottom: 20px;
+  }
+  .hero-h1 em { font-style: italic; color: var(--gold-light); }
+  .hero-desc {
+    font-size: clamp(15px, 2vw, 17px); color: rgba(240,246,242,.7);
+    max-width: 520px; margin: 0 auto 36px; line-height: 1.75;
+    font-weight: 400;
+  }
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
+  .hero-stats {
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,.1);
+  }
+  .hero-stat-num { font-size: 26px; font-weight: 800; color: var(--gold-light); }
+  .hero-stat-label { font-size: 12px; color: rgba(240,246,242,.5); font-weight: 500; margin-top: 2px; }
 
-  /* ======= DASHBOARD ======= */
-  .dashboard-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr)); gap: 20px; margin-bottom: 32px; }
-  .dash-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; transition: var(--transition); position: relative; overflow: hidden; }
-  .dash-card::before { content:''; position:absolute; top:-40px; right:-40px; width:120px; height:120px; border-radius:50%; opacity:.06; }
-  .dash-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
-  .dash-card-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
-  .dash-card-value { font-size: 32px; font-weight: 800; color: var(--text); margin-bottom: 4px; }
-  .dash-card-sub { font-size: 13px; color: var(--muted); }
-  .dash-card-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
-  .dash-card-trend { display: inline-flex; align-items: center; gap: 3px; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 100px; margin-top: 8px; }
-  .trend-up { background: rgba(18,183,106,.1); color: var(--success); }
-  .trend-down { background: rgba(240,68,56,.1); color: var(--danger); }
+  /* ── BUILDER CREDIT ── */
+  .builder-bar {
+    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
+    z-index: 1; display: flex; align-items: center; gap: 10px;
+    font-size: 12px; color: rgba(240,246,242,.4); white-space: nowrap;
+  }
+  .builder-bar a {
+    display: flex; align-items: center; gap: 5px;
+    color: rgba(240,246,242,.55); transition: color .15s;
+  }
+  .builder-bar a:hover { color: var(--gold); }
+  .builder-bar svg { flex-shrink: 0; }
 
-  /* ======= PROGRESS ======= */
-  .progress-bar { width: 100%; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; border-radius: 3px; transition: width 1s ease; }
+  /* ══════════════════════════════════
+     FEATURES
+  ══════════════════════════════════ */
+  #features { padding: 96px 0; background: var(--cream); }
+  .features-header { text-align: center; margin-bottom: 56px; }
+  .section-h2 {
+    font-family: var(--serif); font-size: clamp(28px, 4vw, 40px);
+    font-weight: 400; color: var(--text-dark); margin-top: 12px; margin-bottom: 12px;
+    line-height: 1.2;
+  }
+  .section-desc { font-size: 16px; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
+  .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .feat-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 28px 24px;
+    transition: all .2s; position: relative; overflow: hidden;
+  }
+  .feat-card::after {
+    content: ''; position: absolute; inset: 0; opacity: 0;
+    background: linear-gradient(135deg, rgba(28,56,41,.03), transparent);
+    transition: opacity .2s;
+  }
+  .feat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--green-200); }
+  .feat-card:hover::after { opacity: 1; }
+  .feat-icon {
+    width: 48px; height: 48px; border-radius: 14px; margin-bottom: 18px;
+    display: flex; align-items: center; justify-content: center; font-size: 22px;
+    background: var(--green-50); border: 1px solid var(--border);
+  }
+  .feat-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+  .feat-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
 
-  /* ======= TIMELINE ======= */
-  .timeline { position: relative; padding-left: 32px; }
-  .timeline::before { content:''; position:absolute; left:12px; top:0; bottom:0; width:2px; background: linear-gradient(to bottom, var(--primary), var(--secondary)); border-radius:1px; }
-  .timeline-item { position: relative; margin-bottom: 28px; }
-  .timeline-dot { position:absolute; left:-28px; top:4px; width:16px; height:16px; border-radius:50%; border:3px solid var(--card); box-shadow:0 0 0 2px var(--primary); }
-  .timeline-date { font-size: 12px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
-  .timeline-content { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 20px; }
-  .timeline-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
-  .timeline-desc { font-size: 13px; color: var(--muted); }
+  /* ══════════════════════════════════
+     DIGITAL TWIN SHOWCASE
+  ══════════════════════════════════ */
+  #twin { padding: 80px 0; background: var(--green-800); }
+  .twin-inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+    align-items: center;
+  }
+  .twin-text { color: var(--cream); }
+  .twin-text .tag { background: rgba(201,168,76,.15); color: var(--gold-light); border-color: rgba(201,168,76,.25); }
+  .twin-text .section-h2 { color: var(--cream); margin-top: 14px; }
+  .twin-desc { font-size: 15px; color: rgba(240,246,242,.65); line-height: 1.75; margin-top: 14px; margin-bottom: 28px; }
+  .twin-bullets { display: flex; flex-direction: column; gap: 12px; }
+  .twin-bullet { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(240,246,242,.8); }
+  .twin-bullet-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+  .twin-card {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+    border-radius: var(--r-xl); padding: 28px; backdrop-filter: blur(10px);
+  }
+  .twin-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .twin-card-title { font-size: 15px; font-weight: 700; color: var(--cream); }
+  .twin-badge { background: rgba(201,168,76,.2); color: var(--gold-light); border-radius: 100px; padding: 3px 10px; font-size: 11px; font-weight: 700; }
+  .twin-fields { display: flex; flex-direction: column; gap: 12px; }
+  .twin-row { display: flex; justify-content: space-between; align-items: center; }
+  .twin-key { font-size: 12px; color: rgba(240,246,242,.4); font-weight: 500; }
+  .twin-val { font-size: 13px; font-weight: 600; color: var(--cream); }
+  .twin-divider { height: 1px; background: rgba(255,255,255,.08); margin: 4px 0; }
+  .twin-scores { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 18px; }
+  .twin-score-item { background: rgba(255,255,255,.06); border-radius: 12px; padding: 14px 10px; text-align: center; }
+  .twin-score-val { font-size: 22px; font-weight: 800; color: var(--gold-light); }
+  .twin-score-label { font-size: 11px; color: rgba(240,246,242,.45); margin-top: 2px; }
 
-  /* ======= AI CHAT ======= */
-  .chat-container { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
-  .chat-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 12px; }
-  .chat-avatar { width: 36px; height: 36px; background: linear-gradient(135deg,var(--primary),var(--secondary)); border-radius: 10px; display: flex; align-items: center; justify-content: center; }
-  .chat-title { font-weight: 700; font-size: 15px; }
-  .chat-status { font-size: 12px; color: var(--success); font-weight: 500; }
-  .chat-messages { height: 320px; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
-  .msg { max-width: 80%; }
-  .msg-user { align-self: flex-end; }
-  .msg-ai { align-self: flex-start; }
-  .msg-bubble { padding: 12px 16px; border-radius: 16px; font-size: 14px; line-height: 1.5; }
-  .msg-user .msg-bubble { background: var(--primary); color: white; border-bottom-right-radius: 4px; }
-  .msg-ai .msg-bubble { background: var(--bg); border: 1px solid var(--border); color: var(--text); border-bottom-left-radius: 4px; }
-  .msg-time { font-size: 11px; color: var(--muted); margin-top: 4px; text-align: right; }
-  .msg-ai .msg-time { text-align: left; }
-  .typing-indicator { display: flex; gap: 4px; align-items: center; padding: 12px 16px; }
-  .typing-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--muted); animation: typing .8s infinite; }
-  .typing-dot:nth-child(2) { animation-delay: .15s; }
-  .typing-dot:nth-child(3) { animation-delay: .3s; }
-  @keyframes typing { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-4px)} }
-  .chat-input-area { padding: 16px; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-end; }
-  .chat-input { flex: 1; border: 1.5px solid var(--border); border-radius: 10px; padding: 10px 14px; font-size: 14px; background: var(--bg); color: var(--text); font-family: var(--font); resize: none; outline: none; transition: var(--transition); }
-  .chat-input:focus { border-color: var(--primary); }
-  .chat-suggestions { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 20px; border-top: 1px solid var(--border); }
-  .chat-suggestion { background: var(--bg); border: 1px solid var(--border); border-radius: 100px; padding: 6px 14px; font-size: 12px; color: var(--muted); cursor: pointer; transition: var(--transition); }
-  .chat-suggestion:hover { border-color: var(--primary); color: var(--primary); background: rgba(31,143,95,.05); }
+  /* ══════════════════════════════════
+     OFFLINE / MISSION
+  ══════════════════════════════════ */
+  #mission { padding: 96px 0; background: var(--white); }
+  .mission-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .mission-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .pill {
+    background: var(--green-50); border: 1px solid var(--border);
+    border-radius: 100px; padding: 6px 16px;
+    font-size: 13px; font-weight: 600; color: var(--green-700);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .offline-widget {
+    background: var(--green-800); border-radius: var(--r-xl);
+    padding: 28px; color: var(--cream);
+  }
+  .offline-title { font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 18px; }
+  .sync-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.08);
+    font-size: 13px;
+  }
+  .sync-row:last-child { border-bottom: none; }
+  .sync-label { color: rgba(240,246,242,.55); }
+  .sync-val { font-weight: 600; color: var(--cream); display: flex; align-items: center; gap: 5px; }
+  .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: blink 1.5s infinite; }
+  .progress-row { margin-top: 18px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: rgba(240,246,242,.5); margin-bottom: 6px; }
+  .progress-track { height: 5px; background: rgba(255,255,255,.1); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); }
 
-  /* ======= CIRCULAR PROGRESS ======= */
-  .circle-progress { position: relative; display: inline-flex; align-items: center; justify-content: center; }
-  .circle-progress svg { transform: rotate(-90deg); }
-  .circle-progress-label { position: absolute; text-align: center; }
-  .circle-progress-value { font-size: 22px; font-weight: 800; color: var(--text); }
-  .circle-progress-unit { font-size: 11px; color: var(--muted); }
+  /* ══════════════════════════════════
+     ROADMAP
+  ══════════════════════════════════ */
+  #roadmap { padding: 80px 0; background: var(--cream); }
+  .roadmap-track { display: flex; gap: 0; overflow-x: auto; padding: 8px 0 20px; scrollbar-width: thin; }
+  .roadmap-item { flex: 0 0 auto; min-width: 200px; position: relative; padding: 0 16px; text-align: center; }
+  .roadmap-item::before {
+    content: ''; position: absolute; top: 18px; left: 0; right: 0; height: 2px;
+    background: var(--border);
+  }
+  .roadmap-item:first-child::before { left: 50%; }
+  .roadmap-item:last-child::before { right: 50%; }
+  .roadmap-node {
+    width: 36px; height: 36px; border-radius: 50%; margin: 0 auto 16px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1; font-size: 12px; font-weight: 800;
+  }
+  .roadmap-node.now { background: var(--green-800); color: var(--gold); box-shadow: 0 0 0 5px rgba(28,56,41,.15); }
+  .roadmap-node.future { background: var(--white); border: 2px solid var(--border); color: var(--text-muted); }
+  .roadmap-year { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 4px; }
+  .roadmap-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
-  /* ======= OFFLINE BADGE ======= */
-  .offline-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(18,183,106,.1); color: var(--success); border: 1px solid rgba(18,183,106,.2); border-radius: 100px; padding: 4px 12px; font-size: 12px; font-weight: 600; }
-  .offline-dot { width: 6px; height: 6px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+  /* ══════════════════════════════════
+     CTA SECTION
+  ══════════════════════════════════ */
+  #cta {
+    padding: 96px 0;
+    background: linear-gradient(135deg, var(--green-900), var(--green-800));
+    text-align: center; position: relative; overflow: hidden;
+  }
+  #cta::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 80% at 50% 100%, rgba(201,168,76,.12), transparent);
+    pointer-events: none;
+  }
+  .cta-content { position: relative; z-index: 1; }
+  .cta-h2 { font-family: var(--serif); font-size: clamp(30px, 5vw, 48px); color: var(--cream); margin: 14px 0 16px; }
+  .cta-desc { font-size: 16px; color: rgba(240,246,242,.6); max-width: 440px; margin: 0 auto 36px; line-height: 1.7; }
+  .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-  /* ======= PASSPORT ======= */
-  .passport { background: linear-gradient(135deg,#0D4F35 0%,#1F8F5F 50%,#2FBF71 100%); border-radius: var(--radius-lg); padding: 32px; color: white; position: relative; overflow: hidden; }
-  .passport::before { content:'TERROVA'; position:absolute; top:20px; right:-20px; font-size:80px; font-weight:900; opacity:.05; letter-spacing:-2px; white-space:nowrap; }
-  .passport-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 28px; }
-  .passport-logo { font-size: 11px; font-weight: 700; opacity: .7; letter-spacing: 2px; text-transform: uppercase; }
-  .passport-title { font-size: 20px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
-  .passport-body { display: grid; grid-template-columns: 1fr auto; gap: 24px; align-items: end; }
-  .passport-field { margin-bottom: 14px; }
-  .passport-field-label { font-size: 10px; font-weight: 700; opacity: .6; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
-  .passport-field-value { font-size: 16px; font-weight: 700; }
-  .passport-qr { width: 80px; height: 80px; background: white; border-radius: 8px; padding: 6px; }
-  .rating-stars { display: flex; gap: 3px; margin-top: 4px; }
-  .star { width: 14px; height: 14px; fill: #FFD700; }
-  .verified-badge { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,.2); border-radius: 100px; padding: 4px 10px; font-size: 11px; font-weight: 700; margin-top: 12px; }
+  /* ══════════════════════════════════
+     FOOTER
+  ══════════════════════════════════ */
+  footer {
+    background: var(--green-900); padding: 52px 20px 32px;
+    color: rgba(240,246,242,.55);
+  }
+  .footer-inner {
+    max-width: 1080px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px;
+    padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .footer-brand .footer-logo-wrap {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
+  }
+  .footer-logo-wrap img { height: 28px; width: auto; }
+  .footer-logo-name { font-family: var(--serif); font-size: 16px; color: var(--cream); letter-spacing: 1px; }
+  .footer-logo-name sup { font-family: var(--font); font-size: 9px; color: var(--gold); }
+  .footer-tagline { font-size: 13px; line-height: 1.65; max-width: 260px; }
+  .footer-orynth { margin-top: 20px; }
+  .footer-col-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(240,246,242,.35); margin-bottom: 14px; }
+  .footer-links { display: flex; flex-direction: column; gap: 9px; }
+  .footer-links a { font-size: 13px; transition: color .15s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-bottom {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px; flex-wrap: wrap; gap: 12px;
+    font-size: 12px;
+  }
+  .footer-bottom a { transition: color .15s; }
+  .footer-bottom a:hover { color: var(--gold); }
 
-  /* ======= ROADMAP ======= */
-  .roadmap-items { display: flex; gap: 0; position: relative; overflow-x: auto; padding-bottom: 16px; }
-  .roadmap-item { flex: 1; min-width: 180px; text-align: center; position: relative; padding: 0 16px; }
-  .roadmap-item::before { content:''; position:absolute; top:20px; left:0; right:0; height:2px; background:var(--border); }
-  .roadmap-item:first-child::before { left:50%; }
-  .roadmap-item:last-child::before { right:50%; }
-  .roadmap-dot { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; font-size: 13px; font-weight: 800; }
-  .roadmap-dot.active { background: var(--primary); color: white; box-shadow: 0 0 0 4px rgba(31,143,95,.2); }
-  .roadmap-dot.upcoming { background: var(--card); border: 2px solid var(--border); color: var(--muted); }
-  .roadmap-year { font-size: 14px; font-weight: 800; color: var(--text); margin-bottom: 6px; }
-  .roadmap-desc { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  /* ══════════════════════════════════
+     ANIMATIONS
+  ══════════════════════════════════ */
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .1s; }
+  .reveal-delay-2 { transition-delay: .2s; }
+  .reveal-delay-3 { transition-delay: .3s; }
 
-  /* ======= WEATHER ======= */
-  .weather-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(160px,1fr)); gap: 16px; }
-  .weather-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; text-align: center; transition: var(--transition); }
-  .weather-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
-  .weather-icon { font-size: 36px; margin-bottom: 8px; }
-  .weather-value { font-size: 28px; font-weight: 800; color: var(--text); }
-  .weather-unit { font-size: 14px; color: var(--muted); }
-  .weather-label { font-size: 12px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; margin-top: 6px; }
-
-  /* ======= FARM MAP ======= */
-  .map-container { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; position: relative; }
-  .map-legend { display: flex; gap: 16px; padding: 12px 16px; border-top: 1px solid var(--border); flex-wrap: wrap; }
-  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); font-weight: 500; }
-  .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
-
-  /* ======= APK SECTION ======= */
-  .apk-section { background: linear-gradient(135deg,#0D4F35,#1F8F5F); border-radius: var(--radius-lg); padding: 48px; color: white; display: flex; align-items: center; gap: 40px; flex-wrap: wrap; }
-  .apk-content { flex: 1; min-width: 280px; }
-  .apk-title { font-size: 32px; font-weight: 800; margin-bottom: 12px; }
-  .apk-desc { font-size: 16px; opacity: .8; margin-bottom: 28px; line-height: 1.6; }
-  .apk-features { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-  .apk-feature { background: rgba(255,255,255,.15); backdrop-filter: blur(10px); border-radius: 100px; padding: 5px 14px; font-size: 13px; font-weight: 600; }
-  .apk-btn { display: inline-flex; align-items: center; gap: 8px; background: white; color: var(--primary); border: none; padding: 14px 28px; border-radius: 12px; font-size: 15px; font-weight: 700; transition: var(--transition); cursor: pointer; }
-  .apk-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
-  .apk-mockup { flex: 0 0 auto; }
-
-  /* ======= FOOTER ======= */
-  footer { background: var(--card); border-top: 1px solid var(--border); padding: 60px 24px 32px; }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-  .footer-logo { font-size: 20px; font-weight: 800; color: var(--text); margin-bottom: 10px; }
-  .footer-tagline { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
-  .footer-col-title { font-size: 12px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 14px; }
-  .footer-links { display: flex; flex-direction: column; gap: 8px; }
-  .footer-links a { font-size: 14px; color: var(--muted); transition: var(--transition); }
-  .footer-links a:hover { color: var(--primary); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px; }
-  .footer-copy { font-size: 13px; color: var(--muted); }
-
-  /* ======= ANIMATIONS ======= */
-  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-  @keyframes slideIn { from{opacity:0;transform:translateX(-20px)} to{opacity:1;transform:translateX(0)} }
-  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  @keyframes shimmer { 0%{background-position:-200% 0} 100%{background-position:200% 0} }
-  .animate-float { animation: float 4s ease-in-out infinite; }
-  .fade-in { animation: fadeIn .6s ease forwards; }
-  .fade-in-up { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
-  .fade-in-up.visible { opacity: 1; transform: translateY(0); }
-
-  /* ======= SOIL ======= */
-  .soil-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(200px,1fr)); gap: 16px; }
-  .soil-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-  .soil-value { font-size: 36px; font-weight: 800; color: var(--text); }
-  .soil-label { font-size: 12px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 10px; }
-  .soil-unit { font-size: 14px; color: var(--muted); font-weight: 500; }
-  .soil-status { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 100px; display: inline-block; margin-top: 6px; }
-  .status-good { background: rgba(18,183,106,.1); color: var(--success); }
-  .status-warn { background: rgba(247,144,9,.1); color: var(--warning); }
-  .status-bad { background: rgba(240,68,56,.1); color: var(--danger); }
-
-  /* ======= DIGITAL TWIN ======= */
-  .twin-profile { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; }
-  .twin-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 24px; flex-wrap: wrap; gap: 16px; }
-  .twin-name { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
-  .twin-id { font-size: 13px; color: var(--muted); font-family: monospace; }
-  .twin-status-badge { background: rgba(18,183,106,.1); color: var(--success); border: 1px solid rgba(18,183,106,.2); border-radius: 100px; padding: 4px 12px; font-size: 12px; font-weight: 700; }
-  .twin-fields { display: grid; grid-template-columns: repeat(auto-fill,minmax(180px,1fr)); gap: 16px; margin-bottom: 24px; }
-  .twin-field { }
-  .twin-field-label { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 4px; }
-  .twin-field-value { font-size: 15px; font-weight: 600; color: var(--text); }
-  .twin-health { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-  .twin-metric { background: var(--bg); border-radius: var(--radius); padding: 16px; text-align: center; }
-  .twin-metric-value { font-size: 28px; font-weight: 800; color: var(--primary); }
-  .twin-metric-label { font-size: 12px; color: var(--muted); font-weight: 500; margin-top: 2px; }
-
-  /* ======= CANVAS CHARTS ======= */
-  .chart-container { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; }
-  .chart-title { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-  .chart-sub { font-size: 12px; color: var(--muted); margin-bottom: 16px; }
-  canvas { display: block; }
-
-  /* ======= OFFLINE SECTION ======= */
-  .offline-panel { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; }
-  .sync-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--border); }
-  .sync-item:last-child { border-bottom: none; }
-  .sync-label { font-size: 14px; font-weight: 500; }
-  .sync-value { font-size: 13px; color: var(--muted); }
-  .sync-status { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; color: var(--success); }
-  .sync-anim { width: 8px; height: 8px; border-radius: 50%; background: var(--success); animation: pulse 1.5s infinite; }
-
-  /* ======= RESPONSIVE ======= */
-  @media (max-width: 900px) {
+  /* ══════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════ */
+  @media (max-width: 860px) {
     .nav-links { display: none; }
-    .hamburger { display: flex; }
-    .grid-4 { grid-template-columns: repeat(2,1fr); }
-    .grid-3 { grid-template-columns: repeat(2,1fr); }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .twin-health { grid-template-columns: repeat(3,1fr); }
-    .passport-body { grid-template-columns: 1fr; }
+    .nav-ham { display: flex; }
+    .features-grid { grid-template-columns: 1fr 1fr; }
+    .twin-inner { grid-template-columns: 1fr; gap: 36px; }
+    .mission-inner { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .footer-brand { grid-column: 1 / -1; }
   }
-  @media (max-width: 600px) {
-    section { padding: 60px 16px; }
-    nav { padding: 0 16px; }
-    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .hero h1 { letter-spacing: -1px; }
-    .apk-section { padding: 32px 24px; }
-    .twin-health { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 560px) {
+    .features-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+    #hero, #cta { padding-left: 16px; padding-right: 16px; }
+    .twin-scores { grid-template-columns: 1fr 1fr 1fr; }
   }
-  /* Highlight active section in nav */
-  .nav-links a.active { color: var(--primary); }
 </style>
 </head>
 <body>
 
-<!-- ===== NAV ===== -->
-<nav id="navbar">
-  <a class="nav-logo" href="#">
-    <div class="nav-logo-icon">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">
+      <img src="/logo.png" alt="Terrova AI logo">
+    </a>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#twin">Digital Twin</a>
+      <a href="#mission">Offline</a>
+      <a href="#roadmap">Roadmap</a>
     </div>
-    TERROVA
-  </a>
-  <div class="nav-links" id="navLinks">
-    <a href="#dashboard" data-i18n="nav_dashboard">Dashboard</a>
-    <a href="#digital-twin" data-i18n="nav_twin">Digital Twin</a>
-    <a href="#soil" data-i18n="nav_soil">Soil</a>
-    <a href="#ai-advisor" data-i18n="nav_ai">AI Advisor</a>
-    <a href="#analytics" data-i18n="nav_analytics">Analytics</a>
-    <a href="#roadmap" data-i18n="nav_roadmap">Roadmap</a>
-  </div>
-  <div class="nav-right">
-    <div class="lang-select" id="langSelect">
-      <button class="lang-btn" id="langBtn" onclick="toggleLang()">
-        <span id="currentLangFlag">🌐</span>
-        <span id="currentLangName">EN</span>
-        <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor"><path d="M5 7L1 3h8z"/></svg>
-      </button>
-      <div class="lang-dropdown" id="langDropdown">
-        <div class="lang-option active" onclick="setLang('en')">🇺🇸 English</div>
-        <div class="lang-option" onclick="setLang('id')">🇮🇩 Bahasa Indonesia</div>
-        <div class="lang-option" onclick="setLang('es')">🇪🇸 Español</div>
-        <div class="lang-option" onclick="setLang('pt')">🇧🇷 Português</div>
-        <div class="lang-option" onclick="setLang('fr')">🇫🇷 Français</div>
-        <div class="lang-option" onclick="setLang('ar')">🇸🇦 العربية</div>
-        <div class="lang-option" onclick="setLang('hi')">🇮🇳 हिंदी</div>
-        <div class="lang-option" onclick="setLang('zh')">🇨🇳 中文</div>
-        <div class="lang-option" onclick="setLang('ja')">🇯🇵 日本語</div>
-      </div>
+    <div class="nav-right">
+      <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" title="Built by @lucasreedxx"
+        style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);padding:7px 12px;border-radius:8px;transition:all .15s"
+        onmouseover="this.style.color='var(--green-800)';this.style.background='var(--green-50)'"
+        onmouseout="this.style.color='var(--text-muted)';this.style.background='transparent'">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        @lucasreedxx
+      </a>
+      <a href="#cta" class="btn btn-primary btn-sm">Download APK</a>
     </div>
-    <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
-      <svg id="themeIcon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
-      </svg>
-    </button>
-    <button class="btn btn-primary" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'})" data-i18n="btn_launch">Launch App</button>
-    <button class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <button class="nav-ham" id="navHam" aria-label="Menu" onclick="toggleMobile()">
       <span></span><span></span><span></span>
     </button>
   </div>
 </nav>
 
-<!-- Mobile Nav -->
-<div class="mobile-nav" id="mobileNav">
-  <a href="#dashboard" onclick="toggleMobileNav()" data-i18n="nav_dashboard">Dashboard</a>
-  <a href="#digital-twin" onclick="toggleMobileNav()" data-i18n="nav_twin">Digital Twin</a>
-  <a href="#soil" onclick="toggleMobileNav()" data-i18n="nav_soil">Soil Health</a>
-  <a href="#ai-advisor" onclick="toggleMobileNav()" data-i18n="nav_ai">AI Advisor</a>
-  <a href="#analytics" onclick="toggleMobileNav()" data-i18n="nav_analytics">Analytics</a>
-  <a href="#roadmap" onclick="toggleMobileNav()" data-i18n="nav_roadmap">Roadmap</a>
-  <a href="#apk" onclick="toggleMobileNav()" data-i18n="nav_download">Download APK</a>
+<!-- Mobile Drawer -->
+<div class="mobile-drawer" id="mobileDrawer">
+  <a href="#features" onclick="toggleMobile()">Features</a>
+  <a href="#twin" onclick="toggleMobile()">Digital Twin</a>
+  <a href="#mission" onclick="toggleMobile()">Offline Mode</a>
+  <a href="#roadmap" onclick="toggleMobile()">Roadmap</a>
+  <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" onclick="toggleMobile()">
+    Built by @lucasreedxx ↗
+  </a>
+  <a href="#cta" class="btn btn-primary mobile-cta" onclick="toggleMobile()">Download APK</a>
 </div>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-content fade-in">
-    <div class="hero-badge">
-      <span></span>
-      <span data-i18n="hero_badge">World's First Agricultural Digital Twin Platform</span>
+<!-- ═══ HERO ═══ -->
+<section id="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+
+  <div class="hero-content">
+    <div class="hero-logo">
+      <img src="/logo.png" alt="Terrova AI">
     </div>
-    <h1 data-i18n="hero_title">Every Farm Deserves a <span>Digital Identity</span></h1>
-    <p class="hero-desc" data-i18n="hero_desc">Create a living digital twin of your farm, track crops, soil, weather, activities, sustainability metrics, and AI-powered insights — online or offline.</p>
+    <p class="hero-eyebrow">Digital Twin · AI · Offline-First</p>
+    <h1 class="hero-h1">Every Farm Deserves a <em>Digital Identity</em></h1>
+    <p class="hero-desc">
+      Build a living digital twin of your farm. Track soil, crops, water, and weather — with AI-powered insights that work online or fully offline.
+    </p>
     <div class="hero-actions">
-      <button class="btn btn-primary btn-xl" onclick="document.getElementById('apk').scrollIntoView({behavior:'smooth'})">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-1-6h-3V8h-2v5H8l4 4 4-4z"/></svg>
-        <span data-i18n="btn_apk">Download APK</span>
-      </button>
-      <button class="btn btn-outline btn-xl" onclick="document.getElementById('dashboard').scrollIntoView({behavior:'smooth'})">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z"/></svg>
-        <span data-i18n="btn_launch">Launch Web App</span>
-      </button>
+      <a href="#cta" class="btn btn-gold btn-lg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zm-1 15.49l-3-3.01V17H9v-5h5V9.51l3 3.01-3 3z"/></svg>
+        Download APK
+      </a>
+      <a href="#features" class="btn btn-ghost-white btn-lg">
+        Explore Platform
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+      </a>
     </div>
     <div class="hero-stats">
-      <div class="hero-stat">
+      <div>
         <div class="hero-stat-num">12K+</div>
-        <div class="hero-stat-label" data-i18n="stat_farms">Active Farms</div>
+        <div class="hero-stat-label">Active Farms</div>
       </div>
-      <div class="hero-stat">
-        <div class="hero-stat-num">98%</div>
-        <div class="hero-stat-label" data-i18n="stat_uptime">Offline Ready</div>
-      </div>
-      <div class="hero-stat">
+      <div>
         <div class="hero-stat-num">47</div>
-        <div class="hero-stat-label" data-i18n="stat_countries">Countries</div>
+        <div class="hero-stat-label">Countries</div>
       </div>
-      <div class="hero-stat">
+      <div>
         <div class="hero-stat-num">9</div>
-        <div class="hero-stat-label" data-i18n="stat_langs">Languages</div>
+        <div class="hero-stat-label">Languages</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">100%</div>
+        <div class="hero-stat-label">Offline Ready</div>
       </div>
     </div>
   </div>
-  <!-- SVG Illustration -->
-  <div class="hero-illustration animate-float">
-    <svg viewBox="0 0 720 360" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:720px;">
-      <defs>
-        <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1F8F5F" stop-opacity=".15"/><stop offset="100%" stop-color="#2FBF71" stop-opacity=".05"/></linearGradient>
-        <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1F8F5F"/><stop offset="100%" stop-color="#2FBF71"/></linearGradient>
-        <linearGradient id="g3" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1F8F5F" stop-opacity=".3"/><stop offset="100%" stop-color="#2FBF71" stop-opacity=".0"/></linearGradient>
-      </defs>
-      <!-- Background circles -->
-      <circle cx="360" cy="180" r="160" fill="url(#g1)"/>
-      <circle cx="360" cy="180" r="120" fill="none" stroke="#1F8F5F" stroke-width=".5" stroke-dasharray="4 4"/>
-      <circle cx="360" cy="180" r="80" fill="none" stroke="#2FBF71" stroke-width=".5" stroke-dasharray="4 4"/>
-      <!-- Farm grid -->
-      <g transform="translate(240,100)">
-        <rect x="0" y="0" width="60" height="60" rx="8" fill="#1F8F5F" fill-opacity=".2" stroke="#1F8F5F" stroke-width="1.5"/>
-        <rect x="64" y="0" width="60" height="60" rx="8" fill="#2FBF71" fill-opacity=".15" stroke="#2FBF71" stroke-width="1.5"/>
-        <rect x="0" y="64" width="60" height="60" rx="8" fill="#12B76A" fill-opacity=".15" stroke="#12B76A" stroke-width="1.5"/>
-        <rect x="64" y="64" width="60" height="60" rx="8" fill="#1F8F5F" fill-opacity=".1" stroke="#1F8F5F" stroke-width="1"/>
-        <!-- Plants -->
-        <g transform="translate(15,18)"><path d="M15 30 L15 10 Q15 0 25 0 Q15 0 15 10" fill="#2FBF71" opacity=".7"/><rect x="13" y="20" width="4" height="12" rx="2" fill="#1F8F5F"/></g>
-        <g transform="translate(79,18)"><path d="M15 30 L15 8 Q15-2 25-2 Q15-2 15 8" fill="#2FBF71" opacity=".7"/><path d="M15 25 L15 8 Q5 8 5 18 Q5 8 15 8" fill="#12B76A" opacity=".5"/><rect x="13" y="20" width="4" height="12" rx="2" fill="#1F8F5F"/></g>
-      </g>
-      <!-- Data lines -->
-      <line x1="360" y1="50" x2="540" y2="50" stroke="#1F8F5F" stroke-width="1" stroke-dasharray="4 4" opacity=".4"/>
-      <line x1="360" y1="310" x2="180" y2="310" stroke="#2FBF71" stroke-width="1" stroke-dasharray="4 4" opacity=".4"/>
-      <!-- Floating cards -->
-      <g transform="translate(520,60)">
-        <rect width="160" height="70" rx="12" fill="white" fill-opacity=".9" stroke="#E4E7EC" stroke-width="1"/>
-        <rect x="12" y="14" width="30" height="30" rx="8" fill="#1F8F5F" fill-opacity=".15"/>
-        <text x="50" y="27" font-size="10" fill="#101828" font-weight="700" font-family="sans-serif">Soil Health</text>
-        <text x="50" y="40" font-size="16" fill="#1F8F5F" font-weight="900" font-family="sans-serif">87%</text>
-        <rect x="12" y="50" width="136" height="6" rx="3" fill="#E4E7EC"/>
-        <rect x="12" y="50" width="118" height="6" rx="3" fill="#2FBF71"/>
-      </g>
-      <g transform="translate(30,70)">
-        <rect width="160" height="70" rx="12" fill="white" fill-opacity=".9" stroke="#E4E7EC" stroke-width="1"/>
-        <rect x="12" y="14" width="30" height="30" rx="8" fill="#2FBF71" fill-opacity=".15"/>
-        <text x="50" y="27" font-size="10" fill="#101828" font-weight="700" font-family="sans-serif">Crop Health</text>
-        <text x="50" y="40" font-size="16" fill="#2FBF71" font-weight="900" font-family="sans-serif">94%</text>
-        <rect x="12" y="50" width="136" height="6" rx="3" fill="#E4E7EC"/>
-        <rect x="12" y="50" width="128" height="6" rx="3" fill="#12B76A"/>
-      </g>
-      <g transform="translate(40,270)">
-        <rect width="140" height="52" rx="10" fill="white" fill-opacity=".9" stroke="#E4E7EC" stroke-width="1"/>
-        <circle cx="20" cy="26" r="8" fill="#1F8F5F" cx="28"/>
-        <circle cx="28" cy="26" r="6" fill="#2FBF71" fill-opacity=".3"/>
-        <circle cx="28" cy="26" r="3" fill="#2FBF71"/>
-        <text x="42" y="22" font-size="9" fill="#667085" font-family="sans-serif">Digital Twin</text>
-        <text x="42" y="35" font-size="11" fill="#101828" font-weight="700" font-family="sans-serif">ACTIVE ✓</text>
-      </g>
-      <g transform="translate(540,270)">
-        <rect width="140" height="52" rx="10" fill="white" fill-opacity=".9" stroke="#E4E7EC" stroke-width="1"/>
-        <text x="14" y="22" font-size="9" fill="#667085" font-family="sans-serif">Water Efficiency</text>
-        <text x="14" y="36" font-size="13" fill="#1F8F5F" font-weight="800" font-family="sans-serif">91% 💧</text>
-      </g>
-      <!-- Center icon -->
-      <g transform="translate(340,162)">
-        <circle cx="20" cy="20" r="20" fill="url(#g2)" opacity=".9"/>
-        <text x="10" y="26" font-size="18" fill="white">🌱</text>
-      </g>
-    </svg>
+
+  <div class="builder-bar">
+    <span>Built by</span>
+    <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      @lucasreedxx
+    </a>
+    <span>·</span>
+    <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">Featured on Orynth ↗</a>
   </div>
 </section>
 
-<!-- ===== OFFLINE BANNER ===== -->
-<div style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:10px 24px;display:flex;align-items:center;gap:16px;flex-wrap:wrap;">
-  <div class="container" style="display:flex;align-items:center;gap:16px;flex-wrap:wrap;width:100%">
-    <div class="offline-badge"><span class="offline-dot"></span><span data-i18n="offline_ready">Offline Sync Ready</span></div>
-    <span style="font-size:13px;color:var(--muted)" data-i18n="last_synced">Last Synced: Just now</span>
-    <span style="font-size:13px;color:var(--muted)">•</span>
-    <span style="font-size:13px;color:var(--muted)" data-i18n="local_storage">Local Storage Active</span>
-    <span style="margin-left:auto;font-size:13px;color:var(--success);font-weight:600" id="syncStatus">● All data synced</span>
-  </div>
-</div>
-
-<!-- ===== DASHBOARD ===== -->
-<section id="dashboard">
+<!-- ═══ FEATURES ═══ -->
+<section id="features">
   <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_dashboard">Dashboard</div>
-      <h2 class="section-title" data-i18n="dashboard_title">Farm Operations Overview</h2>
-      <p class="section-desc" data-i18n="dashboard_desc">Real-time insights across all your registered farms and fields.</p>
+    <div class="features-header reveal">
+      <div class="tag"><span class="dot"></span> Platform Features</div>
+      <h2 class="section-h2">Everything your farm needs,<br>in one platform.</h2>
+      <p class="section-desc">From soil sensors to AI yield forecasting — built for farmers in every connectivity condition.</p>
     </div>
-    <div class="dashboard-grid fade-in-up">
-      <div class="dash-card" style="border-left:4px solid var(--primary)">
-        <div class="dash-card-icon" style="background:rgba(31,143,95,.1)">🌾</div>
-        <div class="dash-card-label" data-i18n="card_farms">Active Farms</div>
-        <div class="dash-card-value">24</div>
-        <div class="dash-card-sub" data-i18n="card_farms_sub">3 pending sync</div>
-        <div class="dash-card-trend trend-up">↑ 4 this month</div>
+    <div class="features-grid">
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">🌱</div>
+        <div class="feat-title">Digital Twin</div>
+        <div class="feat-desc">A living digital model of your farm. Updated in real-time from sensors, weather, and manual inputs. Every field, every crop.</div>
       </div>
-      <div class="dash-card" style="border-left:4px solid var(--success)">
-        <div class="dash-card-icon" style="background:rgba(18,183,106,.1)">🌿</div>
-        <div class="dash-card-label" data-i18n="card_crop">Crop Health</div>
-        <div class="dash-card-value">94%</div>
-        <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:94%;background:var(--success)"></div></div>
-        <div class="dash-card-trend trend-up">↑ 2% vs last week</div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">🤖</div>
+        <div class="feat-title">AI Farm Advisor</div>
+        <div class="feat-desc">Ask anything. Get crop recommendations, pest diagnostics, fertilizer schedules, and yield forecasts — powered by agricultural AI.</div>
       </div>
-      <div class="dash-card" style="border-left:4px solid var(--warning)">
-        <div class="dash-card-icon" style="background:rgba(247,144,9,.1)">🌍</div>
-        <div class="dash-card-label" data-i18n="card_soil">Soil Health</div>
-        <div class="dash-card-value">87%</div>
-        <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:87%;background:var(--warning)"></div></div>
-        <div class="dash-card-trend trend-up">↑ Optimal range</div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">📡</div>
+        <div class="feat-title">Offline-First</div>
+        <div class="feat-desc">Built for the field, not the office. All data syncs locally. Works in zero-connectivity areas. Syncs automatically when back online.</div>
       </div>
-      <div class="dash-card" style="border-left:4px solid #38BDF8">
-        <div class="dash-card-icon" style="background:rgba(56,189,248,.1)">💧</div>
-        <div class="dash-card-label" data-i18n="card_water">Water Efficiency</div>
-        <div class="dash-card-value">91%</div>
-        <div class="progress-bar" style="margin-top:8px"><div class="progress-fill" style="width:91%;background:#38BDF8"></div></div>
-        <div class="dash-card-trend trend-down">↓ 1% irrigation loss</div>
+      <div class="feat-card reveal reveal-delay-1">
+        <div class="feat-icon">🌍</div>
+        <div class="feat-title">Soil Health Center</div>
+        <div class="feat-desc">Monitor pH, nitrogen, phosphorus, potassium, and organic matter. Get actionable recommendations to restore soil vitality.</div>
       </div>
-      <div class="dash-card" style="border-left:4px solid var(--secondary)">
-        <div class="dash-card-icon" style="background:rgba(47,191,113,.1)">♻️</div>
-        <div class="dash-card-label" data-i18n="card_sustain">Sustainability Score</div>
-        <div class="dash-card-value">88</div>
-        <div class="dash-card-sub">/100</div>
-        <div class="dash-card-trend trend-up">↑ Top 10% globally</div>
+      <div class="feat-card reveal reveal-delay-2">
+        <div class="feat-icon">♻️</div>
+        <div class="feat-title">Sustainability Tracker</div>
+        <div class="feat-desc">Measure carbon footprint, water efficiency, biodiversity, and regenerative agriculture scores. Build toward a greener future.</div>
       </div>
-      <div class="dash-card" style="border-left:4px solid #A855F7">
-        <div class="dash-card-icon" style="background:rgba(168,85,247,.1)">📊</div>
-        <div class="dash-card-label" data-i18n="card_harvest">Predicted Harvest</div>
-        <div class="dash-card-value">4.2T</div>
-        <div class="dash-card-sub" data-i18n="card_harvest_sub">Est. yield per hectare</div>
-        <div class="dash-card-trend trend-up">↑ 8% above average</div>
+      <div class="feat-card reveal reveal-delay-3">
+        <div class="feat-icon">📋</div>
+        <div class="feat-title">Digital Passport</div>
+        <div class="feat-desc">Every farm gets a verified digital identity — Farm ID, history, sustainability rating, and QR-verifiable credentials.</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== DIGITAL TWIN ===== -->
-<section id="digital-twin" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+<!-- ═══ DIGITAL TWIN SHOWCASE ═══ -->
+<section id="twin">
   <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_twin">Digital Twin</div>
-      <h2 class="section-title" data-i18n="twin_title">Your Farm's Digital Identity</h2>
-      <p class="section-desc" data-i18n="twin_desc">A living digital representation of your farm, updated in real-time.</p>
-    </div>
-    <div class="twin-profile fade-in-up">
-      <div class="twin-header">
-        <div>
-          <div class="twin-name" data-i18n="farm_name">Green Valley Farm</div>
-          <div class="twin-id">ID: TRV-2024-GVF-00142</div>
+    <div class="twin-inner">
+      <div class="twin-text reveal">
+        <div class="tag">Digital Twin</div>
+        <h2 class="section-h2">Your farm, alive in the cloud.</h2>
+        <p class="twin-desc">Every activity, measurement, and insight captured in a single, unified digital model. Accessible from your phone — even offline.</p>
+        <div class="twin-bullets">
+          <div class="twin-bullet"><div class="twin-bullet-dot"></div>Real-time sync from IoT sensors & manual logs</div>
+          <div class="twin-bullet"><div class="twin-bullet-dot"></div>Full activity timeline — planting, irrigation, harvest</div>
+          <div class="twin-bullet"><div class="twin-bullet-dot"></div>AI health scoring updated every 6 hours</div>
+          <div class="twin-bullet"><div class="twin-bullet-dot"></div>Sharable digital passport for certification</div>
         </div>
-        <div class="twin-status-badge">🟢 Twin Active</div>
       </div>
-      <div class="twin-fields">
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_location">Location</div><div class="twin-field-value">West Java, Indonesia</div></div>
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_size">Farm Size</div><div class="twin-field-value">12.5 Hectares</div></div>
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_crop">Primary Crop</div><div class="twin-field-value">Rice (IR64)</div></div>
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_soil_type">Soil Type</div><div class="twin-field-value">Clay Loam</div></div>
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_water">Water Source</div><div class="twin-field-value">Irrigation Canal</div></div>
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_updated">Last Updated</div><div class="twin-field-value">2 minutes ago</div></div>
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_records">Historical Records</div><div class="twin-field-value">847 entries</div></div>
-        <div class="twin-field"><div class="twin-field-label" data-i18n="field_owner">Owner</div><div class="twin-field-value">Ahmad Santoso</div></div>
-      </div>
-      <div class="twin-health">
-        <div class="twin-metric"><div class="twin-metric-value">94</div><div class="twin-metric-label" data-i18n="metric_health">Health Score</div></div>
-        <div class="twin-metric" style="color:#F79009"><div class="twin-metric-value" style="color:#F79009">87</div><div class="twin-metric-label" data-i18n="metric_soil_score">Soil Score</div></div>
-        <div class="twin-metric" style="color:#38BDF8"><div class="twin-metric-value" style="color:#38BDF8">91</div><div class="twin-metric-label" data-i18n="metric_water_score">Water Score</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== TIMELINE ===== -->
-<section id="timeline">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_timeline">Farm History</div>
-      <h2 class="section-title" data-i18n="timeline_title">Activity Timeline</h2>
-      <p class="section-desc" data-i18n="timeline_desc">A complete record of every action on your farm.</p>
-    </div>
-    <div style="max-width:600px;margin:0 auto">
-      <div class="timeline fade-in-up">
-        <div class="timeline-item">
-          <div class="timeline-dot" style="background:#2FBF71"></div>
-          <div class="timeline-date">June 10, 2026 — 08:30 AM</div>
-          <div class="timeline-content">
-            <div class="timeline-title">🌱 Planting — IR64 Rice</div>
-            <div class="timeline-desc">Planted 12.5 ha with IR64 variety. Seedling density: 25 plants/m². Soil moisture optimal.</div>
+      <div class="twin-card reveal reveal-delay-2">
+        <div class="twin-card-header">
+          <div class="twin-card-title">Green Valley Farm</div>
+          <div class="twin-badge">● Twin Active</div>
+        </div>
+        <div class="twin-fields">
+          <div class="twin-row">
+            <span class="twin-key">Farm ID</span>
+            <span class="twin-val" style="font-family:monospace;font-size:12px">TRV-2024-GVF-00142</span>
+          </div>
+          <div class="twin-divider"></div>
+          <div class="twin-row">
+            <span class="twin-key">Location</span>
+            <span class="twin-val">West Java, Indonesia</span>
+          </div>
+          <div class="twin-row">
+            <span class="twin-key">Size</span>
+            <span class="twin-val">12.5 ha</span>
+          </div>
+          <div class="twin-row">
+            <span class="twin-key">Primary Crop</span>
+            <span class="twin-val">Rice · IR64</span>
+          </div>
+          <div class="twin-row">
+            <span class="twin-key">Last Updated</span>
+            <span class="twin-val" style="color:rgba(240,246,242,.5)">2 min ago</span>
           </div>
         </div>
-        <div class="timeline-item">
-          <div class="timeline-dot" style="background:#F79009"></div>
-          <div class="timeline-date">May 28, 2026 — 07:00 AM</div>
-          <div class="timeline-content">
-            <div class="timeline-title">🌿 Fertilization — NPK 16-16-16</div>
-            <div class="timeline-desc">Applied 200 kg/ha NPK fertilizer. Soil pH: 6.2. Nitrogen uptake efficiency: 89%.</div>
+        <div class="twin-scores">
+          <div class="twin-score-item">
+            <div class="twin-score-val">94</div>
+            <div class="twin-score-label">Health</div>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot" style="background:#38BDF8"></div>
-          <div class="timeline-date">May 20, 2026 — 06:00 AM</div>
-          <div class="timeline-content">
-            <div class="timeline-title">💧 Irrigation — Drip System Activated</div>
-            <div class="timeline-desc">Irrigation cycle completed. Water usage: 4,200 L. Efficiency: 94%. No runoff detected.</div>
+          <div class="twin-score-item">
+            <div class="twin-score-val">87</div>
+            <div class="twin-score-label">Soil</div>
           </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot" style="background:#F04438"></div>
-          <div class="timeline-date">May 15, 2026 — 09:15 AM</div>
-          <div class="timeline-content">
-            <div class="timeline-title">⚠️ Disease Detection — Blast Fungus</div>
-            <div class="timeline-desc">AI detected early-stage blast fungus on 2.1% of field. Treatment applied within 24h. Contained.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-dot" style="background:#A855F7"></div>
-          <div class="timeline-date">April 12, 2026 — 06:00 AM</div>
-          <div class="timeline-content">
-            <div class="timeline-title">🌾 Harvest — Season Complete</div>
-            <div class="timeline-desc">Total yield: 52.4 tonnes. Yield/ha: 4.19T. Quality grade: A+. Revenue: $28,400.</div>
+          <div class="twin-score-item">
+            <div class="twin-score-val">91</div>
+            <div class="twin-score-label">Water</div>
           </div>
         </div>
       </div>
@@ -687,1125 +629,181 @@
   </div>
 </section>
 
-<!-- ===== SOIL HEALTH ===== -->
-<section id="soil" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
+<!-- ═══ MISSION / OFFLINE ═══ -->
+<section id="mission">
   <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_soil">Soil Health</div>
-      <h2 class="section-title" data-i18n="soil_title">Soil Health Center</h2>
-      <p class="section-desc" data-i18n="soil_desc">Comprehensive soil analysis updated from sensor data every 6 hours.</p>
-    </div>
-    <div class="soil-grid fade-in-up">
-      <div class="soil-card">
-        <div class="soil-label" data-i18n="soil_ph">Soil pH</div>
-        <div><span class="soil-value">6.2</span></div>
-        <div class="progress-bar" style="margin:10px 0"><div class="progress-fill" style="width:72%;background:var(--primary)"></div></div>
-        <div class="soil-status status-good">Optimal</div>
-      </div>
-      <div class="soil-card">
-        <div class="soil-label" data-i18n="soil_om">Organic Matter</div>
-        <div><span class="soil-value">3.8</span><span class="soil-unit">%</span></div>
-        <div class="progress-bar" style="margin:10px 0"><div class="progress-fill" style="width:76%;background:var(--success)"></div></div>
-        <div class="soil-status status-good">High</div>
-      </div>
-      <div class="soil-card">
-        <div class="soil-label" data-i18n="soil_n">Nitrogen (N)</div>
-        <div><span class="soil-value">142</span><span class="soil-unit"> mg/kg</span></div>
-        <div class="progress-bar" style="margin:10px 0"><div class="progress-fill" style="width:68%;background:var(--primary)"></div></div>
-        <div class="soil-status status-good">Adequate</div>
-      </div>
-      <div class="soil-card">
-        <div class="soil-label" data-i18n="soil_p">Phosphorus (P)</div>
-        <div><span class="soil-value">28</span><span class="soil-unit"> mg/kg</span></div>
-        <div class="progress-bar" style="margin:10px 0"><div class="progress-fill" style="width:42%;background:var(--warning)"></div></div>
-        <div class="soil-status status-warn">Low</div>
-      </div>
-      <div class="soil-card">
-        <div class="soil-label" data-i18n="soil_k">Potassium (K)</div>
-        <div><span class="soil-value">210</span><span class="soil-unit"> mg/kg</span></div>
-        <div class="progress-bar" style="margin:10px 0"><div class="progress-fill" style="width:82%;background:var(--success)"></div></div>
-        <div class="soil-status status-good">Good</div>
-      </div>
-      <div class="soil-card">
-        <div class="soil-label" data-i18n="soil_moisture">Soil Moisture</div>
-        <div><span class="soil-value">58</span><span class="soil-unit">%</span></div>
-        <div class="progress-bar" style="margin:10px 0"><div class="progress-fill" style="width:58%;background:#38BDF8"></div></div>
-        <div class="soil-status status-good">Optimal</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== WEATHER ===== -->
-<section id="weather">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_weather">Weather</div>
-      <h2 class="section-title" data-i18n="weather_title">Weather Center</h2>
-      <p class="section-desc" data-i18n="weather_desc">Live conditions at Green Valley Farm, West Java.</p>
-    </div>
-    <div class="weather-grid fade-in-up">
-      <div class="weather-card">
-        <div class="weather-icon">🌡️</div>
-        <div class="weather-value">28<span class="weather-unit">°C</span></div>
-        <div class="weather-label" data-i18n="weather_temp">Temperature</div>
-      </div>
-      <div class="weather-card">
-        <div class="weather-icon">💧</div>
-        <div class="weather-value">76<span class="weather-unit">%</span></div>
-        <div class="weather-label" data-i18n="weather_humidity">Humidity</div>
-      </div>
-      <div class="weather-card">
-        <div class="weather-icon">🌧️</div>
-        <div class="weather-value">12<span class="weather-unit">mm</span></div>
-        <div class="weather-label" data-i18n="weather_rain">Rainfall</div>
-      </div>
-      <div class="weather-card">
-        <div class="weather-icon">💨</div>
-        <div class="weather-value">14<span class="weather-unit">km/h</span></div>
-        <div class="weather-label" data-i18n="weather_wind">Wind Speed</div>
-      </div>
-      <div class="weather-card">
-        <div class="weather-icon">☀️</div>
-        <div class="weather-value">8.2<span class="weather-unit">h</span></div>
-        <div class="weather-label" data-i18n="weather_sun">Sunlight</div>
-      </div>
-      <div class="weather-card">
-        <div class="weather-icon">🌫️</div>
-        <div class="weather-value">82<span class="weather-unit">%</span></div>
-        <div class="weather-label" data-i18n="weather_cloud">Cloud Cover</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== AI ADVISOR ===== -->
-<section id="ai-advisor" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_ai">AI Advisor</div>
-      <h2 class="section-title" data-i18n="ai_title">AI Farm Advisor</h2>
-      <p class="section-desc" data-i18n="ai_desc">Ask anything about your farm. Powered by agricultural intelligence.</p>
-    </div>
-    <div style="max-width:680px;margin:0 auto" class="fade-in-up">
-      <div class="chat-container">
-        <div class="chat-header">
-          <div class="chat-avatar">🌱</div>
-          <div>
-            <div class="chat-title">Terrova AI</div>
-            <div class="chat-status">● Online — Ready to help</div>
-          </div>
-          <button class="btn btn-outline" style="margin-left:auto;font-size:12px" onclick="clearChat()">Clear</button>
+    <div class="mission-inner">
+      <div class="reveal">
+        <div class="tag">Mission</div>
+        <h2 class="section-h2">Built for farmers,<br>not just engineers.</h2>
+        <p style="font-size:15px;color:var(--text-muted);line-height:1.75;margin-top:12px">
+          Terrova was built for the smallholder farmer in West Java, the cooperative in Kenya, and the agronomist in Brazil. No internet? No problem. No data plan? Offline-first by design.
+        </p>
+        <div class="mission-pills">
+          <div class="pill">🌾 Smallholders</div>
+          <div class="pill">🏢 Cooperatives</div>
+          <div class="pill">🔬 Agronomists</div>
+          <div class="pill">🌍 NGOs</div>
+          <div class="pill">🏛️ Gov Programs</div>
+          <div class="pill">📊 Researchers</div>
         </div>
-        <div class="chat-messages" id="chatMessages">
-          <div class="msg msg-ai">
-            <div class="msg-bubble" data-i18n="ai_welcome">Hello! I'm Terrova AI. I can help you with crop recommendations, soil analysis, pest management, and yield optimization for your farm. What would you like to know?</div>
-            <div class="msg-time">Just now</div>
-          </div>
+      </div>
+      <div class="offline-widget reveal reveal-delay-2">
+        <div class="offline-title">Offline Sync Status</div>
+        <div class="sync-row">
+          <span class="sync-label">Connection</span>
+          <span class="sync-val"><span class="sync-dot"></span>Online</span>
         </div>
-        <div class="chat-suggestions">
-          <div class="chat-suggestion" onclick="sendSuggestion(this)" data-i18n="sug_1">What to plant next season?</div>
-          <div class="chat-suggestion" onclick="sendSuggestion(this)" data-i18n="sug_2">How much fertilizer to apply?</div>
-          <div class="chat-suggestion" onclick="sendSuggestion(this)" data-i18n="sug_3">Why is my yield decreasing?</div>
-          <div class="chat-suggestion" onclick="sendSuggestion(this)" data-i18n="sug_4">Predict next harvest</div>
+        <div class="sync-row">
+          <span class="sync-label">Last Sync</span>
+          <span class="sync-val">Just now</span>
         </div>
-        <div class="chat-input-area">
-          <textarea class="chat-input" id="chatInput" rows="1" placeholder="Ask your AI Advisor..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
-          <button class="btn btn-outline" title="Voice input" style="padding:10px">🎤</button>
-          <button class="btn btn-outline" title="Upload image" style="padding:10px">📷</button>
-          <button class="btn btn-primary" onclick="sendMessage()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-          </button>
+        <div class="sync-row">
+          <span class="sync-label">Local Storage</span>
+          <span class="sync-val">Active · 2.4 MB</span>
+        </div>
+        <div class="sync-row">
+          <span class="sync-label">Pending Records</span>
+          <span class="sync-val">3 queued</span>
+        </div>
+        <div class="progress-row">
+          <div class="progress-label"><span>Sync Progress</span><span>97%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:97%"></div></div>
+        </div>
+        <div class="progress-row" style="margin-top:10px">
+          <div class="progress-label"><span>Crop Health Data</span><span>100%</span></div>
+          <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== SUSTAINABILITY ===== -->
-<section id="sustainability">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_sustain">Sustainability</div>
-      <h2 class="section-title" data-i18n="sustain_title">Sustainability Center</h2>
-      <p class="section-desc" data-i18n="sustain_desc">Track your farm's environmental impact and regenerative practices.</p>
-    </div>
-    <div class="grid-4 fade-in-up" style="max-width:900px;margin:0 auto;gap:24px">
-      <div class="card" style="text-align:center">
-        <div class="circle-progress" style="margin-bottom:12px">
-          <svg width="90" height="90" viewBox="0 0 90 90">
-            <circle cx="45" cy="45" r="38" fill="none" stroke="var(--border)" stroke-width="8"/>
-            <circle cx="45" cy="45" r="38" fill="none" stroke="#1F8F5F" stroke-width="8" stroke-dasharray="180 239" stroke-linecap="round"/>
-          </svg>
-          <div class="circle-progress-label"><div class="circle-progress-value">75</div><div class="circle-progress-unit">%</div></div>
-        </div>
-        <div style="font-weight:700;font-size:14px" data-i18n="s_carbon">Carbon Footprint</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px">2.1T CO₂/ha</div>
-      </div>
-      <div class="card" style="text-align:center">
-        <div class="circle-progress" style="margin-bottom:12px">
-          <svg width="90" height="90" viewBox="0 0 90 90">
-            <circle cx="45" cy="45" r="38" fill="none" stroke="var(--border)" stroke-width="8"/>
-            <circle cx="45" cy="45" r="38" fill="none" stroke="#38BDF8" stroke-width="8" stroke-dasharray="218 239" stroke-linecap="round"/>
-          </svg>
-          <div class="circle-progress-label"><div class="circle-progress-value" style="color:#38BDF8">91</div><div class="circle-progress-unit">%</div></div>
-        </div>
-        <div style="font-weight:700;font-size:14px" data-i18n="s_water">Water Efficiency</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px">4,200L saved</div>
-      </div>
-      <div class="card" style="text-align:center">
-        <div class="circle-progress" style="margin-bottom:12px">
-          <svg width="90" height="90" viewBox="0 0 90 90">
-            <circle cx="45" cy="45" r="38" fill="none" stroke="var(--border)" stroke-width="8"/>
-            <circle cx="45" cy="45" r="38" fill="none" stroke="#2FBF71" stroke-width="8" stroke-dasharray="199 239" stroke-linecap="round"/>
-          </svg>
-          <div class="circle-progress-label"><div class="circle-progress-value" style="color:#2FBF71">83</div><div class="circle-progress-unit">%</div></div>
-        </div>
-        <div style="font-weight:700;font-size:14px" data-i18n="s_bio">Biodiversity Score</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px">+12 species</div>
-      </div>
-      <div class="card" style="text-align:center">
-        <div class="circle-progress" style="margin-bottom:12px">
-          <svg width="90" height="90" viewBox="0 0 90 90">
-            <circle cx="45" cy="45" r="38" fill="none" stroke="var(--border)" stroke-width="8"/>
-            <circle cx="45" cy="45" r="38" fill="none" stroke="#A855F7" stroke-width="8" stroke-dasharray="209 239" stroke-linecap="round"/>
-          </svg>
-          <div class="circle-progress-label"><div class="circle-progress-value" style="color:#A855F7">87</div><div class="circle-progress-unit">%</div></div>
-        </div>
-        <div style="font-weight:700;font-size:14px" data-i18n="s_regen">Regenerative Score</div>
-        <div style="font-size:12px;color:var(--muted);margin-top:2px">Top 15% global</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== FIELD MAP ===== -->
-<section id="field-map" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_map">Field Map</div>
-      <h2 class="section-title" data-i18n="map_title">Interactive Farm Map</h2>
-      <p class="section-desc" data-i18n="map_desc">Visual zone overview with health, risk, and irrigation indicators.</p>
-    </div>
-    <div class="map-container fade-in-up">
-      <svg viewBox="0 0 700 380" width="100%" style="display:block">
-        <defs>
-          <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-            <path d="M 20 0 L 0 0 0 20" fill="none" stroke="var(--border)" stroke-width=".5" opacity=".5"/>
-          </pattern>
-        </defs>
-        <rect width="700" height="380" fill="var(--bg)"/>
-        <rect width="700" height="380" fill="url(#grid)"/>
-        <!-- Zones -->
-        <rect x="40" y="40" width="200" height="140" rx="12" fill="#12B76A" fill-opacity=".2" stroke="#12B76A" stroke-width="2"/>
-        <text x="140" y="105" text-anchor="middle" fill="#12B76A" font-weight="700" font-size="13" font-family="sans-serif">Healthy Zone A</text>
-        <text x="140" y="123" text-anchor="middle" fill="#12B76A" font-size="11" font-family="sans-serif">4.2T/ha • 94% health</text>
-        <rect x="260" y="40" width="180" height="140" rx="12" fill="#F04438" fill-opacity=".1" stroke="#F04438" stroke-width="2" stroke-dasharray="6 3"/>
-        <text x="350" y="105" text-anchor="middle" fill="#F04438" font-weight="700" font-size="13" font-family="sans-serif">Risk Zone B</text>
-        <text x="350" y="123" text-anchor="middle" fill="#F04438" font-size="11" font-family="sans-serif">Blast detected • Monitor</text>
-        <rect x="460" y="40" width="200" height="140" rx="12" fill="#38BDF8" fill-opacity=".15" stroke="#38BDF8" stroke-width="2"/>
-        <text x="560" y="105" text-anchor="middle" fill="#38BDF8" font-weight="700" font-size="13" font-family="sans-serif">Irrigation Zone C</text>
-        <text x="560" y="123" text-anchor="middle" fill="#38BDF8" font-size="11" font-family="sans-serif">Active • 91% efficiency</text>
-        <rect x="40" y="200" width="300" height="140" rx="12" fill="#2FBF71" fill-opacity=".15" stroke="#2FBF71" stroke-width="2"/>
-        <text x="190" y="265" text-anchor="middle" fill="#2FBF71" font-weight="700" font-size="13" font-family="sans-serif">Healthy Zone D</text>
-        <text x="190" y="283" text-anchor="middle" fill="#2FBF71" font-size="11" font-family="sans-serif">Optimal • 3.9T/ha</text>
-        <rect x="360" y="200" width="300" height="140" rx="12" fill="#F79009" fill-opacity=".1" stroke="#F79009" stroke-width="2" stroke-dasharray="6 3"/>
-        <text x="510" y="265" text-anchor="middle" fill="#F79009" font-weight="700" font-size="13" font-family="sans-serif">Low Nutrient Zone E</text>
-        <text x="510" y="283" text-anchor="middle" fill="#F79009" font-size="11" font-family="sans-serif">P deficiency • Treat soon</text>
-        <!-- Nodes -->
-        <circle cx="140" cy="80" r="8" fill="#12B76A"/><circle cx="140" cy="80" r="14" fill="#12B76A" fill-opacity=".2"/>
-        <circle cx="350" cy="80" r="8" fill="#F04438"/><circle cx="350" cy="80" r="14" fill="#F04438" fill-opacity=".2"/>
-        <circle cx="560" cy="80" r="8" fill="#38BDF8"/><circle cx="560" cy="80" r="14" fill="#38BDF8" fill-opacity=".2"/>
-        <text x="350" y="355" text-anchor="middle" fill="var(--muted)" font-size="11" font-family="sans-serif">Total Area: 12.5 Hectares • Digital Twin Active</text>
-      </svg>
-      <div class="map-legend">
-        <div class="legend-item"><div class="legend-dot" style="background:#12B76A"></div><span data-i18n="legend_healthy">Healthy Zone</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#F04438"></div><span data-i18n="legend_risk">Risk Zone</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#38BDF8"></div><span data-i18n="legend_irrigation">Irrigation Zone</span></div>
-        <div class="legend-item"><div class="legend-dot" style="background:#F79009"></div><span data-i18n="legend_nutrient">Low Nutrient</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ANALYTICS ===== -->
-<section id="analytics">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_analytics">Analytics</div>
-      <h2 class="section-title" data-i18n="analytics_title">Farm Analytics</h2>
-      <p class="section-desc" data-i18n="analytics_desc">Trend analysis across yield, soil quality, and water usage.</p>
-    </div>
-    <div class="grid-3 fade-in-up" style="gap:24px">
-      <div class="chart-container">
-        <div class="chart-title" data-i18n="chart_yield">Yield Trend</div>
-        <div class="chart-sub">Tonnes/hectare — Last 6 seasons</div>
-        <canvas id="yieldChart" width="300" height="180"></canvas>
-      </div>
-      <div class="chart-container">
-        <div class="chart-title" data-i18n="chart_soil">Soil Quality Trend</div>
-        <div class="chart-sub">Quality index — Last 12 months</div>
-        <canvas id="soilChart" width="300" height="180"></canvas>
-      </div>
-      <div class="chart-container">
-        <div class="chart-title" data-i18n="chart_water">Water Usage</div>
-        <div class="chart-sub">Cubic meters — Monthly</div>
-        <canvas id="waterChart" width="300" height="180"></canvas>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== PASSPORT ===== -->
-<section id="passport" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_passport">Digital Passport</div>
-      <h2 class="section-title" data-i18n="passport_title">Farm Digital Passport</h2>
-      <p class="section-desc" data-i18n="passport_desc">Your farm's official digital identity, verifiable on-chain.</p>
-    </div>
-    <div style="max-width:520px;margin:0 auto" class="fade-in-up">
-      <div class="passport">
-        <div class="passport-header">
-          <div>
-            <div class="passport-logo">TERROVA DIGITAL PASSPORT</div>
-            <div class="passport-title">Farm Identity</div>
-          </div>
-          <div style="text-align:right;font-size:11px;opacity:.6">
-            <div>Issued: Jun 2024</div>
-            <div>Valid: 2025–2026</div>
-          </div>
-        </div>
-        <div class="passport-body">
-          <div>
-            <div class="passport-field"><div class="passport-field-label">Farm ID</div><div class="passport-field-value">TRV-2024-GVF-00142</div></div>
-            <div class="passport-field"><div class="passport-field-label">Owner</div><div class="passport-field-value">Ahmad Santoso</div></div>
-            <div class="passport-field"><div class="passport-field-label">Farm Type</div><div class="passport-field-value">Rice — Commercial</div></div>
-            <div class="passport-field">
-              <div class="passport-field-label">Sustainability Rating</div>
-              <div class="rating-stars">
-                <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg class="star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                <svg class="star" viewBox="0 0 24 24" style="fill:rgba(255,255,255,.3)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-              </div>
-            </div>
-            <div class="verified-badge">✓ Digital Twin Verified</div>
-          </div>
-          <div class="passport-qr">
-            <svg viewBox="0 0 80 80" width="80" height="80" style="fill:#101828">
-              <rect x="5" y="5" width="28" height="28" rx="4"/><rect x="8" y="8" width="22" height="22" rx="2" fill="white"/><rect x="12" y="12" width="14" height="14" rx="2"/>
-              <rect x="47" y="5" width="28" height="28" rx="4"/><rect x="50" y="8" width="22" height="22" rx="2" fill="white"/><rect x="54" y="12" width="14" height="14" rx="2"/>
-              <rect x="5" y="47" width="28" height="28" rx="4"/><rect x="8" y="50" width="22" height="22" rx="2" fill="white"/><rect x="12" y="54" width="14" height="14" rx="2"/>
-              <rect x="47" y="47" width="7" height="7"/><rect x="58" y="47" width="7" height="7"/><rect x="47" y="58" width="7" height="7"/><rect x="58" y="58" width="7" height="7"/>
-              <rect x="36" y="5" width="7" height="7"/><rect x="36" y="16" width="7" height="7"/><rect x="5" y="36" width="7" height="7"/><rect x="16" y="36" width="7" height="7"/><rect x="27" y="36" width="7" height="7"/><rect x="47" y="36" width="7" height="7"/><rect x="58" y="36" width="7" height="7"/><rect x="69" y="36" width="7" height="7"/>
-            </svg>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== OFFLINE ===== -->
-<section id="offline">
-  <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_offline">Offline First</div>
-      <h2 class="section-title" data-i18n="offline_title">Offline-First Architecture</h2>
-      <p class="section-desc" data-i18n="offline_desc">Your farm data is always available, even without internet connection.</p>
-    </div>
-    <div style="max-width:600px;margin:0 auto" class="fade-in-up">
-      <div class="offline-panel">
-        <div class="sync-item">
-          <span class="sync-label" data-i18n="sync_status">Sync Status</span>
-          <span class="sync-status"><span class="sync-anim"></span>All data synced</span>
-        </div>
-        <div class="sync-item">
-          <span class="sync-label" data-i18n="sync_last">Last Synchronized</span>
-          <span class="sync-value" id="lastSync">2 minutes ago</span>
-        </div>
-        <div class="sync-item">
-          <span class="sync-label" data-i18n="sync_local">Local Storage</span>
-          <span class="sync-status"><span class="sync-anim"></span>Active — 2.4 MB used</span>
-        </div>
-        <div class="sync-item">
-          <span class="sync-label" data-i18n="sync_pending">Pending Records</span>
-          <span class="sync-value">3 records queued</span>
-        </div>
-        <div class="sync-item">
-          <span class="sync-label" data-i18n="sync_mode">Connection Mode</span>
-          <span class="sync-value" id="connMode">● Online</span>
-        </div>
-      </div>
-      <div style="display:flex;gap:12px;margin-top:16px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="simulateSync()" data-i18n="btn_sync">Force Sync Now</button>
-        <button class="btn btn-outline" onclick="simulateOffline()" data-i18n="btn_offline">Test Offline Mode</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== APK ===== -->
-<section id="apk" style="background:var(--card);border-top:1px solid var(--border);border-bottom:1px solid var(--border)">
-  <div class="container">
-    <div class="apk-section fade-in-up">
-      <div class="apk-content">
-        <div class="apk-title" data-i18n="apk_title">Take Terrova Offline</div>
-        <div class="apk-desc" data-i18n="apk_desc">Download the Android APK for the full offline experience. Works in the field, without internet, in any condition.</div>
-        <div class="apk-features">
-          <span class="apk-feature">📡 Offline First</span>
-          <span class="apk-feature">🤖 AI Advisor</span>
-          <span class="apk-feature">🌱 Digital Twin</span>
-          <span class="apk-feature">🌍 Multi Language</span>
-          <span class="apk-feature">♻️ Sustainability</span>
-        </div>
-        <button class="apk-btn" onclick="alert('APK download coming soon! Sign up to be notified.')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zM17 19H7V5h10v14zm-1-6h-3V8h-2v5H8l4 4 4-4z"/></svg>
-          <span data-i18n="apk_btn">Download APK (Android)</span>
-        </button>
-      </div>
-      <div class="apk-mockup">
-        <svg viewBox="0 0 200 360" width="160" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="0" width="180" height="360" rx="28" fill="rgba(255,255,255,.15)" stroke="rgba(255,255,255,.3)" stroke-width="2"/>
-          <rect x="20" y="12" width="160" height="336" rx="20" fill="rgba(0,0,0,.3)"/>
-          <rect x="25" y="20" width="150" height="320" rx="16" fill="rgba(13,79,53,.9)"/>
-          <rect x="35" y="35" width="130" height="40" rx="8" fill="rgba(255,255,255,.1)"/>
-          <text x="50" y="60" fill="white" font-size="14" font-weight="800" font-family="sans-serif">TERROVA</text>
-          <rect x="35" y="85" width="60" height="60" rx="10" fill="rgba(47,191,113,.25)"/>
-          <text x="65" y="122" fill="#2FBF71" font-size="22" text-anchor="middle" font-family="sans-serif">🌾</text>
-          <rect x="105" y="85" width="60" height="60" rx="10" fill="rgba(56,189,248,.2)"/>
-          <text x="135" y="122" fill="#38BDF8" font-size="22" text-anchor="middle" font-family="sans-serif">💧</text>
-          <rect x="35" y="155" width="130" height="50" rx="10" fill="rgba(255,255,255,.08)"/>
-          <rect x="45" y="165" width="80" height="6" rx="3" fill="rgba(255,255,255,.4)"/>
-          <rect x="45" y="178" width="100" height="6" rx="3" fill="rgba(47,191,113,.6)"/>
-          <rect x="45" y="191" width="60" height="6" rx="3" fill="rgba(255,255,255,.2)"/>
-          <rect x="35" y="215" width="130" height="110" rx="10" fill="rgba(255,255,255,.05)"/>
-          <text x="100" y="245" fill="rgba(255,255,255,.4)" font-size="9" text-anchor="middle" font-family="sans-serif">AI ADVISOR</text>
-          <rect x="45" y="255" width="100" height="24" rx="8" fill="rgba(47,191,113,.3)"/>
-          <text x="95" y="271" fill="white" font-size="9" text-anchor="middle" font-family="sans-serif">Ask anything...</text>
-          <rect x="45" y="287" width="110" height="14" rx="4" fill="rgba(255,255,255,.15)"/>
-          <rect x="45" y="307" width="85" height="14" rx="4" fill="rgba(255,255,255,.1)"/>
-          <rect x="70" y="345" width="60" height="4" rx="2" fill="rgba(255,255,255,.4)"/>
-        </svg>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ===== ROADMAP ===== -->
+<!-- ═══ ROADMAP ═══ -->
 <section id="roadmap">
   <div class="container">
-    <div class="section-header fade-in-up">
-      <div class="section-badge" data-i18n="badge_roadmap">Roadmap</div>
-      <h2 class="section-title" data-i18n="roadmap_title">Product Roadmap</h2>
-      <p class="section-desc" data-i18n="roadmap_desc">Building the future of agricultural intelligence.</p>
+    <div class="features-header reveal">
+      <div class="tag">Roadmap</div>
+      <h2 class="section-h2">Building the future of<br>agricultural intelligence.</h2>
     </div>
-    <div class="roadmap-items fade-in-up">
+    <div class="roadmap-track reveal reveal-delay-1">
       <div class="roadmap-item">
-        <div class="roadmap-dot active">26</div>
+        <div class="roadmap-node now">26</div>
         <div class="roadmap-year">2026</div>
-        <div class="roadmap-desc" data-i18n="road_1">Digital Twin Launch & Offline Platform</div>
+        <div class="roadmap-desc">Digital Twin Launch · Offline Platform</div>
       </div>
       <div class="roadmap-item">
-        <div class="roadmap-dot upcoming">27</div>
+        <div class="roadmap-node future">27</div>
         <div class="roadmap-year">2027</div>
-        <div class="roadmap-desc" data-i18n="road_2">Satellite Integration & Remote Sensing</div>
+        <div class="roadmap-desc">Satellite Integration · Remote Sensing</div>
       </div>
       <div class="roadmap-item">
-        <div class="roadmap-dot upcoming">28</div>
+        <div class="roadmap-node future">28</div>
         <div class="roadmap-year">2028</div>
-        <div class="roadmap-desc" data-i18n="road_3">AI Yield Forecasting Engine</div>
+        <div class="roadmap-desc">AI Yield Forecasting Engine</div>
       </div>
       <div class="roadmap-item">
-        <div class="roadmap-dot upcoming">29</div>
+        <div class="roadmap-node future">29</div>
         <div class="roadmap-year">2029</div>
-        <div class="roadmap-desc" data-i18n="road_4">Carbon Marketplace Integration</div>
+        <div class="roadmap-desc">Carbon Marketplace Integration</div>
       </div>
       <div class="roadmap-item">
-        <div class="roadmap-dot upcoming">30</div>
+        <div class="roadmap-node future">30</div>
         <div class="roadmap-year">2030</div>
-        <div class="roadmap-desc" data-i18n="road_5">Global Farm Network & DAO Governance</div>
+        <div class="roadmap-desc">Global Farm Network · DAO Governance</div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ===== FOOTER ===== -->
+<!-- ═══ CTA ═══ -->
+<section id="cta">
+  <div class="container cta-content">
+    <div class="reveal">
+      <div class="tag tag-gold">Available Now</div>
+      <h2 class="cta-h2">Take Terrova to the field.</h2>
+      <p class="cta-desc">Download the Android APK for the complete offline experience. Works in any condition, with or without internet.</p>
+      <div class="cta-actions">
+        <button class="btn btn-gold btn-lg" onclick="alert('APK coming soon — sign up to be notified.')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zm-1 15.49l-3-3.01V17H9v-5h5V9.51l3 3.01-3 3z"/></svg>
+          Download APK (Android)
+        </button>
+        <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="btn btn-ghost-white btn-lg">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Follow Updates
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
 <footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-logo">🌱 TERROVA</div>
-        <div class="footer-tagline" data-i18n="footer_tagline">The Digital Twin Platform for Agriculture</div>
-        <div style="font-size:13px;color:var(--muted);line-height:1.6" data-i18n="footer_mission">Building a living digital identity for every farm on Earth. Offline-first, AI-powered, built for the world's farmers.</div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <img src="/logo.png" alt="Terrova AI">
+        <span class="footer-logo-name">TERROVA<sup>AI</sup></span>
       </div>
-      <div>
-        <div class="footer-col-title" data-i18n="footer_platform">Platform</div>
-        <div class="footer-links">
-          <a href="#dashboard">Dashboard</a>
-          <a href="#digital-twin">Digital Twin</a>
-          <a href="#ai-advisor">AI Advisor</a>
-          <a href="#analytics">Analytics</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title" data-i18n="footer_resources">Resources</div>
-        <div class="footer-links">
-          <a href="#">Documentation</a>
-          <a href="#">API Reference</a>
-          <a href="#">Open Source</a>
-          <a href="#">Community</a>
-        </div>
-      </div>
-      <div>
-        <div class="footer-col-title" data-i18n="footer_company">Company</div>
-        <div class="footer-links">
-          <a href="#">Support</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Use</a>
-          <a href="#">Contact</a>
-        </div>
+      <div class="footer-tagline">The Digital Twin Platform for Agriculture. Building a living digital identity for every farm on Earth.</div>
+      <div class="footer-orynth">
+        <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+          <img src="https://orynth.dev/api/badge/terrova?theme=dark&style=default" alt="Featured on Orynth" width="180" height="56" style="border-radius:8px">
+        </a>
       </div>
     </div>
-    <div class="footer-bottom">
-      <div class="footer-copy">© 2026 Terrova. All rights reserved.</div>
-      <div style="display:flex;gap:12px;align-items:center">
-        <div class="offline-badge"><span class="offline-dot"></span>Offline Ready</div>
-        <span style="font-size:13px;color:var(--muted)">v2.0.0</span>
+    <div>
+      <div class="footer-col-title">Platform</div>
+      <div class="footer-links">
+        <a href="#features">Features</a>
+        <a href="#twin">Digital Twin</a>
+        <a href="#mission">Offline Mode</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#cta">Download APK</a>
       </div>
     </div>
+    <div>
+      <div class="footer-col-title">Company</div>
+      <div class="footer-links">
+        <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener">X / Twitter</a>
+        <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">Orynth</a>
+        <a href="#">Documentation</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Support</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Terrova AI. All rights reserved.</span>
+    <span>Built by <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" style="color:var(--gold)">@lucasreedxx</a></span>
   </div>
 </footer>
 
-<!-- ===== JAVASCRIPT ===== -->
 <script>
-// ===== TRANSLATIONS =====
-const translations = {
-  en: {
-    nav_dashboard:'Dashboard', nav_twin:'Digital Twin', nav_soil:'Soil', nav_ai:'AI Advisor', nav_analytics:'Analytics', nav_roadmap:'Roadmap', nav_download:'Download APK',
-    btn_launch:'Launch App', btn_apk:'Download APK',
-    hero_badge:"World's First Agricultural Digital Twin Platform",
-    hero_title:'Every Farm Deserves a <span>Digital Identity</span>',
-    hero_desc:'Create a living digital twin of your farm, track crops, soil, weather, activities, sustainability metrics, and AI-powered insights — online or offline.',
-    stat_farms:'Active Farms', stat_uptime:'Offline Ready', stat_countries:'Countries', stat_langs:'Languages',
-    badge_dashboard:'Dashboard', dashboard_title:'Farm Operations Overview', dashboard_desc:'Real-time insights across all your registered farms and fields.',
-    card_farms:'Active Farms', card_farms_sub:'3 pending sync', card_crop:'Crop Health', card_soil:'Soil Health', card_water:'Water Efficiency', card_sustain:'Sustainability Score', card_harvest:'Predicted Harvest', card_harvest_sub:'Est. yield per hectare',
-    badge_twin:'Digital Twin', twin_title:"Your Farm's Digital Identity", twin_desc:'A living digital representation of your farm, updated in real-time.',
-    farm_name:'Green Valley Farm', field_location:'Location', field_size:'Farm Size', field_crop:'Primary Crop', field_soil_type:'Soil Type', field_water:'Water Source', field_updated:'Last Updated', field_records:'Historical Records', field_owner:'Owner',
-    metric_health:'Health Score', metric_soil_score:'Soil Score', metric_water_score:'Water Score',
-    badge_timeline:'Farm History', timeline_title:'Activity Timeline', timeline_desc:'A complete record of every action on your farm.',
-    badge_soil:'Soil Health', soil_title:'Soil Health Center', soil_desc:'Comprehensive soil analysis updated from sensor data every 6 hours.',
-    soil_ph:'Soil pH', soil_om:'Organic Matter', soil_n:'Nitrogen (N)', soil_p:'Phosphorus (P)', soil_k:'Potassium (K)', soil_moisture:'Soil Moisture',
-    badge_weather:'Weather', weather_title:'Weather Center', weather_desc:'Live conditions at Green Valley Farm, West Java.',
-    weather_temp:'Temperature', weather_humidity:'Humidity', weather_rain:'Rainfall', weather_wind:'Wind Speed', weather_sun:'Sunlight', weather_cloud:'Cloud Cover',
-    badge_ai:'AI Advisor', ai_title:'AI Farm Advisor', ai_desc:'Ask anything about your farm. Powered by agricultural intelligence.',
-    ai_welcome:"Hello! I'm Terrova AI. I can help you with crop recommendations, soil analysis, pest management, and yield optimization for your farm. What would you like to know?",
-    sug_1:'What to plant next season?', sug_2:'How much fertilizer to apply?', sug_3:'Why is my yield decreasing?', sug_4:'Predict next harvest',
-    badge_sustain:'Sustainability', sustain_title:'Sustainability Center', sustain_desc:"Track your farm's environmental impact and regenerative practices.",
-    s_carbon:'Carbon Footprint', s_water:'Water Efficiency', s_bio:'Biodiversity Score', s_regen:'Regenerative Score',
-    badge_map:'Field Map', map_title:'Interactive Farm Map', map_desc:'Visual zone overview with health, risk, and irrigation indicators.',
-    legend_healthy:'Healthy Zone', legend_risk:'Risk Zone', legend_irrigation:'Irrigation Zone', legend_nutrient:'Low Nutrient',
-    badge_analytics:'Analytics', analytics_title:'Farm Analytics', analytics_desc:'Trend analysis across yield, soil quality, and water usage.',
-    chart_yield:'Yield Trend', chart_soil:'Soil Quality Trend', chart_water:'Water Usage',
-    badge_passport:'Digital Passport', passport_title:'Farm Digital Passport', passport_desc:'Your farm\'s official digital identity, verifiable on-chain.',
-    badge_offline:'Offline First', offline_title:'Offline-First Architecture', offline_desc:'Your farm data is always available, even without internet connection.',
-    sync_status:'Sync Status', sync_last:'Last Synchronized', sync_local:'Local Storage', sync_pending:'Pending Records', sync_mode:'Connection Mode',
-    btn_sync:'Force Sync Now', btn_offline:'Test Offline Mode',
-    offline_ready:'Offline Sync Ready', last_synced:'Last Synced: Just now', local_storage:'Local Storage Active',
-    apk_title:'Take Terrova Offline', apk_desc:'Download the Android APK for the full offline experience. Works in the field, without internet, in any condition.', apk_btn:'Download APK (Android)',
-    badge_roadmap:'Roadmap', roadmap_title:'Product Roadmap', roadmap_desc:'Building the future of agricultural intelligence.',
-    road_1:'Digital Twin Launch & Offline Platform', road_2:'Satellite Integration & Remote Sensing', road_3:'AI Yield Forecasting Engine', road_4:'Carbon Marketplace Integration', road_5:'Global Farm Network & DAO Governance',
-    footer_tagline:'The Digital Twin Platform for Agriculture', footer_mission:"Building a living digital identity for every farm on Earth. Offline-first, AI-powered, built for the world's farmers.",
-    footer_platform:'Platform', footer_resources:'Resources', footer_company:'Company',
-  },
-  id: {
-    nav_dashboard:'Dasbor', nav_twin:'Digital Twin', nav_soil:'Tanah', nav_ai:'Asisten AI', nav_analytics:'Analitik', nav_roadmap:'Peta Jalan', nav_download:'Unduh APK',
-    btn_launch:'Buka Aplikasi', btn_apk:'Unduh APK',
-    hero_badge:'Platform Digital Twin Pertanian Pertama di Dunia',
-    hero_title:'Setiap Pertanian Berhak Memiliki <span>Identitas Digital</span>',
-    hero_desc:'Buat digital twin hidup dari pertanian Anda, lacak tanaman, tanah, cuaca, aktivitas, metrik keberlanjutan, dan wawasan AI — online maupun offline.',
-    stat_farms:'Pertanian Aktif', stat_uptime:'Siap Offline', stat_countries:'Negara', stat_langs:'Bahasa',
-    badge_dashboard:'Dasbor', dashboard_title:'Ikhtisar Operasi Pertanian', dashboard_desc:'Wawasan real-time di semua pertanian dan lahan terdaftar Anda.',
-    card_farms:'Pertanian Aktif', card_farms_sub:'3 menunggu sinkronisasi', card_crop:'Kesehatan Tanaman', card_soil:'Kesehatan Tanah', card_water:'Efisiensi Air', card_sustain:'Skor Keberlanjutan', card_harvest:'Prediksi Panen', card_harvest_sub:'Est. hasil per hektar',
-    badge_twin:'Digital Twin', twin_title:'Identitas Digital Pertanian Anda', twin_desc:'Representasi digital hidup dari pertanian Anda, diperbarui secara real-time.',
-    farm_name:'Pertanian Lembah Hijau', field_location:'Lokasi', field_size:'Luas Lahan', field_crop:'Tanaman Utama', field_soil_type:'Jenis Tanah', field_water:'Sumber Air', field_updated:'Terakhir Diperbarui', field_records:'Rekam Historis', field_owner:'Pemilik',
-    metric_health:'Skor Kesehatan', metric_soil_score:'Skor Tanah', metric_water_score:'Skor Air',
-    badge_timeline:'Riwayat Pertanian', timeline_title:'Garis Waktu Aktivitas', timeline_desc:'Rekam lengkap setiap tindakan di pertanian Anda.',
-    badge_soil:'Kesehatan Tanah', soil_title:'Pusat Kesehatan Tanah', soil_desc:'Analisis tanah komprehensif diperbarui dari data sensor setiap 6 jam.',
-    soil_ph:'pH Tanah', soil_om:'Bahan Organik', soil_n:'Nitrogen (N)', soil_p:'Fosfor (P)', soil_k:'Kalium (K)', soil_moisture:'Kelembaban Tanah',
-    badge_weather:'Cuaca', weather_title:'Pusat Cuaca', weather_desc:'Kondisi langsung di Pertanian Lembah Hijau, Jawa Barat.',
-    weather_temp:'Suhu', weather_humidity:'Kelembaban', weather_rain:'Curah Hujan', weather_wind:'Kecepatan Angin', weather_sun:'Sinar Matahari', weather_cloud:'Tutupan Awan',
-    badge_ai:'Asisten AI', ai_title:'Penasihat Pertanian AI', ai_desc:'Tanyakan apapun tentang pertanian Anda. Didukung oleh kecerdasan pertanian.',
-    ai_welcome:'Halo! Saya Terrova AI. Saya dapat membantu Anda dengan rekomendasi tanaman, analisis tanah, pengelolaan hama, dan optimasi hasil panen. Apa yang ingin Anda ketahui?',
-    sug_1:'Apa yang harus ditanam musim depan?', sug_2:'Berapa banyak pupuk yang harus diberikan?', sug_3:'Mengapa hasil panen saya menurun?', sug_4:'Prediksi panen berikutnya',
-    badge_sustain:'Keberlanjutan', sustain_title:'Pusat Keberlanjutan', sustain_desc:'Pantau dampak lingkungan pertanian dan praktik regeneratif Anda.',
-    s_carbon:'Jejak Karbon', s_water:'Efisiensi Air', s_bio:'Skor Keanekaragaman Hayati', s_regen:'Skor Regeneratif',
-    badge_map:'Peta Lahan', map_title:'Peta Pertanian Interaktif', map_desc:'Ikhtisar zona visual dengan indikator kesehatan, risiko, dan irigasi.',
-    legend_healthy:'Zona Sehat', legend_risk:'Zona Risiko', legend_irrigation:'Zona Irigasi', legend_nutrient:'Nutrisi Rendah',
-    badge_analytics:'Analitik', analytics_title:'Analitik Pertanian', analytics_desc:'Analisis tren di seluruh hasil, kualitas tanah, dan penggunaan air.',
-    chart_yield:'Tren Hasil Panen', chart_soil:'Tren Kualitas Tanah', chart_water:'Penggunaan Air',
-    badge_passport:'Paspor Digital', passport_title:'Paspor Digital Pertanian', passport_desc:'Identitas digital resmi pertanian Anda, dapat diverifikasi.',
-    badge_offline:'Offline Pertama', offline_title:'Arsitektur Offline-First', offline_desc:'Data pertanian Anda selalu tersedia, bahkan tanpa koneksi internet.',
-    sync_status:'Status Sinkronisasi', sync_last:'Terakhir Disinkronkan', sync_local:'Penyimpanan Lokal', sync_pending:'Rekam Tertunda', sync_mode:'Mode Koneksi',
-    btn_sync:'Paksa Sinkronisasi', btn_offline:'Uji Mode Offline',
-    offline_ready:'Sinkronisasi Offline Siap', last_synced:'Terakhir Disinkron: Baru saja', local_storage:'Penyimpanan Lokal Aktif',
-    apk_title:'Bawa Terrova ke Lapangan', apk_desc:'Unduh APK Android untuk pengalaman offline penuh. Bekerja di lapangan, tanpa internet, dalam kondisi apapun.', apk_btn:'Unduh APK (Android)',
-    badge_roadmap:'Peta Jalan', roadmap_title:'Peta Jalan Produk', roadmap_desc:'Membangun masa depan kecerdasan pertanian.',
-    road_1:'Peluncuran Digital Twin & Platform Offline', road_2:'Integrasi Satelit & Penginderaan Jauh', road_3:'Mesin Prakiraan Hasil AI', road_4:'Integrasi Pasar Karbon', road_5:'Jaringan Pertanian Global & Tata Kelola DAO',
-    footer_tagline:'Platform Digital Twin untuk Pertanian', footer_mission:'Membangun identitas digital hidup untuk setiap pertanian di Bumi. Offline-first, bertenaga AI, dibangun untuk petani dunia.',
-    footer_platform:'Platform', footer_resources:'Sumber Daya', footer_company:'Perusahaan',
-  },
-  es: {
-    nav_dashboard:'Tablero', nav_twin:'Gemelo Digital', nav_soil:'Suelo', nav_ai:'Asesor IA', nav_analytics:'Análisis', nav_roadmap:'Hoja de Ruta', nav_download:'Descargar APK',
-    btn_launch:'Abrir App', btn_apk:'Descargar APK',
-    hero_badge:'Primera Plataforma de Gemelo Digital Agrícola del Mundo',
-    hero_title:'Cada Granja Merece una <span>Identidad Digital</span>',
-    hero_desc:'Crea un gemelo digital vivo de tu granja, rastrea cultivos, suelo, clima, actividades, métricas de sostenibilidad e insights de IA — online u offline.',
-    stat_farms:'Granjas Activas', stat_uptime:'Listo Offline', stat_countries:'Países', stat_langs:'Idiomas',
-    badge_dashboard:'Tablero', dashboard_title:'Resumen de Operaciones Agrícolas', dashboard_desc:'Insights en tiempo real en todas tus granjas y campos registrados.',
-    card_farms:'Granjas Activas', card_farms_sub:'3 pendientes de sync', card_crop:'Salud del Cultivo', card_soil:'Salud del Suelo', card_water:'Eficiencia del Agua', card_sustain:'Puntuación de Sostenibilidad', card_harvest:'Cosecha Predicha', card_harvest_sub:'Est. rendimiento por hectárea',
-    badge_twin:'Gemelo Digital', twin_title:'La Identidad Digital de tu Granja', twin_desc:'Una representación digital viva de tu granja, actualizada en tiempo real.',
-    farm_name:'Granja Valle Verde', field_location:'Ubicación', field_size:'Tamaño', field_crop:'Cultivo Principal', field_soil_type:'Tipo de Suelo', field_water:'Fuente de Agua', field_updated:'Última Actualización', field_records:'Registros Históricos', field_owner:'Propietario',
-    metric_health:'Puntuación de Salud', metric_soil_score:'Puntuación del Suelo', metric_water_score:'Puntuación del Agua',
-    badge_timeline:'Historia', timeline_title:'Línea de Tiempo', timeline_desc:'Un registro completo de cada acción en tu granja.',
-    badge_soil:'Salud del Suelo', soil_title:'Centro de Salud del Suelo', soil_desc:'Análisis de suelo actualizado desde sensores cada 6 horas.',
-    soil_ph:'pH del Suelo', soil_om:'Materia Orgánica', soil_n:'Nitrógeno (N)', soil_p:'Fósforo (P)', soil_k:'Potasio (K)', soil_moisture:'Humedad del Suelo',
-    badge_weather:'Clima', weather_title:'Centro Meteorológico', weather_desc:'Condiciones en vivo en Granja Valle Verde.',
-    weather_temp:'Temperatura', weather_humidity:'Humedad', weather_rain:'Lluvia', weather_wind:'Viento', weather_sun:'Luz Solar', weather_cloud:'Nubosidad',
-    badge_ai:'Asesor IA', ai_title:'Asesor Agrícola IA', ai_desc:'Pregunta lo que quieras sobre tu granja.',
-    ai_welcome:'¡Hola! Soy Terrova IA. Puedo ayudarte con recomendaciones de cultivos, análisis de suelo, gestión de plagas y optimización del rendimiento. ¿Qué te gustaría saber?',
-    sug_1:'¿Qué plantar la próxima temporada?', sug_2:'¿Cuánto fertilizante aplicar?', sug_3:'¿Por qué disminuye mi rendimiento?', sug_4:'Predecir próxima cosecha',
-    badge_sustain:'Sostenibilidad', sustain_title:'Centro de Sostenibilidad', sustain_desc:'Monitorea el impacto ambiental de tu granja.',
-    s_carbon:'Huella de Carbono', s_water:'Eficiencia del Agua', s_bio:'Biodiversidad', s_regen:'Puntuación Regenerativa',
-    badge_map:'Mapa de Campo', map_title:'Mapa Interactivo', map_desc:'Vista de zonas con indicadores de salud, riesgo e irrigación.',
-    legend_healthy:'Zona Saludable', legend_risk:'Zona de Riesgo', legend_irrigation:'Zona de Irrigación', legend_nutrient:'Bajo Nutriente',
-    badge_analytics:'Análisis', analytics_title:'Análisis Agrícola', analytics_desc:'Tendencias de rendimiento, calidad del suelo y uso de agua.',
-    chart_yield:'Tendencia de Rendimiento', chart_soil:'Tendencia del Suelo', chart_water:'Uso del Agua',
-    badge_passport:'Pasaporte Digital', passport_title:'Pasaporte Digital Agrícola', passport_desc:'La identidad digital oficial de tu granja.',
-    badge_offline:'Offline Primero', offline_title:'Arquitectura Offline-First', offline_desc:'Tus datos siempre disponibles, incluso sin internet.',
-    sync_status:'Estado de Sync', sync_last:'Última Sincronización', sync_local:'Almacenamiento Local', sync_pending:'Registros Pendientes', sync_mode:'Modo de Conexión',
-    btn_sync:'Forzar Sincronización', btn_offline:'Probar Modo Offline',
-    offline_ready:'Sync Offline Listo', last_synced:'Última Sync: Ahora mismo', local_storage:'Almacenamiento Local Activo',
-    apk_title:'Lleva Terrova al Campo', apk_desc:'Descarga el APK de Android para la experiencia offline completa.', apk_btn:'Descargar APK (Android)',
-    badge_roadmap:'Hoja de Ruta', roadmap_title:'Hoja de Ruta del Producto', roadmap_desc:'Construyendo el futuro de la inteligencia agrícola.',
-    road_1:'Lanzamiento Digital Twin', road_2:'Integración Satelital', road_3:'Motor de Predicción IA', road_4:'Mercado de Carbono', road_5:'Red Global de Granjas',
-    footer_tagline:'La Plataforma de Gemelo Digital para la Agricultura', footer_mission:'Construyendo una identidad digital viva para cada granja en la Tierra.',
-    footer_platform:'Plataforma', footer_resources:'Recursos', footer_company:'Empresa',
-  },
-  fr: {
-    nav_dashboard:'Tableau de bord', nav_twin:'Jumeau Numérique', nav_soil:'Sol', nav_ai:'Conseiller IA', nav_analytics:'Analytique', nav_roadmap:'Feuille de Route', nav_download:'Télécharger APK',
-    btn_launch:'Lancer App', btn_apk:'Télécharger APK',
-    hero_badge:'Première Plateforme de Jumeau Numérique Agricole au Monde',
-    hero_title:'Chaque Ferme Mérite une <span>Identité Numérique</span>',
-    hero_desc:'Créez un jumeau numérique vivant de votre ferme, suivez les cultures, le sol, la météo et les informations IA — en ligne ou hors ligne.',
-    stat_farms:'Fermes Actives', stat_uptime:'Prêt Hors Ligne', stat_countries:'Pays', stat_langs:'Langues',
-    badge_dashboard:'Tableau de Bord', dashboard_title:'Vue d\'ensemble des Opérations', dashboard_desc:'Informations en temps réel sur toutes vos fermes enregistrées.',
-    card_farms:'Fermes Actives', card_farms_sub:'3 en attente', card_crop:'Santé des Cultures', card_soil:'Santé du Sol', card_water:'Efficacité de l\'Eau', card_sustain:'Score Durabilité', card_harvest:'Récolte Prévue', card_harvest_sub:'Rendement est. par hectare',
-    badge_twin:'Jumeau Numérique', twin_title:'L\'Identité Numérique de Votre Ferme', twin_desc:'Une représentation numérique vivante de votre ferme.',
-    farm_name:'Ferme Verte', field_location:'Emplacement', field_size:'Surface', field_crop:'Culture Principale', field_soil_type:'Type de Sol', field_water:'Source d\'Eau', field_updated:'Dernière Mise à Jour', field_records:'Archives Historiques', field_owner:'Propriétaire',
-    metric_health:'Score Santé', metric_soil_score:'Score Sol', metric_water_score:'Score Eau',
-    badge_timeline:'Historique', timeline_title:'Chronologie d\'Activité', timeline_desc:'Un enregistrement complet de chaque action sur votre ferme.',
-    badge_soil:'Santé du Sol', soil_title:'Centre de Santé du Sol', soil_desc:'Analyse complète du sol mise à jour toutes les 6 heures.',
-    soil_ph:'pH du Sol', soil_om:'Matière Organique', soil_n:'Azote (N)', soil_p:'Phosphore (P)', soil_k:'Potassium (K)', soil_moisture:'Humidité du Sol',
-    badge_weather:'Météo', weather_title:'Centre Météo', weather_desc:'Conditions en direct à la Ferme Verte.',
-    weather_temp:'Température', weather_humidity:'Humidité', weather_rain:'Pluie', weather_wind:'Vent', weather_sun:'Ensoleillement', weather_cloud:'Couverture Nuageuse',
-    badge_ai:'Conseiller IA', ai_title:'Conseiller Agricole IA', ai_desc:'Posez toutes vos questions sur votre ferme.',
-    ai_welcome:'Bonjour! Je suis Terrova IA. Je peux vous aider avec des recommandations de cultures, analyses de sol, gestion des nuisibles et optimisation des rendements.',
-    sug_1:'Quoi planter la prochaine saison?', sug_2:'Combien d\'engrais appliquer?', sug_3:'Pourquoi mon rendement baisse?', sug_4:'Prédire la prochaine récolte',
-    badge_sustain:'Durabilité', sustain_title:'Centre de Durabilité', sustain_desc:'Suivez l\'impact environnemental de votre ferme.',
-    s_carbon:'Empreinte Carbone', s_water:'Efficacité Eau', s_bio:'Score Biodiversité', s_regen:'Score Régénératif',
-    badge_map:'Carte', map_title:'Carte Interactive', map_desc:'Vue des zones avec indicateurs de santé, risque et irrigation.',
-    legend_healthy:'Zone Saine', legend_risk:'Zone à Risque', legend_irrigation:'Zone d\'Irrigation', legend_nutrient:'Faible Nutriment',
-    badge_analytics:'Analytique', analytics_title:'Analyse Agricole', analytics_desc:'Tendances de rendement, qualité du sol et usage de l\'eau.',
-    chart_yield:'Tendance de Rendement', chart_soil:'Tendance du Sol', chart_water:'Usage de l\'Eau',
-    badge_passport:'Passeport Numérique', passport_title:'Passeport Numérique Agricole', passport_desc:'L\'identité numérique officielle de votre ferme.',
-    badge_offline:'Hors Ligne d\'Abord', offline_title:'Architecture Offline-First', offline_desc:'Vos données toujours disponibles, même sans internet.',
-    sync_status:'Statut Sync', sync_last:'Dernière Synchronisation', sync_local:'Stockage Local', sync_pending:'Enregistrements en Attente', sync_mode:'Mode de Connexion',
-    btn_sync:'Forcer Sync', btn_offline:'Tester Mode Hors Ligne',
-    offline_ready:'Sync Hors Ligne Prêt', last_synced:'Dernière Sync: Maintenant', local_storage:'Stockage Local Actif',
-    apk_title:'Emportez Terrova sur le Terrain', apk_desc:'Téléchargez l\'APK Android pour l\'expérience hors ligne complète.', apk_btn:'Télécharger APK (Android)',
-    badge_roadmap:'Feuille de Route', roadmap_title:'Feuille de Route Produit', roadmap_desc:'Construire l\'avenir de l\'intelligence agricole.',
-    road_1:'Lancement Jumeau Numérique', road_2:'Intégration Satellitaire', road_3:'Moteur IA de Prévision', road_4:'Marché Carbone', road_5:'Réseau Agricole Mondial',
-    footer_tagline:'La Plateforme de Jumeau Numérique pour l\'Agriculture', footer_mission:'Construire une identité numérique vivante pour chaque ferme sur Terre.',
-    footer_platform:'Plateforme', footer_resources:'Ressources', footer_company:'Entreprise',
-  },
-  ar: {
-    nav_dashboard:'لوحة التحكم', nav_twin:'التوأم الرقمي', nav_soil:'التربة', nav_ai:'مستشار الذكاء الاصطناعي', nav_analytics:'التحليلات', nav_roadmap:'خارطة الطريق', nav_download:'تنزيل APK',
-    btn_launch:'تشغيل التطبيق', btn_apk:'تنزيل APK',
-    hero_badge:'أول منصة توأم رقمي زراعي في العالم',
-    hero_title:'كل مزرعة تستحق <span>هوية رقمية</span>',
-    hero_desc:'أنشئ توأمًا رقميًا حيًا لمزرعتك، تتبع المحاصيل والتربة والطقس والأنشطة ورؤى الذكاء الاصطناعي — متصلاً أو غير متصل.',
-    stat_farms:'المزارع النشطة', stat_uptime:'جاهز للعمل دون اتصال', stat_countries:'دولة', stat_langs:'لغات',
-    badge_dashboard:'لوحة التحكم', dashboard_title:'نظرة عامة على عمليات المزرعة', dashboard_desc:'رؤى في الوقت الفعلي عبر جميع مزارعك وحقولك المسجلة.',
-    card_farms:'المزارع النشطة', card_farms_sub:'٣ بانتظار المزامنة', card_crop:'صحة المحاصيل', card_soil:'صحة التربة', card_water:'كفاءة المياه', card_sustain:'درجة الاستدامة', card_harvest:'الحصاد المتوقع', card_harvest_sub:'الغلة التقديرية لكل هكتار',
-    badge_twin:'التوأم الرقمي', twin_title:'الهوية الرقمية لمزرعتك', twin_desc:'تمثيل رقمي حي لمزرعتك، يُحدَّث في الوقت الفعلي.',
-    farm_name:'مزرعة الوادي الأخضر', field_location:'الموقع', field_size:'حجم المزرعة', field_crop:'المحصول الرئيسي', field_soil_type:'نوع التربة', field_water:'مصدر المياه', field_updated:'آخر تحديث', field_records:'السجلات التاريخية', field_owner:'المالك',
-    metric_health:'درجة الصحة', metric_soil_score:'درجة التربة', metric_water_score:'درجة المياه',
-    badge_timeline:'تاريخ المزرعة', timeline_title:'الجدول الزمني للنشاط', timeline_desc:'سجل كامل لكل إجراء في مزرعتك.',
-    badge_soil:'صحة التربة', soil_title:'مركز صحة التربة', soil_desc:'تحليل شامل للتربة يُحدَّث كل ٦ ساعات.',
-    soil_ph:'درجة حموضة التربة', soil_om:'المادة العضوية', soil_n:'النيتروجين', soil_p:'الفوسفور', soil_k:'البوتاسيوم', soil_moisture:'رطوبة التربة',
-    badge_weather:'الطقس', weather_title:'مركز الطقس', weather_desc:'الأحوال الجوية المباشرة.',
-    weather_temp:'درجة الحرارة', weather_humidity:'الرطوبة', weather_rain:'هطول الأمطار', weather_wind:'سرعة الرياح', weather_sun:'أشعة الشمس', weather_cloud:'الغطاء السحابي',
-    badge_ai:'مستشار الذكاء الاصطناعي', ai_title:'مستشار المزرعة الذكي', ai_desc:'اسأل أي شيء عن مزرعتك.',
-    ai_welcome:'مرحباً! أنا Terrova AI. يمكنني مساعدتك في توصيات المحاصيل وتحليل التربة وإدارة الآفات وتحسين الإنتاجية.',
-    sug_1:'ماذا أزرع في الموسم القادم؟', sug_2:'كم من الأسمدة يجب تطبيقها؟', sug_3:'لماذا تنخفض محصولاتي؟', sug_4:'توقع الحصاد القادم',
-    badge_sustain:'الاستدامة', sustain_title:'مركز الاستدامة', sustain_desc:'تتبع التأثير البيئي لمزرعتك.',
-    s_carbon:'البصمة الكربونية', s_water:'كفاءة المياه', s_bio:'درجة التنوع البيولوجي', s_regen:'درجة التجديد',
-    badge_map:'خريطة الحقل', map_title:'خريطة المزرعة التفاعلية', map_desc:'نظرة عامة على المناطق مع مؤشرات الصحة والمخاطر والري.',
-    legend_healthy:'منطقة صحية', legend_risk:'منطقة خطر', legend_irrigation:'منطقة ري', legend_nutrient:'منخفض الغذاء',
-    badge_analytics:'التحليلات', analytics_title:'تحليلات المزرعة', analytics_desc:'تحليل اتجاهات الغلة وجودة التربة واستخدام المياه.',
-    chart_yield:'اتجاه الغلة', chart_soil:'اتجاه التربة', chart_water:'استخدام المياه',
-    badge_passport:'جواز السفر الرقمي', passport_title:'جواز السفر الرقمي للمزرعة', passport_desc:'الهوية الرقمية الرسمية لمزرعتك.',
-    badge_offline:'الأولوية للعمل دون اتصال', offline_title:'بنية تعتمد على العمل دون اتصال', offline_desc:'بيانات مزرعتك متاحة دائماً، حتى بدون اتصال إنترنت.',
-    sync_status:'حالة المزامنة', sync_last:'آخر مزامنة', sync_local:'التخزين المحلي', sync_pending:'سجلات معلقة', sync_mode:'وضع الاتصال',
-    btn_sync:'فرض المزامنة', btn_offline:'اختبار وضع عدم الاتصال',
-    offline_ready:'المزامنة دون اتصال جاهزة', last_synced:'آخر مزامنة: الآن', local_storage:'التخزين المحلي نشط',
-    apk_title:'خذ Terrova إلى الحقل', apk_desc:'نزّل APK الأندرويد للتجربة الكاملة دون اتصال.', apk_btn:'تنزيل APK (Android)',
-    badge_roadmap:'خارطة الطريق', roadmap_title:'خارطة طريق المنتج', roadmap_desc:'بناء مستقبل الذكاء الزراعي.',
-    road_1:'إطلاق التوأم الرقمي', road_2:'تكامل الأقمار الصناعية', road_3:'محرك توقع الغلة بالذكاء الاصطناعي', road_4:'تكامل سوق الكربون', road_5:'شبكة المزارع العالمية',
-    footer_tagline:'منصة التوأم الرقمي للزراعة', footer_mission:'بناء هوية رقمية حية لكل مزرعة على الأرض.',
-    footer_platform:'المنصة', footer_resources:'الموارد', footer_company:'الشركة',
-  },
-  hi: {
-    nav_dashboard:'डैशबोर्ड', nav_twin:'डिजिटल ट्विन', nav_soil:'मिट्टी', nav_ai:'AI सलाहकार', nav_analytics:'विश्लेषण', nav_roadmap:'रोडमैप', nav_download:'APK डाउनलोड',
-    btn_launch:'ऐप खोलें', btn_apk:'APK डाउनलोड करें',
-    hero_badge:'दुनिया का पहला कृषि डिजिटल ट्विन प्लेटफॉर्म',
-    hero_title:'हर खेत एक <span>डिजिटल पहचान</span> का हकदार है',
-    hero_desc:'अपने खेत का एक जीवित डिजिटल ट्विन बनाएं, फसलें, मिट्टी, मौसम और AI-संचालित अंतर्दृष्टि ट्रैक करें।',
-    stat_farms:'सक्रिय खेत', stat_uptime:'ऑफलाइन तैयार', stat_countries:'देश', stat_langs:'भाषाएं',
-    badge_dashboard:'डैशबोर्ड', dashboard_title:'खेत संचालन अवलोकन', dashboard_desc:'आपके सभी पंजीकृत खेतों पर रीयल-टाइम अंतर्दृष्टि।',
-    card_farms:'सक्रिय खेत', card_farms_sub:'3 सिंक प्रतीक्षारत', card_crop:'फसल स्वास्थ्य', card_soil:'मिट्टी का स्वास्थ्य', card_water:'जल दक्षता', card_sustain:'स्थिरता स्कोर', card_harvest:'अनुमानित फसल', card_harvest_sub:'प्रति हेक्टेयर अनुमानित उपज',
-    badge_twin:'डिजिटल ट्विन', twin_title:'आपके खेत की डिजिटल पहचान', twin_desc:'आपके खेत का एक जीवित डिजिटल प्रतिनिधित्व।',
-    farm_name:'हरी घाटी खेत', field_location:'स्थान', field_size:'खेत का आकार', field_crop:'मुख्य फसल', field_soil_type:'मिट्टी का प्रकार', field_water:'जल स्रोत', field_updated:'अंतिम अपडेट', field_records:'ऐतिहासिक रिकॉर्ड', field_owner:'मालिक',
-    metric_health:'स्वास्थ्य स्कोर', metric_soil_score:'मिट्टी स्कोर', metric_water_score:'जल स्कोर',
-    badge_timeline:'खेत इतिहास', timeline_title:'गतिविधि टाइमलाइन', timeline_desc:'आपके खेत पर हर गतिविधि का पूरा रिकॉर्ड।',
-    badge_soil:'मिट्टी स्वास्थ्य', soil_title:'मिट्टी स्वास्थ्य केंद्र', soil_desc:'हर 6 घंटे में अपडेट किया गया व्यापक मिट्टी विश्लेषण।',
-    soil_ph:'मिट्टी pH', soil_om:'जैविक पदार्थ', soil_n:'नाइट्रोजन (N)', soil_p:'फॉस्फोरस (P)', soil_k:'पोटेशियम (K)', soil_moisture:'मिट्टी नमी',
-    badge_weather:'मौसम', weather_title:'मौसम केंद्र', weather_desc:'हरी घाटी खेत पर लाइव स्थितियां।',
-    weather_temp:'तापमान', weather_humidity:'आर्द्रता', weather_rain:'वर्षा', weather_wind:'हवा की गति', weather_sun:'धूप', weather_cloud:'बादल छाए',
-    badge_ai:'AI सलाहकार', ai_title:'AI खेत सलाहकार', ai_desc:'अपने खेत के बारे में कुछ भी पूछें।',
-    ai_welcome:'नमस्ते! मैं Terrova AI हूं। मैं फसल अनुशंसाओं, मिट्टी विश्लेषण और उपज अनुकूलन में मदद कर सकता हूं।',
-    sug_1:'अगले सीजन में क्या लगाएं?', sug_2:'कितना उर्वरक लगाएं?', sug_3:'मेरी उपज क्यों घट रही है?', sug_4:'अगली फसल की भविष्यवाणी',
-    badge_sustain:'स्थिरता', sustain_title:'स्थिरता केंद्र', sustain_desc:'अपने खेत के पर्यावरणीय प्रभाव को ट्रैक करें।',
-    s_carbon:'कार्बन फुटप्रिंट', s_water:'जल दक्षता', s_bio:'जैव विविधता स्कोर', s_regen:'पुनर्योजी स्कोर',
-    badge_map:'फील्ड मैप', map_title:'इंटरएक्टिव फार्म मैप', map_desc:'स्वास्थ्य, जोखिम और सिंचाई संकेतकों के साथ दृश्य क्षेत्र अवलोकन।',
-    legend_healthy:'स्वस्थ क्षेत्र', legend_risk:'जोखिम क्षेत्र', legend_irrigation:'सिंचाई क्षेत्र', legend_nutrient:'कम पोषण',
-    badge_analytics:'विश्लेषण', analytics_title:'खेत विश्लेषण', analytics_desc:'उपज, मिट्टी की गुणवत्ता और जल उपयोग में रुझान विश्लेषण।',
-    chart_yield:'उपज रुझान', chart_soil:'मिट्टी गुणवत्ता रुझान', chart_water:'जल उपयोग',
-    badge_passport:'डिजिटल पासपोर्ट', passport_title:'खेत डिजिटल पासपोर्ट', passport_desc:'आपके खेत की आधिकारिक डिजिटल पहचान।',
-    badge_offline:'ऑफलाइन प्रथम', offline_title:'ऑफलाइन-फर्स्ट आर्किटेक्चर', offline_desc:'आपके खेत का डेटा हमेशा उपलब्ध, इंटरनेट के बिना भी।',
-    sync_status:'सिंक स्थिति', sync_last:'अंतिम सिंक्रनाइज़ेशन', sync_local:'स्थानीय स्टोरेज', sync_pending:'लंबित रिकॉर्ड', sync_mode:'कनेक्शन मोड',
-    btn_sync:'सिंक करें', btn_offline:'ऑफलाइन मोड टेस्ट करें',
-    offline_ready:'ऑफलाइन सिंक तैयार', last_synced:'अंतिम सिंक: अभी', local_storage:'स्थानीय स्टोरेज सक्रिय',
-    apk_title:'Terrova को मैदान में ले जाएं', apk_desc:'पूर्ण ऑफलाइन अनुभव के लिए Android APK डाउनलोड करें।', apk_btn:'APK डाउनलोड करें (Android)',
-    badge_roadmap:'रोडमैप', roadmap_title:'उत्पाद रोडमैप', roadmap_desc:'कृषि बुद्धिमत्ता का भविष्य बना रहे हैं।',
-    road_1:'डिजिटल ट्विन लॉन्च', road_2:'सैटेलाइट इंटीग्रेशन', road_3:'AI उपज पूर्वानुमान', road_4:'कार्बन मार्केटप्लेस', road_5:'वैश्विक खेत नेटवर्क',
-    footer_tagline:'कृषि के लिए डिजिटल ट्विन प्लेटफॉर्म', footer_mission:'पृथ्वी पर हर खेत के लिए एक जीवित डिजिटल पहचान बनाना।',
-    footer_platform:'प्लेटफॉर्म', footer_resources:'संसाधन', footer_company:'कंपनी',
-  },
-  zh: {
-    nav_dashboard:'仪表板', nav_twin:'数字孪生', nav_soil:'土壤', nav_ai:'AI顾问', nav_analytics:'分析', nav_roadmap:'路线图', nav_download:'下载APK',
-    btn_launch:'启动应用', btn_apk:'下载APK',
-    hero_badge:'全球首个农业数字孪生平台',
-    hero_title:'每个农场都值得拥有<span>数字身份</span>',
-    hero_desc:'为您的农场创建活生生的数字孪生，追踪作物、土壤、天气和AI驱动的洞察 — 在线或离线均可。',
-    stat_farms:'活跃农场', stat_uptime:'离线就绪', stat_countries:'国家', stat_langs:'语言',
-    badge_dashboard:'仪表板', dashboard_title:'农场运营概览', dashboard_desc:'所有已注册农场和田地的实时洞察。',
-    card_farms:'活跃农场', card_farms_sub:'3个待同步', card_crop:'作物健康', card_soil:'土壤健康', card_water:'用水效率', card_sustain:'可持续发展评分', card_harvest:'预测收成', card_harvest_sub:'每公顷预计产量',
-    badge_twin:'数字孪生', twin_title:'您农场的数字身份', twin_desc:'实时更新的农场数字表示。',
-    farm_name:'绿谷农场', field_location:'位置', field_size:'农场面积', field_crop:'主要作物', field_soil_type:'土壤类型', field_water:'水源', field_updated:'最后更新', field_records:'历史记录', field_owner:'所有者',
-    metric_health:'健康评分', metric_soil_score:'土壤评分', metric_water_score:'水分评分',
-    badge_timeline:'农场历史', timeline_title:'活动时间线', timeline_desc:'农场每项活动的完整记录。',
-    badge_soil:'土壤健康', soil_title:'土壤健康中心', soil_desc:'每6小时从传感器数据更新的全面土壤分析。',
-    soil_ph:'土壤pH值', soil_om:'有机质', soil_n:'氮(N)', soil_p:'磷(P)', soil_k:'钾(K)', soil_moisture:'土壤湿度',
-    badge_weather:'天气', weather_title:'天气中心', weather_desc:'绿谷农场实时天气状况。',
-    weather_temp:'温度', weather_humidity:'湿度', weather_rain:'降雨量', weather_wind:'风速', weather_sun:'日照时间', weather_cloud:'云量',
-    badge_ai:'AI顾问', ai_title:'AI农场顾问', ai_desc:'询问任何关于您农场的问题。',
-    ai_welcome:'您好！我是Terrova AI。我可以帮助您进行作物推荐、土壤分析、病虫害管理和产量优化。',
-    sug_1:'下一季种什么？', sug_2:'施多少肥料？', sug_3:'为什么产量在下降？', sug_4:'预测下次收成',
-    badge_sustain:'可持续性', sustain_title:'可持续发展中心', sustain_desc:'追踪您农场的环境影响和再生实践。',
-    s_carbon:'碳足迹', s_water:'用水效率', s_bio:'生物多样性评分', s_regen:'再生农业评分',
-    badge_map:'田地地图', map_title:'互动农场地图', map_desc:'包含健康、风险和灌溉指标的视觉区域概览。',
-    legend_healthy:'健康区', legend_risk:'风险区', legend_irrigation:'灌溉区', legend_nutrient:'低营养',
-    badge_analytics:'分析', analytics_title:'农场分析', analytics_desc:'产量、土壤质量和用水量的趋势分析。',
-    chart_yield:'产量趋势', chart_soil:'土壤质量趋势', chart_water:'用水量',
-    badge_passport:'数字护照', passport_title:'农场数字护照', passport_desc:'您农场的官方数字身份。',
-    badge_offline:'离线优先', offline_title:'离线优先架构', offline_desc:'即使没有网络连接，您的农场数据始终可用。',
-    sync_status:'同步状态', sync_last:'上次同步', sync_local:'本地存储', sync_pending:'待处理记录', sync_mode:'连接模式',
-    btn_sync:'立即强制同步', btn_offline:'测试离线模式',
-    offline_ready:'离线同步就绪', last_synced:'上次同步：刚才', local_storage:'本地存储活跃',
-    apk_title:'将Terrova带到田间', apk_desc:'下载Android APK，获得完整的离线体验。', apk_btn:'下载APK (Android)',
-    badge_roadmap:'路线图', roadmap_title:'产品路线图', roadmap_desc:'构建农业智能的未来。',
-    road_1:'数字孪生发布', road_2:'卫星集成', road_3:'AI产量预测', road_4:'碳市场集成', road_5:'全球农场网络',
-    footer_tagline:'农业数字孪生平台', footer_mission:'为地球上每个农场建立活生生的数字身份。',
-    footer_platform:'平台', footer_resources:'资源', footer_company:'公司',
-  },
-  pt: {
-    nav_dashboard:'Painel', nav_twin:'Gêmeo Digital', nav_soil:'Solo', nav_ai:'Consultor IA', nav_analytics:'Análises', nav_roadmap:'Roadmap', nav_download:'Baixar APK',
-    btn_launch:'Abrir App', btn_apk:'Baixar APK',
-    hero_badge:'Primeira Plataforma de Gêmeo Digital Agrícola do Mundo',
-    hero_title:'Cada Fazenda Merece uma <span>Identidade Digital</span>',
-    hero_desc:'Crie um gêmeo digital vivo da sua fazenda, rastreie culturas, solo, clima e insights de IA — online ou offline.',
-    stat_farms:'Fazendas Ativas', stat_uptime:'Pronto Offline', stat_countries:'Países', stat_langs:'Idiomas',
-    badge_dashboard:'Painel', dashboard_title:'Visão Geral das Operações', dashboard_desc:'Insights em tempo real em todas as suas fazendas registradas.',
-    card_farms:'Fazendas Ativas', card_farms_sub:'3 aguardando sync', card_crop:'Saúde das Culturas', card_soil:'Saúde do Solo', card_water:'Eficiência da Água', card_sustain:'Pontuação de Sustentabilidade', card_harvest:'Colheita Prevista', card_harvest_sub:'Rendimento est. por hectare',
-    badge_twin:'Gêmeo Digital', twin_title:'A Identidade Digital da Sua Fazenda', twin_desc:'Representação digital viva da sua fazenda, atualizada em tempo real.',
-    farm_name:'Fazenda Vale Verde', field_location:'Localização', field_size:'Área', field_crop:'Cultura Principal', field_soil_type:'Tipo de Solo', field_water:'Fonte de Água', field_updated:'Última Atualização', field_records:'Registros Históricos', field_owner:'Proprietário',
-    metric_health:'Pontuação de Saúde', metric_soil_score:'Pontuação do Solo', metric_water_score:'Pontuação da Água',
-    badge_timeline:'Histórico', timeline_title:'Linha do Tempo', timeline_desc:'Um registro completo de cada ação na sua fazenda.',
-    badge_soil:'Saúde do Solo', soil_title:'Centro de Saúde do Solo', soil_desc:'Análise abrangente do solo atualizada a cada 6 horas.',
-    soil_ph:'pH do Solo', soil_om:'Matéria Orgânica', soil_n:'Nitrogênio (N)', soil_p:'Fósforo (P)', soil_k:'Potássio (K)', soil_moisture:'Umidade do Solo',
-    badge_weather:'Clima', weather_title:'Centro Meteorológico', weather_desc:'Condições ao vivo na Fazenda Vale Verde.',
-    weather_temp:'Temperatura', weather_humidity:'Umidade', weather_rain:'Precipitação', weather_wind:'Velocidade do Vento', weather_sun:'Luz Solar', weather_cloud:'Cobertura de Nuvens',
-    badge_ai:'Consultor IA', ai_title:'Consultor Agrícola IA', ai_desc:'Pergunte qualquer coisa sobre sua fazenda.',
-    ai_welcome:'Olá! Sou a Terrova IA. Posso ajudá-lo com recomendações de culturas, análise de solo, manejo de pragas e otimização de produtividade.',
-    sug_1:'O que plantar na próxima temporada?', sug_2:'Quanto fertilizante aplicar?', sug_3:'Por que minha produção está caindo?', sug_4:'Prever próxima colheita',
-    badge_sustain:'Sustentabilidade', sustain_title:'Centro de Sustentabilidade', sustain_desc:'Monitore o impacto ambiental da sua fazenda.',
-    s_carbon:'Pegada de Carbono', s_water:'Eficiência da Água', s_bio:'Biodiversidade', s_regen:'Pontuação Regenerativa',
-    badge_map:'Mapa do Campo', map_title:'Mapa Interativo', map_desc:'Visão das zonas com indicadores de saúde, risco e irrigação.',
-    legend_healthy:'Zona Saudável', legend_risk:'Zona de Risco', legend_irrigation:'Zona de Irrigação', legend_nutrient:'Baixo Nutriente',
-    badge_analytics:'Análises', analytics_title:'Análises Agrícolas', analytics_desc:'Tendências de produtividade, qualidade do solo e uso de água.',
-    chart_yield:'Tendência de Produtividade', chart_soil:'Tendência do Solo', chart_water:'Uso de Água',
-    badge_passport:'Passaporte Digital', passport_title:'Passaporte Digital Agrícola', passport_desc:'A identidade digital oficial da sua fazenda.',
-    badge_offline:'Offline Primeiro', offline_title:'Arquitetura Offline-First', offline_desc:'Seus dados sempre disponíveis, mesmo sem internet.',
-    sync_status:'Status de Sync', sync_last:'Última Sincronização', sync_local:'Armazenamento Local', sync_pending:'Registros Pendentes', sync_mode:'Modo de Conexão',
-    btn_sync:'Forçar Sync', btn_offline:'Testar Modo Offline',
-    offline_ready:'Sync Offline Pronto', last_synced:'Última Sync: Agora', local_storage:'Armazenamento Local Ativo',
-    apk_title:'Leve a Terrova ao Campo', apk_desc:'Baixe o APK Android para a experiência offline completa.', apk_btn:'Baixar APK (Android)',
-    badge_roadmap:'Roadmap', roadmap_title:'Roadmap do Produto', roadmap_desc:'Construindo o futuro da inteligência agrícola.',
-    road_1:'Lançamento do Gêmeo Digital', road_2:'Integração Satelital', road_3:'Previsão de Colheita IA', road_4:'Mercado de Carbono', road_5:'Rede Global de Fazendas',
-    footer_tagline:'A Plataforma de Gêmeo Digital para Agricultura', footer_mission:'Construindo uma identidade digital viva para cada fazenda na Terra.',
-    footer_platform:'Plataforma', footer_resources:'Recursos', footer_company:'Empresa',
-  },
-  ja: {
-    nav_dashboard:'ダッシュボード', nav_twin:'デジタルツイン', nav_soil:'土壌', nav_ai:'AIアドバイザー', nav_analytics:'分析', nav_roadmap:'ロードマップ', nav_download:'APKダウンロード',
-    btn_launch:'アプリを起動', btn_apk:'APKをダウンロード',
-    hero_badge:'世界初の農業デジタルツインプラットフォーム',
-    hero_title:'すべての農場は<span>デジタルアイデンティティ</span>に値する',
-    hero_desc:'農場の生きたデジタルツインを作成し、作物、土壌、天気、AIによる洞察をオンラインまたはオフラインで追跡できます。',
-    stat_farms:'アクティブ農場', stat_uptime:'オフライン対応', stat_countries:'国', stat_langs:'言語',
-    badge_dashboard:'ダッシュボード', dashboard_title:'農場運営概要', dashboard_desc:'登録されたすべての農場のリアルタイムインサイト。',
-    card_farms:'アクティブ農場', card_farms_sub:'3件同期待ち', card_crop:'作物の健康', card_soil:'土壌の健康', card_water:'水効率', card_sustain:'持続可能性スコア', card_harvest:'予測収穫量', card_harvest_sub:'ヘクタールあたり推定収量',
-    badge_twin:'デジタルツイン', twin_title:'農場のデジタルアイデンティティ', twin_desc:'リアルタイムで更新される農場の生きたデジタル表現。',
-    farm_name:'グリーンバレー農場', field_location:'所在地', field_size:'農場面積', field_crop:'主要作物', field_soil_type:'土壌タイプ', field_water:'水源', field_updated:'最終更新', field_records:'履歴レコード', field_owner:'オーナー',
-    metric_health:'健康スコア', metric_soil_score:'土壌スコア', metric_water_score:'水スコア',
-    badge_timeline:'農場履歴', timeline_title:'アクティビティタイムライン', timeline_desc:'農場でのすべてのアクションの完全な記録。',
-    badge_soil:'土壌の健康', soil_title:'土壌健康センター', soil_desc:'6時間ごとにセンサーデータから更新される包括的な土壌分析。',
-    soil_ph:'土壌pH', soil_om:'有機物', soil_n:'窒素（N）', soil_p:'リン（P）', soil_k:'カリウム（K）', soil_moisture:'土壌水分',
-    badge_weather:'天気', weather_title:'気象センター', weather_desc:'グリーンバレー農場のライブ気象状況。',
-    weather_temp:'気温', weather_humidity:'湿度', weather_rain:'降水量', weather_wind:'風速', weather_sun:'日照時間', weather_cloud:'雲量',
-    badge_ai:'AIアドバイザー', ai_title:'AI農場アドバイザー', ai_desc:'農場について何でも聞いてください。',
-    ai_welcome:'こんにちは！Terrova AIです。作物の推奨、土壌分析、病害虫管理、収量最適化についてお手伝いします。',
-    sug_1:'次のシーズンは何を植えますか？', sug_2:'肥料はどれくらい必要？', sug_3:'収量が減っているのはなぜ？', sug_4:'次の収穫を予測',
-    badge_sustain:'持続可能性', sustain_title:'持続可能性センター', sustain_desc:'農場の環境への影響を追跡。',
-    s_carbon:'カーボンフットプリント', s_water:'水効率', s_bio:'生物多様性スコア', s_regen:'再生農業スコア',
-    badge_map:'農地マップ', map_title:'インタラクティブ農場マップ', map_desc:'健康、リスク、灌漑インジケーター付きのゾーン概要。',
-    legend_healthy:'健全ゾーン', legend_risk:'リスクゾーン', legend_irrigation:'灌漑ゾーン', legend_nutrient:'栄養不足',
-    badge_analytics:'分析', analytics_title:'農場分析', analytics_desc:'収量、土壌品質、水使用量のトレンド分析。',
-    chart_yield:'収量トレンド', chart_soil:'土壌品質トレンド', chart_water:'水使用量',
-    badge_passport:'デジタルパスポート', passport_title:'農場デジタルパスポート', passport_desc:'農場の公式デジタルアイデンティティ。',
-    badge_offline:'オフラインファースト', offline_title:'オフラインファーストアーキテクチャ', offline_desc:'インターネット接続なしでも農場データは常に利用可能。',
-    sync_status:'同期状態', sync_last:'最終同期', sync_local:'ローカルストレージ', sync_pending:'保留中のレコード', sync_mode:'接続モード',
-    btn_sync:'強制同期', btn_offline:'オフラインモードテスト',
-    offline_ready:'オフライン同期準備完了', last_synced:'最終同期：たった今', local_storage:'ローカルストレージ有効',
-    apk_title:'Terrovaを農場へ', apk_desc:'完全なオフライン体験のためにAndroid APKをダウンロード。', apk_btn:'APKをダウンロード（Android）',
-    badge_roadmap:'ロードマップ', roadmap_title:'製品ロードマップ', roadmap_desc:'農業インテリジェンスの未来を構築。',
-    road_1:'デジタルツイン立ち上げ', road_2:'衛星統合', road_3:'AI収量予測エンジン', road_4:'炭素マーケット統合', road_5:'グローバル農場ネットワーク',
-    footer_tagline:'農業向けデジタルツインプラットフォーム', footer_mission:'地球上のすべての農場に生きたデジタルアイデンティティを構築。',
-    footer_platform:'プラットフォーム', footer_resources:'リソース', footer_company:'会社',
-  }
-};
-
-let currentLang = localStorage.getItem('terrova_lang') || 'en';
-const langFlags = { en:'🇺🇸', id:'🇮🇩', es:'🇪🇸', pt:'🇧🇷', fr:'🇫🇷', ar:'🇸🇦', hi:'🇮🇳', zh:'🇨🇳', ja:'🇯🇵' };
-const langNames = { en:'EN', id:'ID', es:'ES', pt:'PT', fr:'FR', ar:'AR', hi:'HI', zh:'ZH', ja:'JA' };
-
-function applyTranslations(lang) {
-  const t = translations[lang] || translations.en;
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) el.innerHTML = t[key];
-  });
-  document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-  document.getElementById('currentLangFlag').textContent = langFlags[lang] || '🌐';
-  document.getElementById('currentLangName').textContent = langNames[lang] || lang.toUpperCase();
-  document.querySelectorAll('.lang-option').forEach(el => {
-    el.classList.toggle('active', el.textContent.includes(langNames[lang]));
-  });
-}
-
-function setLang(lang) {
-  currentLang = lang;
-  localStorage.setItem('terrova_lang', lang);
-  applyTranslations(lang);
-  closeLang();
-}
-
-function toggleLang() {
-  document.getElementById('langDropdown').classList.toggle('open');
-}
-function closeLang() {
-  document.getElementById('langDropdown').classList.remove('open');
-}
-
-document.addEventListener('click', e => {
-  if (!document.getElementById('langSelect').contains(e.target)) closeLang();
-});
-
-// ===== THEME =====
-let isDark = localStorage.getItem('terrova_theme') === 'dark';
-function applyTheme() {
-  document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  const icon = document.getElementById('themeIcon');
-  icon.innerHTML = isDark
-    ? '<path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .38-.39.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0-.39.39-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0 .39-.38.39-1.02 0-1.41l-1.06-1.06zm1.06-10.96c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06zM7.05 18.36c.39-.39.39-1.03 0-1.41-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41.39.39 1.03.39 1.41 0l1.06-1.06z"/>'
-    : '<path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>';
-}
-function toggleTheme() {
-  isDark = !isDark;
-  localStorage.setItem('terrova_theme', isDark ? 'dark' : 'light');
-  applyTheme();
-  setTimeout(drawCharts, 100);
-}
-
-// ===== MOBILE NAV =====
-function toggleMobileNav() {
-  document.getElementById('mobileNav').classList.toggle('open');
-}
-
-// ===== AI CHAT =====
-const aiResponses = {
-  default: [
-    "Based on your current soil analysis, I recommend applying 180 kg/ha of NPK 16-16-16 fertilizer. Your phosphorus levels are low — consider adding 40 kg/ha of superphosphate as a supplement.",
-    "Your crop health score of 94% is excellent! The slight risk in Zone B (blast fungus) has been contained. Continue monitoring for the next 7 days and apply preventive fungicide if humidity exceeds 80%.",
-    "For next season, I recommend switching 30% of your rice fields to soybeans. Current market prices and your soil nitrogen content make this financially optimal — projected ROI increase of 18%.",
-    "Your yield decline in Q3 was primarily due to irregular irrigation in Zone E. I've scheduled an automated irrigation adjustment. Expected improvement: +0.4T/ha next harvest.",
-    "Predicted harvest for Season 2026-B: 4.8 tonnes/ha — 14% above your historical average. Key factors: improved soil pH, optimized irrigation schedule, and favorable weather forecasts.",
-    "I detected early signs of nitrogen deficiency in the eastern quadrant. Applying 50 kg/ha of urea within the next 5 days will prevent yield loss. Would you like me to schedule this automatically?"
-  ]
-};
-
-function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const msg = input.value.trim();
-  if (!msg) return;
-  addMessage(msg, 'user');
-  input.value = '';
-  showTyping();
-  setTimeout(() => {
-    hideTyping();
-    const responses = aiResponses.default;
-    addMessage(responses[Math.floor(Math.random() * responses.length)], 'ai');
-  }, 1200 + Math.random() * 800);
-}
-
-function sendSuggestion(el) {
-  document.getElementById('chatInput').value = el.textContent;
-  sendMessage();
-}
-
-function addMessage(text, sender) {
-  const msgs = document.getElementById('chatMessages');
-  const div = document.createElement('div');
-  div.className = `msg msg-${sender}`;
-  const now = new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-  div.innerHTML = `<div class="msg-bubble">${text}</div><div class="msg-time">${now}</div>`;
-  msgs.appendChild(div);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-let typingEl = null;
-function showTyping() {
-  const msgs = document.getElementById('chatMessages');
-  typingEl = document.createElement('div');
-  typingEl.className = 'msg msg-ai';
-  typingEl.innerHTML = '<div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
-  msgs.appendChild(typingEl);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-function hideTyping() {
-  if (typingEl) { typingEl.remove(); typingEl = null; }
-}
-function clearChat() {
-  document.getElementById('chatMessages').innerHTML = '';
-  const t = translations[currentLang] || translations.en;
-  addMessage(t.ai_welcome || translations.en.ai_welcome, 'ai');
-}
-
-// ===== OFFLINE SIMULATION =====
-function simulateSync() {
-  const btn = event.target;
-  btn.textContent = 'Syncing...';
-  btn.disabled = true;
-  setTimeout(() => {
-    btn.textContent = translations[currentLang]?.btn_sync || 'Force Sync Now';
-    btn.disabled = false;
-    document.getElementById('lastSync').textContent = 'Just now';
-    document.getElementById('syncStatus').textContent = '● All data synced';
-    document.getElementById('syncStatus').style.color = 'var(--success)';
-  }, 2000);
-}
-function simulateOffline() {
-  const el = document.getElementById('connMode');
-  const syncEl = document.getElementById('syncStatus');
-  el.textContent = '○ Offline';
-  el.style.color = 'var(--warning)';
-  syncEl.textContent = '● Working offline';
-  syncEl.style.color = 'var(--warning)';
-  setTimeout(() => {
-    el.textContent = '● Online';
-    el.style.color = 'var(--success)';
-    syncEl.textContent = '● All data synced';
-    syncEl.style.color = 'var(--success)';
-  }, 4000);
-}
-
-// ===== CHARTS =====
-function drawCharts() {
-  const isDarkMode = document.documentElement.getAttribute('data-theme') === 'dark';
-  const textColor = isDarkMode ? '#8B949E' : '#667085';
-  const gridColor = isDarkMode ? '#30363D' : '#E4E7EC';
-
-  drawBarChart('yieldChart', [3.2,3.6,3.8,4.0,3.9,4.2], ['S1','S2','S3','S4','S5','S6'], '#1F8F5F', textColor, gridColor);
-  drawLineChart('soilChart', [78,80,82,83,85,86,87,86,88,87,88,87], ['J','F','M','A','M','J','J','A','S','O','N','D'], '#2FBF71', textColor, gridColor);
-  drawBarChart('waterChart', [4800,4600,4200,4100,4300,4000], ['Jan','Mar','May','Jul','Sep','Nov'], '#38BDF8', textColor, gridColor);
-}
-
-function drawBarChart(id, data, labels, color, textColor, gridColor) {
-  const canvas = document.getElementById(id);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || 300;
-  const H = 180;
-  canvas.width = W; canvas.height = H;
-  ctx.clearRect(0, 0, W, H);
-  const pad = { l:36, r:16, t:16, b:30 };
-  const cW = W - pad.l - pad.r;
-  const cH = H - pad.t - pad.b;
-  const max = Math.max(...data) * 1.15;
-  const bW = (cW / data.length) * 0.55;
-  const gap = (cW / data.length) * 0.45;
-
-  // Grid
-  for (let i = 0; i <= 4; i++) {
-    const y = pad.t + cH - (i / 4) * cH;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W - pad.r, y);
-    ctx.strokeStyle = gridColor; ctx.lineWidth = 1; ctx.stroke();
-    ctx.fillStyle = textColor; ctx.font = '10px sans-serif'; ctx.textAlign = 'right';
-    ctx.fillText((max * i / 4).toFixed(1), pad.l - 4, y + 4);
-  }
-
-  data.forEach((v, i) => {
-    const x = pad.l + i * (W - pad.l - pad.r) / data.length + gap / 2;
-    const bH = (v / max) * cH;
-    const y = pad.t + cH - bH;
-    const grad = ctx.createLinearGradient(0, y, 0, y + bH);
-    grad.addColorStop(0, color);
-    grad.addColorStop(1, color + '44');
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.roundRect ? ctx.roundRect(x, y, bW, bH, 4) : ctx.rect(x, y, bW, bH);
-    ctx.fill();
-    ctx.fillStyle = textColor; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
-    ctx.fillText(labels[i], x + bW / 2, H - pad.b + 16);
-  });
-}
-
-function drawLineChart(id, data, labels, color, textColor, gridColor) {
-  const canvas = document.getElementById(id);
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = canvas.offsetWidth || 300;
-  const H = 180;
-  canvas.width = W; canvas.height = H;
-  ctx.clearRect(0, 0, W, H);
-  const pad = { l:36, r:16, t:16, b:30 };
-  const cW = W - pad.l - pad.r;
-  const cH = H - pad.t - pad.b;
-  const min = Math.min(...data) - 2;
-  const max = Math.max(...data) + 2;
-
-  for (let i = 0; i <= 4; i++) {
-    const y = pad.t + cH - (i / 4) * cH;
-    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(W - pad.r, y);
-    ctx.strokeStyle = gridColor; ctx.lineWidth = 1; ctx.stroke();
-    ctx.fillStyle = textColor; ctx.font = '10px sans-serif'; ctx.textAlign = 'right';
-    ctx.fillText(((min + (max - min) * i / 4)).toFixed(0), pad.l - 4, y + 4);
-  }
-
-  const pts = data.map((v, i) => ({
-    x: pad.l + (i / (data.length - 1)) * cW,
-    y: pad.t + cH - ((v - min) / (max - min)) * cH
-  }));
-
-  // Fill
-  const grad = ctx.createLinearGradient(0, pad.t, 0, pad.t + cH);
-  grad.addColorStop(0, color + '40');
-  grad.addColorStop(1, color + '00');
-  ctx.beginPath();
-  ctx.moveTo(pts[0].x, pad.t + cH);
-  pts.forEach(p => ctx.lineTo(p.x, p.y));
-  ctx.lineTo(pts[pts.length-1].x, pad.t + cH);
-  ctx.closePath();
-  ctx.fillStyle = grad;
-  ctx.fill();
-
-  // Line
-  ctx.beginPath();
-  pts.forEach((p, i) => i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y));
-  ctx.strokeStyle = color; ctx.lineWidth = 2.5; ctx.lineJoin = 'round';
-  ctx.stroke();
-
-  // Points
-  pts.forEach((p, i) => {
-    if (i % 2 === 0) {
-      ctx.beginPath(); ctx.arc(p.x, p.y, 3.5, 0, Math.PI * 2);
-      ctx.fillStyle = color; ctx.fill();
-      ctx.fillStyle = textColor; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
-      ctx.fillText(labels[i], p.x, H - pad.b + 16);
-    }
-  });
-}
-
-// ===== INTERSECTION OBSERVER =====
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) e.target.classList.add('visible');
-  });
-}, { threshold: 0.1 });
-document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
-
-// ===== NAV SCROLL =====
+// Nav scroll
+const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
-  const nav = document.getElementById('navbar');
-  nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(0,0,0,.08)' : 'none';
+  nav.classList.toggle('scrolled', window.scrollY > 20);
+}, { passive: true });
+
+// Mobile drawer
+function toggleMobile() {
+  const d = document.getElementById('mobileDrawer');
+  d.classList.toggle('open');
+}
+document.addEventListener('click', e => {
+  const d = document.getElementById('mobileDrawer');
+  const h = document.getElementById('navHam');
+  if (d.classList.contains('open') && !d.contains(e.target) && !h.contains(e.target)) {
+    d.classList.remove('open');
+  }
 });
 
-// ===== INIT =====
-document.addEventListener('DOMContentLoaded', () => {
-  applyTheme();
-  applyTranslations(currentLang);
-  setTimeout(drawCharts, 300);
-  // Redraw on resize
-  let resizeTimer;
-  window.addEventListener('resize', () => {
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(drawCharts, 200);
-  });
-  // Update sync time
-  let syncSeconds = 0;
-  setInterval(() => {
-    syncSeconds++;
-    const lastSync = document.getElementById('lastSync');
-    if (lastSync) {
-      if (syncSeconds < 60) lastSync.textContent = syncSeconds + 's ago';
-      else lastSync.textContent = Math.floor(syncSeconds/60) + 'm ago';
-    }
-  }, 1000);
-});
+// Scroll reveal
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>

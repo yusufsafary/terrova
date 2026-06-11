@@ -7,6 +7,20 @@
 <meta name="theme-color" content="#1F8F5F">
 <title>Terrova — The Digital Twin Platform for Agriculture</title>
 <link rel="manifest" href="#" crossorigin="use-credentials">
+<script>
+  // Unregister old service workers immediately
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let reg of registrations) { reg.unregister(); }
+    });
+    // Clear all caches
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (let name of names) { caches.delete(name); }
+      });
+    }
+  }
+</script>
 <style>
   :root {
     --primary: #1F8F5F;

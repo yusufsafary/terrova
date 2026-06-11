@@ -1774,13 +1774,405 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
   transition: width .4s cubic-bezier(.22,.68,0,1.2);
 }
 
+
+/* ── LANDING PAGE ── */
+.lp-page {
+  background: var(--canvas);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+.lp-page::-webkit-scrollbar { display: none; }
+
+.lp-nav {
+  background: var(--ink);
+  padding: 12px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.lp-nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(78,168,118,.3), transparent);
+}
+.lp-nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  cursor: pointer;
+}
+.lp-nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  padding: 8px 16px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .18s;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.lp-nav-cta:active { background: var(--green-2); }
+
+.lp-hero {
+  padding: 40px 22px 32px;
+  animation: fadeUp .55s cubic-bezier(.22,.68,0,1.2) both;
+}
+.lp-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--green-3);
+  margin-bottom: 16px;
+}
+.lp-eyebrow-dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--green-3);
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+.lp-headline {
+  font-family: 'Instrument Serif', serif;
+  font-size: 38px;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.lp-headline em {
+  font-style: italic;
+  color: var(--green);
+}
+.lp-desc {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--warm-4);
+  line-height: 1.8;
+  margin-bottom: 28px;
+  max-width: 320px;
+}
+.lp-cta-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+.lp-cta-primary {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  padding: 13px 22px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .18s, transform .14s;
+  letter-spacing: .01em;
+  white-space: nowrap;
+  box-shadow: 0 4px 18px rgba(11,10,8,.18);
+}
+.lp-cta-primary:active { background: var(--green); transform: scale(.97); }
+.lp-cta-secondary {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--warm-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+  transition: color .18s;
+}
+.lp-cta-secondary:active { color: var(--ink); }
+
+.lp-features {
+  margin: 8px 18px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  animation: fadeUp .55s .12s cubic-bezier(.22,.68,0,1.2) both;
+}
+.lp-feat {
+  background: var(--white);
+  border: 1px solid #EAE4D9;
+  border-radius: var(--r-lg);
+  padding: 16px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  box-shadow: 0 1px 4px rgba(11,10,8,.04);
+  transition: transform .18s, box-shadow .18s;
+}
+.lp-feat:active { transform: scale(.98); box-shadow: none; }
+.lp-feat-icon {
+  width: 40px; height: 40px;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  background: var(--warm-1);
+}
+.lp-feat-body { flex: 1; }
+.lp-feat-title {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+  letter-spacing: -0.01em;
+}
+.lp-feat-sub {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--warm-4);
+  line-height: 1.65;
+}
+
+.lp-install {
+  margin: 0 18px 32px;
+  background: var(--ink);
+  border-radius: var(--r-xl);
+  padding: 22px 20px;
+  animation: fadeUp .55s .2s cubic-bezier(.22,.68,0,1.2) both;
+  position: relative;
+  overflow: hidden;
+}
+.lp-install::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(78,168,118,.3), transparent);
+}
+.lp-install-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--green-3);
+  margin-bottom: 10px;
+}
+.lp-install-title {
+  font-family: 'Instrument Serif', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.lp-install-sub {
+  font-size: 12.5px;
+  font-weight: 300;
+  color: var(--warm-3);
+  line-height: 1.65;
+  margin-bottom: 18px;
+}
+.lp-install-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--green);
+  color: var(--white);
+  border: none;
+  border-radius: 100px;
+  padding: 12px 20px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background .18s;
+  width: fit-content;
+  letter-spacing: .01em;
+}
+.lp-install-btn:active { background: var(--green-2); }
+
+.lp-footer {
+  background: var(--ink-2);
+  padding: 28px 20px 110px;
+  text-align: center;
+  position: relative;
+}
+.lp-footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(78,168,118,.22), transparent);
+}
+.lp-footer-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.lp-footer-tagline {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(158,146,120,.65);
+  margin-bottom: 18px;
+}
+.lp-footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.lp-footer-link {
+  font-size: 11.5px;
+  color: rgba(107,98,80,.7);
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 0;
+  transition: color .18s;
+}
+.lp-footer-link:hover, .lp-footer-link:active { color: var(--green-3); }
+.lp-social-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 12px 0 8px;
+}
+.lp-footer-copy {
+  font-size: 10.5px;
+  color: var(--warm-5);
+  letter-spacing: .05em;
+  opacity: .65;
+  margin-top: 8px;
+}
+.lp-orynth {
+  display: flex;
+  justify-content: center;
+  margin: 12px 0 4px;
+}
+
 </style>
 </head>
 <body>
 <div id="app">
 
+  <!-- ══ LANDING PAGE ══ -->
+  <div class="page lp-page visible" id="landPage">
+    <nav class="lp-nav">
+      <div class="lp-nav-logo" onclick="goLand()">
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img">
+      </div>
+      <button class="lp-nav-cta" onclick="goChat()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Open App
+      </button>
+    </nav>
+
+    <div class="lp-hero">
+      <div class="lp-eyebrow"><span class="lp-eyebrow-dot"></span>AI Farming Assistant</div>
+      <h1 class="lp-headline">Grow <em>smarter</em>,<br>not harder.</h1>
+      <p class="lp-desc">Terrova gives every farmer instant answers on crops, soil, pests, and harvest — in 15 languages, offline-ready, no account needed.</p>
+      <div class="lp-cta-row">
+        <button class="lp-cta-primary" onclick="goChat()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          Try Rova free
+        </button>
+        <button class="lp-cta-secondary" onclick="goAbout()">Learn more →</button>
+      </div>
+    </div>
+
+    <div class="lp-features">
+      <div class="lp-feat">
+        <div class="lp-feat-icon">🌾</div>
+        <div class="lp-feat-body">
+          <div class="lp-feat-title">Ask anything about your crops</div>
+          <div class="lp-feat-sub">Pests, diseases, soil, water, harvest timing — get straight answers in seconds, not days.</div>
+        </div>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon">🌐</div>
+        <div class="lp-feat-body">
+          <div class="lp-feat-title">15 languages, one tap away</div>
+          <div class="lp-feat-sub">English, Bahasa, Hindi, Swahili, and 11 more. Farm advice in the language you think in.</div>
+        </div>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon">📶</div>
+        <div class="lp-feat-body">
+          <div class="lp-feat-title">Works offline</div>
+          <div class="lp-feat-sub">Install Terrova once and your history is always there — even without an internet connection.</div>
+        </div>
+      </div>
+      <div class="lp-feat">
+        <div class="lp-feat-icon">🔒</div>
+        <div class="lp-feat-body">
+          <div class="lp-feat-title">Your data stays on your device</div>
+          <div class="lp-feat-sub">No account required. All conversations are saved locally — we never see your data.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lp-install">
+      <div class="lp-install-badge">📲 Install</div>
+      <div class="lp-install-title">Add to your home screen</div>
+      <div class="lp-install-sub">Get instant access, offline history, and a native app experience — no app store needed.</div>
+      <button class="lp-install-btn" onclick="triggerInstall()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17V3"/><path d="M7 12l5 5 5-5"/><rect x="3" y="18" width="18" height="3" rx="1.5"/></svg>
+        Install Terrova
+      </button>
+    </div>
+
+    <div class="lp-footer">
+      <div class="lp-footer-logo">
+        <img src="https://raw.githubusercontent.com/yusufsafary/terrova/main/terrova-logo-full.png" alt="Terrova" class="logo-img-footer">
+      </div>
+      <div class="lp-footer-tagline">Smart farming knowledge for every grower.</div>
+      <div class="lp-footer-links">
+        <button class="lp-footer-link" onclick="goAbout()">About</button>
+        <button class="lp-footer-link" onclick="goHow()">How It Works</button>
+        <button class="lp-footer-link" onclick="goLegal()">Legal</button>
+        <button class="lp-footer-link" onclick="goFaq()">FAQ</button>
+        <button class="lp-footer-link" onclick="goChat()">Open App</button>
+      </div>
+      <div class="lp-social-row">
+        <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="social-link-x">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+          @lucasreedxx
+        </a>
+      </div>
+      <div class="lp-orynth">
+        <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+          <img src="https://orynth.dev/api/badge/terrova?theme=dark&style=default" alt="Featured on Orynth" width="160" height="49" loading="lazy">
+        </a>
+      </div>
+      <div class="lp-footer-copy">2026 Terrova. All rights reserved.</div>
+    </div>
+  </div>
+
+
   <!-- ══ CHAT PAGE ══ -->
-  <div class="page visible" id="chatPage">
+  <div class="page hidden-right" id="chatPage">
     <header class="hdr" id="chatHdr">
       <button class="chat-back-btn" onclick="newChat()">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="M12 19l-7-7 7-7"/></svg>
@@ -1794,7 +2186,7 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
           Sign in
         </button>
-        <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="hdr-x-btn" aria-label="Follow @terrova_ai on X">
+        <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="hdr-x-btn" aria-label="Follow @lucasreedxx on X">
           <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
         </a>
         <button class="lang-pill" onclick="openSheet()">
@@ -2018,9 +2410,14 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
         <div class="social-row">
-          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+          <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="social-link-x">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
-            @terrova_ai
+            @lucasreedxx
+          </a>
+        </div>
+        <div style="display:flex;justify-content:center;margin:10px 0 6px;">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=dark&style=default" alt="Featured on Orynth" width="160" height="49" loading="lazy">
           </a>
         </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
@@ -2134,9 +2531,14 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
         <div class="social-row">
-          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+          <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="social-link-x">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
-            @terrova_ai
+            @lucasreedxx
+          </a>
+        </div>
+        <div style="display:flex;justify-content:center;margin:10px 0 6px;">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=dark&style=default" alt="Featured on Orynth" width="160" height="49" loading="lazy">
           </a>
         </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
@@ -2232,9 +2634,14 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
         <div class="social-row">
-          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+          <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="social-link-x">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
-            @terrova_ai
+            @lucasreedxx
+          </a>
+        </div>
+        <div style="display:flex;justify-content:center;margin:10px 0 6px;">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=dark&style=default" alt="Featured on Orynth" width="160" height="49" loading="lazy">
           </a>
         </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
@@ -2368,9 +2775,14 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
           <button class="footer-link" onclick="goChat()">Back to Chat</button>
         </div>
         <div class="social-row">
-          <a href="https://x.com/terrova_ai" target="_blank" rel="noopener" class="social-link-x">
+          <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="social-link-x">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.259 5.629L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
-            @terrova_ai
+            @lucasreedxx
+          </a>
+        </div>
+        <div style="display:flex;justify-content:center;margin:10px 0 6px;">
+          <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">
+            <img src="https://orynth.dev/api/badge/terrova?theme=dark&style=default" alt="Featured on Orynth" width="160" height="49" loading="lazy">
           </a>
         </div>
         <div class="footer-copy">2026 Terrova. All rights reserved.</div>
@@ -2380,25 +2792,25 @@ textarea.inp::placeholder { color: var(--warm-3); font-weight: 300; }
 
   <!-- ══ BOTTOM NAV ══ -->
   <nav id="bottomNav">
-    <button class="nav-item" id="nav-about" onclick="goAbout()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="3.5"/><path d="M4 20c0-3.8 3.6-7 8-7s8 3.2 8 7"/><path d="M16 5.5 Q18.5 3.5 19.5 1.5" stroke-width="1.2" opacity=".45"/></svg>
-      <span class="nav-label">About</span>
+    <button class="nav-item active" id="nav-land" onclick="goLand()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-item" id="nav-chat" onclick="goChat()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="nav-label">App</span>
     </button>
     <button class="nav-item" id="nav-how" onclick="goHow()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21 L12 10"/><path d="M12 17 C10.5 17 6.5 15 5.5 9.5 C8.5 9 12 13 12 17Z" fill="currentColor" opacity=".3" stroke="none"/><path d="M12 14 C13.5 14 17.5 12 18.5 6.5 C15.5 6.5 12 10.5 12 14Z" fill="currentColor" opacity=".5" stroke="none"/><path d="M7 22 Q12 20.5 17 22" opacity=".45"/></svg>
-      <span class="nav-label">How It Works</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span class="nav-label">Guide</span>
     </button>
-    <button class="nav-item" id="nav-legal" onclick="goLegal()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L3 7v5c0 5.1 3.8 9.9 9 11.3C17.2 21.9 21 17.1 21 12V7L12 2z"/><polyline points="9 12 11 14 15 10"/></svg>
-      <span class="nav-label">Legal</span>
+    <button class="nav-item" id="nav-about" onclick="goAbout()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span class="nav-label">About</span>
     </button>
     <button class="nav-item" id="nav-faq" onclick="goFaq()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><circle cx="9" cy="10" r=".9" fill="currentColor" stroke="none"/><circle cx="12" cy="10" r=".9" fill="currentColor" stroke="none"/><circle cx="15" cy="10" r=".9" fill="currentColor" stroke="none"/></svg>
       <span class="nav-label">FAQ</span>
-    </button>
-    <button class="nav-item" id="nav-chat" onclick="goChat()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M12 11 C11 11 8.5 10 8 7.5 C10 7.3 12 9 12 11Z" fill="currentColor" opacity=".5" stroke="none"/><path d="M12 9.5 C13 9.5 15.5 8.5 16 6 C14 6 12 8 12 9.5Z" fill="currentColor" opacity=".35" stroke="none"/></svg>
-      <span class="nav-label">Chat</span>
     </button>
   </nav>
 
@@ -2557,33 +2969,42 @@ function showPage(id) {
     }
   });
   // update nav active state
-  ['about','how','legal','faq'].forEach(k => {
-    const btn = document.getElementById('nav-'+k);
-    if (btn) btn.classList.toggle('active', id === k+'Page');
-  });
+  // nav active states handled individually below
   const chatBtn = document.getElementById('nav-chat');
   if (chatBtn) chatBtn.classList.toggle('active', id === 'chatPage' || id === 'histPage');
+  const landBtn = document.getElementById('nav-land');
+  if (landBtn) landBtn.classList.toggle('active', id === 'landPage');
+  const howBtn = document.getElementById('nav-how');
+  if (howBtn) howBtn.classList.toggle('active', id === 'howPage');
+  const aboutBtn = document.getElementById('nav-about');
+  if (aboutBtn) aboutBtn.classList.toggle('active', id === 'aboutPage');
+  const faqBtn = document.getElementById('nav-faq');
+  if (faqBtn) faqBtn.classList.toggle('active', id === 'faqPage');
 }
 
-function goChat() {
-  showPage('chatPage');
+function goLand()    { showPage('landPage'); }
+function goChat()    { showPage('chatPage'); }
+function goHistory() { renderHistory(); showPage('histPage'); }
+function goAbout()   { showPage('aboutPage'); }
+function goHow()     { showPage('howPage'); }
+function goLegal()   { showPage('legalPage'); }
+function goFaq()     { showPage('faqPage'); }
+function triggerInstall() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(() => { deferredPrompt = null; });
+  } else {
+    showToast('Tap Share → Add to Home Screen in your browser');
+  }
 }
-function goHistory() {
-  renderHistory();
-  showPage('histPage');
-}
-function goAbout() { showPage('aboutPage'); }
-function goHow()   { showPage('howPage'); }
-function goLegal() { showPage('legalPage'); }
-function goFaq()   { showPage('faqPage'); }
 
 /* ════════════ INIT ════════════ */
 function init() {
   applyLang();
   renderLangList();
   updateHistBadge();
-  const chatBtn = document.getElementById('nav-chat');
-  if (chatBtn) chatBtn.classList.add('active');
+  const landBtn = document.getElementById('nav-land');
+  if (landBtn) landBtn.classList.add('active');
 }
 
 function applyLang() {
@@ -2906,7 +3327,7 @@ function addMsgEl(text, who, time, topic) {
   wrap.appendChild(t);
 
   if (who === 'ai' && topic) {
-    const tweetText = '🌱 Rova just helped me with ' + topic + ' via @terrova_ai terrova.app';
+    const tweetText = '🌱 Rova just helped me with ' + topic + ' via @lucasreedxx terrova.fun';
     const tweetUrl  = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tweetText);
     const shareBtn  = document.createElement('a');
     shareBtn.className = 'share-x-btn';
@@ -3309,7 +3730,7 @@ function tqShowDone() {
   document.getElementById('tqDoneIcon').textContent  = icon;
   document.getElementById('tqDoneTitle').textContent = title;
   document.getElementById('tqDoneSub').textContent   = 'Skor kamu ' + _tqScore + ' poin dari ' + total + ' soal. Masih ingin belajar? Tanya Rova!';
-  const tqTweetText = '🌱 I scored ' + _tqScore + ' pts on the Tani Quiz via @terrova_ai terrova.app';
+  const tqTweetText = '🌱 I scored ' + _tqScore + ' pts on the Tani Quiz via @lucasreedxx terrova.fun';
   document.getElementById('tqShareBtn').href = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(tqTweetText);
   document.getElementById('tqDone').classList.add('show');
 }

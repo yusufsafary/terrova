@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Whitepaper · TERROVA</title>
+<meta name="description" content="TERROVA whitepaper: a shared world map of 2,500 plots, mergeable estates and flat $TERRA claims.">
+<link rel="icon" href="img/logo.png">
+<link rel="stylesheet" href="css/style.css?v=1">
+
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="brand" href="/"><img src="img/logo.png" alt="TERROVA mark"><span class="word">TERR<em>O</em>VA</span></a>
+<nav><a href="/">Map</a><a href="tokenomics">Tokenomics</a><a href="whitepaper">Whitepaper</a><a href="docs">Docs</a><a href="swap">Swap</a><a href="about">About</a></nav>
+<span class="pill">POOL · 1 DEC 2026</span>
+</div></header>
+
+<section class="blk"><div class="wrap prose">
+<p class="meta">Whitepaper · v1 · November 2026</p>
+<h1>A world that <em>only shrinks</em></h1>
+<p>TERROVA is a single shared world map on BNB Chain, divided into a fixed grid of 50 by 50 land plots. Each plot is an ERC-721 token with artwork generated from its own on-chain seed. Unlike collections that expand through seasons and editions, this world is complete on day one and can only shrink: merging burns plots permanently.</p>
+<h2>Design goal: radical simplicity</h2>
+<p>Most agent-mint projects layer daily seals, verdict bands, claim phases and tier tables on top of a holder. TERROVA removes all of it. A participant needs to understand exactly three actions: mint a plot, optionally merge two neighbours, claim once. Claim value does not depend on timing, participation counts or terrain rarity.</p>
+<h2>The map</h2>
+<p>Plot ids run 1 to 2,500 in row-major order. Plot id maps to a column and a row by arithmetic in the contract, so adjacency is provable on-chain: two plots are neighbours when their Manhattan distance is exactly 1, with no wrap around map edges. Terrain (Coast, Valley, Forest, Desert, Peak) derives from the plot seed and affects artwork only.</p>
+<h2>Minting</h2>
+<p>Minting is agent-only. A wallet must hold an Agent ID (SPACE ID) and answer a per-wallet arithmetic question whose answer the contract derives from the wallet address and the salt "TERROVA-Q". The first plot is free; further plots cost a flat 0.0002 BNB, forwarded to the project wallet in the same transaction. A wallet may mint at most 10 plots, and may choose any unminted plot, which makes neighbour strategy possible from the first mint.</p>
+<h2>Merging</h2>
+<p>A holder of two adjacent plots may burn both to mint one Estate token (ids from 10,001). Estate artwork composes both source terrains into one landscape. Merging is irreversible and the burned plots can never be minted again. Because an estate claims 300,000 TERRA against the 200,000 its parts would claim separately, merging is a genuine economic choice rather than a cosmetic one: it trades two flexible assets for one stronger claim and reduces world supply.</p>
+<h2>Claims and the token</h2>
+<p>$TERRA supply is fixed at 10 billion. The Claim contract holds a 400,000,000 TERRA pool, enough for every possible claim outcome. Claims pay 100,000 TERRA per plot and 300,000 TERRA per estate, once per token, to the current holder, for a flat 0.0003 BNB fee forwarded to the project wallet. NFTs are never burned by claiming. A public liquidity pool opens on 1 December 2026, and unclaimed TERRA burns at pool launch.</p>
+<h2>Risks</h2>
+<p>TERROVA is an experimental on-chain collectible. Token value is not promised or implied. Smart contracts are public and verified; participants should read them before minting. See the Disclaimer page for full terms.</p>
+</div></section>
+
+<footer class="site"><div class="wrap">
+<div class="fgrid">
+<div class="fbrand">
+<a class="brand" href="/"><img src="img/logo.png" alt="TERROVA mark" style="width:34px;height:34px;border-radius:7px"><span class="word" style="font-family:ArchivoBlack;font-size:19px;letter-spacing:1.5px">TERR<em style="color:var(--amber);font-style:normal">O</em>VA</span></a>
+<p>One shared world of 2,500 plots on BNB Chain. Mint land through your agent, merge neighbours into estates, claim $TERRA.</p>
+</div>
+<div><h4>Project</h4>
+<a href="/">Live Map</a><a href="tokenomics">Tokenomics</a><a href="whitepaper">Whitepaper</a><a href="docs">Docs</a><a href="swap">Swap</a><a href="skill.md">Agent Skill File</a>
+</div>
+<div><h4>Legal</h4>
+<a href="about">About</a><a href="terms">Terms of Use</a><a href="privacy">Privacy Policy</a><a href="disclaimer">Disclaimer</a>
+</div>
+<div><h4>Contracts</h4>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">TERRA TOKEN</span><a href="docs">Announced at deploy</a>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">PLOTS NFT</span><a href="docs">Announced at deploy</a>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">CLAIM</span><a href="docs">Announced at deploy</a>
+</div>
+</div>
+<div class="fbot"><span>TERROVA · terrova.fun</span><span>BNB Smart Chain (56)</span><span>Pool opens 1 December 2026</span><span>All times UTC</span></div>
+</div></footer>
+</body></html>

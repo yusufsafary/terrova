@@ -1,809 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Terrova AI — The Digital Twin Platform for Agriculture. Build a living digital identity for every farm on Earth.">
-<meta name="theme-color" content="#1C3829">
-<meta property="og:title" content="Terrova AI">
-<meta property="og:description" content="The Digital Twin Platform for Agriculture">
-<meta property="og:image" content="/logo.png">
-<title>Terrova AI — Digital Twin for Agriculture</title>
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.getRegistrations().then(r => r.forEach(s => s.unregister()));
-  if ('caches' in window) caches.keys().then(k => k.forEach(n => caches.delete(n)));
-}
-</script>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=DM+Serif+Display:ital@0;1&display=swap');
-
-  :root {
-    --green-900: #0F2218;
-    --green-800: #1C3829;
-    --green-700: #234733;
-    --green-600: #2A5540;
-    --green-400: #3A7A58;
-    --green-200: #A8C5B5;
-    --green-100: #D6E8DF;
-    --green-50:  #F0F6F2;
-    --gold:      #C9A84C;
-    --gold-light:#E2C97A;
-    --gold-dark: #A8862F;
-    --cream:     #FAF8F3;
-    --white:     #FFFFFF;
-    --text-dark: #0F1F17;
-    --text-mid:  #3A5045;
-    --text-muted:#6B8A7A;
-    --border:    #D6E8DF;
-    --shadow-sm: 0 1px 3px rgba(15,34,24,.08);
-    --shadow-md: 0 4px 16px rgba(15,34,24,.10);
-    --shadow-lg: 0 12px 40px rgba(15,34,24,.14);
-    --shadow-xl: 0 24px 64px rgba(15,34,24,.18);
-    --r:         14px;
-    --r-lg:      22px;
-    --r-xl:      32px;
-    --font:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    --serif:     'DM Serif Display', Georgia, serif;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
-  body { font-family: var(--font); background: var(--cream); color: var(--text-dark); line-height: 1.6; overflow-x: hidden; }
-  img { max-width: 100%; display: block; }
-  a { color: inherit; text-decoration: none; }
-  button { cursor: pointer; font-family: var(--font); border: none; }
-
-  /* ── SCROLLBAR ── */
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-thumb { background: var(--green-200); border-radius: 3px; }
-
-  /* ── UTILS ── */
-  .container { max-width: 1080px; margin: 0 auto; padding: 0 20px; }
-  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
-  .tag {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--green-100); color: var(--green-700);
-    border: 1px solid var(--border); border-radius: 100px;
-    padding: 4px 13px; font-size: 12px; font-weight: 600; letter-spacing: .3px;
-  }
-  .tag-gold {
-    background: rgba(201,168,76,.12); color: var(--gold-dark);
-    border-color: rgba(201,168,76,.3);
-  }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: blink 2s infinite; }
-  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-  /* ── BUTTONS ── */
-  .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-    padding: 13px 24px; border-radius: 12px; font-size: 15px; font-weight: 600;
-    border: none; transition: all .2s cubic-bezier(.4,0,.2,1); white-space: nowrap;
-    cursor: pointer; font-family: var(--font);
-  }
-  .btn-primary {
-    background: var(--green-800); color: var(--cream);
-    box-shadow: 0 2px 8px rgba(28,56,41,.25);
-  }
-  .btn-primary:hover { background: var(--green-700); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(28,56,41,.3); }
-  .btn-primary:active { transform: translateY(0); }
-  .btn-gold {
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: var(--green-900); box-shadow: 0 2px 10px rgba(201,168,76,.3);
-  }
-  .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(201,168,76,.4); filter: brightness(1.05); }
-  .btn-outline {
-    background: transparent; color: var(--green-800);
-    border: 1.5px solid var(--border);
-  }
-  .btn-outline:hover { border-color: var(--green-400); background: var(--green-50); }
-  .btn-ghost-white {
-    background: rgba(255,255,255,.12); color: white;
-    border: 1.5px solid rgba(255,255,255,.2); backdrop-filter: blur(8px);
-  }
-  .btn-ghost-white:hover { background: rgba(255,255,255,.2); }
-  .btn-sm { padding: 9px 18px; font-size: 13px; border-radius: 10px; }
-  .btn-lg { padding: 15px 32px; font-size: 16px; border-radius: 14px; }
-
-  /* ══════════════════════════════════
-     NAV
-  ══════════════════════════════════ */
-  #nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-    height: 64px; display: flex; align-items: center;
-    padding: 0 20px;
-    transition: background .3s, box-shadow .3s;
-  }
-  #nav.scrolled {
-    background: rgba(250,248,243,.92);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 1px 0 var(--border);
-  }
-  .nav-inner {
-    max-width: 1080px; margin: 0 auto; width: 100%;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .nav-logo { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-  .nav-logo img { height: 32px; width: auto; }
-  .nav-logo-text {
-    font-family: var(--serif); font-size: 18px; letter-spacing: 1px;
-    color: var(--white);
-  }
-  .nav-logo-text sup { font-family: var(--font); font-size: 10px; font-weight: 700; color: var(--gold-light); vertical-align: super; }
-  .nav-links { display: flex; gap: 2px; margin-left: 24px; }
-  .nav-links a {
-    padding: 6px 14px; border-radius: 8px; font-size: 14px; font-weight: 500;
-    color: rgba(255,255,255,0.85); transition: all .15s;
-  }
-  .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.12); }
-  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
-  .nav-ham { display: none; flex-direction: column; gap: 4.5px; padding: 8px; background: none; border: none; cursor: pointer; }
-  .nav-ham span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; transition: all .25s; }
-
-  /* Mobile nav drawer */
-  .mobile-drawer {
-    display: none; position: fixed; inset: 0; z-index: 199;
-    background: var(--cream); flex-direction: column;
-    padding: 80px 24px 40px;
-  }
-  .mobile-drawer.open { display: flex; animation: slideDown .25s ease; }
-  @keyframes slideDown { from{opacity:0;transform:translateY(-12px)} to{opacity:1;transform:translateY(0)} }
-  .mobile-drawer a {
-    padding: 16px 0; font-size: 17px; font-weight: 500;
-    color: var(--text-dark); border-bottom: 1px solid var(--border);
-  }
-  .mobile-drawer .mobile-cta { margin-top: 24px; }
-
-  /* ══════════════════════════════════
-     HERO
-  ══════════════════════════════════ */
-  #hero {
-    min-height: 100dvh; display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    background: var(--green-800);
-    position: relative; overflow: hidden;
-    padding: 100px 20px 80px;
-    text-align: center;
-  }
-  .hero-noise {
-    position: absolute; inset: 0; opacity: .04;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-    pointer-events: none;
-  }
-  .hero-glow-1 {
-    position: absolute; width: 600px; height: 600px;
-    border-radius: 50%; top: -200px; left: 50%;
-    transform: translateX(-50%);
-    background: radial-gradient(circle, rgba(201,168,76,.18) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-glow-2 {
-    position: absolute; width: 400px; height: 400px;
-    border-radius: 50%; bottom: -150px; right: -100px;
-    background: radial-gradient(circle, rgba(58,122,88,.35) 0%, transparent 70%);
-    pointer-events: none;
-  }
-  .hero-content { position: relative; z-index: 1; max-width: 700px; }
-  .hero-logo {
-    width: 88px; height: 88px; border-radius: 24px;
-    overflow: hidden; margin: 0 auto 28px;
-    box-shadow: 0 0 0 1px rgba(201,168,76,.3), 0 8px 32px rgba(0,0,0,.3);
-  }
-  .hero-logo img { width: 100%; height: 100%; object-fit: cover; }
-  .hero-eyebrow {
-    font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 20px;
-  }
-  .hero-h1 {
-    font-family: var(--serif); font-size: clamp(38px, 7vw, 64px);
-    font-weight: 400; line-height: 1.1; letter-spacing: -.5px;
-    color: var(--cream); margin-bottom: 20px;
-  }
-  .hero-h1 em { font-style: italic; color: var(--gold-light); }
-  .hero-desc {
-    font-size: clamp(15px, 2vw, 17px); color: rgba(240,246,242,.7);
-    max-width: 520px; margin: 0 auto 36px; line-height: 1.75;
-    font-weight: 400;
-  }
-  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
-  .hero-stats {
-    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap;
-    padding-top: 40px;
-    border-top: 1px solid rgba(255,255,255,.1);
-  }
-  .hero-stat-num { font-size: 26px; font-weight: 800; color: var(--gold-light); }
-  .hero-stat-label { font-size: 12px; color: rgba(240,246,242,.5); font-weight: 500; margin-top: 2px; }
-
-  /* ── BUILDER CREDIT ── */
-  .builder-bar {
-    position: absolute; bottom: 24px; left: 50%; transform: translateX(-50%);
-    z-index: 1; display: flex; align-items: center; gap: 10px;
-    font-size: 12px; color: rgba(240,246,242,.4); white-space: nowrap;
-  }
-  .builder-bar a {
-    display: flex; align-items: center; gap: 5px;
-    color: rgba(240,246,242,.55); transition: color .15s;
-  }
-  .builder-bar a:hover { color: var(--gold); }
-  .builder-bar svg { flex-shrink: 0; }
-
-  /* ══════════════════════════════════
-     FEATURES
-  ══════════════════════════════════ */
-  #features { padding: 96px 0; background: var(--cream); }
-  .features-header { text-align: center; margin-bottom: 56px; }
-  .section-h2 {
-    font-family: var(--serif); font-size: clamp(28px, 4vw, 40px);
-    font-weight: 400; color: var(--text-dark); margin-top: 12px; margin-bottom: 12px;
-    line-height: 1.2;
-  }
-  .section-desc { font-size: 16px; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
-  .features-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
-  .feat-card {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--r-lg); padding: 28px 24px;
-    transition: all .2s; position: relative; overflow: hidden;
-  }
-  .feat-card::after {
-    content: ''; position: absolute; inset: 0; opacity: 0;
-    background: linear-gradient(135deg, rgba(28,56,41,.03), transparent);
-    transition: opacity .2s;
-  }
-  .feat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--green-200); }
-  .feat-card:hover::after { opacity: 1; }
-  .feat-icon {
-    width: 48px; height: 48px; border-radius: 14px; margin-bottom: 18px;
-    display: flex; align-items: center; justify-content: center; font-size: 22px;
-    background: var(--green-50); border: 1px solid var(--border);
-  }
-  .feat-title { font-size: 16px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
-  .feat-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
-
-  /* ══════════════════════════════════
-     DIGITAL TWIN SHOWCASE
-  ══════════════════════════════════ */
-  #twin { padding: 80px 0; background: var(--green-800); }
-  .twin-inner {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
-    align-items: center;
-  }
-  .twin-text { color: var(--cream); }
-  .twin-text .tag { background: rgba(201,168,76,.15); color: var(--gold-light); border-color: rgba(201,168,76,.25); }
-  .twin-text .section-h2 { color: var(--cream); margin-top: 14px; }
-  .twin-desc { font-size: 15px; color: rgba(240,246,242,.65); line-height: 1.75; margin-top: 14px; margin-bottom: 28px; }
-  .twin-bullets { display: flex; flex-direction: column; gap: 12px; }
-  .twin-bullet { display: flex; align-items: center; gap: 12px; font-size: 14px; color: rgba(240,246,242,.8); }
-  .twin-bullet-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
-  .twin-card {
-    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
-    border-radius: var(--r-xl); padding: 28px; backdrop-filter: blur(10px);
-  }
-  .twin-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
-  .twin-card-title { font-size: 15px; font-weight: 700; color: var(--cream); }
-  .twin-badge { background: rgba(201,168,76,.2); color: var(--gold-light); border-radius: 100px; padding: 3px 10px; font-size: 11px; font-weight: 700; }
-  .twin-fields { display: flex; flex-direction: column; gap: 12px; }
-  .twin-row { display: flex; justify-content: space-between; align-items: center; }
-  .twin-key { font-size: 12px; color: rgba(240,246,242,.4); font-weight: 500; }
-  .twin-val { font-size: 13px; font-weight: 600; color: var(--cream); }
-  .twin-divider { height: 1px; background: rgba(255,255,255,.08); margin: 4px 0; }
-  .twin-scores { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 18px; }
-  .twin-score-item { background: rgba(255,255,255,.06); border-radius: 12px; padding: 14px 10px; text-align: center; }
-  .twin-score-val { font-size: 22px; font-weight: 800; color: var(--gold-light); }
-  .twin-score-label { font-size: 11px; color: rgba(240,246,242,.45); margin-top: 2px; }
-
-  /* ══════════════════════════════════
-     OFFLINE / MISSION
-  ══════════════════════════════════ */
-  #mission { padding: 96px 0; background: var(--white); }
-  .mission-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .mission-pills { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-  .pill {
-    background: var(--green-50); border: 1px solid var(--border);
-    border-radius: 100px; padding: 6px 16px;
-    font-size: 13px; font-weight: 600; color: var(--green-700);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .offline-widget {
-    background: var(--green-800); border-radius: var(--r-xl);
-    padding: 28px; color: var(--cream);
-  }
-  .offline-title { font-size: 13px; font-weight: 700; color: var(--gold); letter-spacing: .5px; text-transform: uppercase; margin-bottom: 18px; }
-  .sync-row {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.08);
-    font-size: 13px;
-  }
-  .sync-row:last-child { border-bottom: none; }
-  .sync-label { color: rgba(240,246,242,.55); }
-  .sync-val { font-weight: 600; color: var(--cream); display: flex; align-items: center; gap: 5px; }
-  .sync-dot { width: 6px; height: 6px; border-radius: 50%; background: #4ade80; animation: blink 1.5s infinite; }
-  .progress-row { margin-top: 18px; }
-  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: rgba(240,246,242,.5); margin-bottom: 6px; }
-  .progress-track { height: 5px; background: rgba(255,255,255,.1); border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); }
-
-  /* ══════════════════════════════════
-     ROADMAP
-  ══════════════════════════════════ */
-  #roadmap { padding: 80px 0; background: var(--cream); }
-  .roadmap-track { display: flex; gap: 0; overflow-x: auto; padding: 8px 0 20px; scrollbar-width: thin; }
-  .roadmap-item { flex: 0 0 auto; min-width: 200px; position: relative; padding: 0 16px; text-align: center; }
-  .roadmap-item::before {
-    content: ''; position: absolute; top: 18px; left: 0; right: 0; height: 2px;
-    background: var(--border);
-  }
-  .roadmap-item:first-child::before { left: 50%; }
-  .roadmap-item:last-child::before { right: 50%; }
-  .roadmap-node {
-    width: 36px; height: 36px; border-radius: 50%; margin: 0 auto 16px;
-    display: flex; align-items: center; justify-content: center;
-    position: relative; z-index: 1; font-size: 12px; font-weight: 800;
-  }
-  .roadmap-node.now { background: var(--green-800); color: var(--gold); box-shadow: 0 0 0 5px rgba(28,56,41,.15); }
-  .roadmap-node.future { background: var(--white); border: 2px solid var(--border); color: var(--text-muted); }
-  .roadmap-year { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 4px; }
-  .roadmap-desc { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
-
-  /* ══════════════════════════════════
-     CTA SECTION
-  ══════════════════════════════════ */
-  #cta {
-    padding: 96px 0;
-    background: linear-gradient(135deg, var(--green-900), var(--green-800));
-    text-align: center; position: relative; overflow: hidden;
-  }
-  #cta::before {
-    content: ''; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 80% at 50% 100%, rgba(201,168,76,.12), transparent);
-    pointer-events: none;
-  }
-  .cta-content { position: relative; z-index: 1; }
-  .cta-h2 { font-family: var(--serif); font-size: clamp(30px, 5vw, 48px); color: var(--cream); margin: 14px 0 16px; }
-  .cta-desc { font-size: 16px; color: rgba(240,246,242,.6); max-width: 440px; margin: 0 auto 36px; line-height: 1.7; }
-  .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-  /* ══════════════════════════════════
-     FOOTER
-  ══════════════════════════════════ */
-  footer {
-    background: var(--green-900); padding: 52px 20px 32px;
-    color: rgba(240,246,242,.55);
-  }
-  .footer-inner {
-    max-width: 1080px; margin: 0 auto;
-    display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px;
-    padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,.07);
-  }
-  .footer-brand .footer-logo-wrap {
-    display: flex; align-items: center; gap: 10px; margin-bottom: 12px;
-  }
-  .footer-logo-wrap img { height: 28px; width: auto; }
-  .footer-logo-name { font-family: var(--serif); font-size: 16px; color: var(--cream); letter-spacing: 1px; }
-  .footer-logo-name sup { font-family: var(--font); font-size: 9px; color: var(--gold); }
-  .footer-tagline { font-size: 13px; line-height: 1.65; max-width: 260px; }
-  .footer-orynth { margin-top: 20px; }
-  .footer-col-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: rgba(240,246,242,.35); margin-bottom: 14px; }
-  .footer-links { display: flex; flex-direction: column; gap: 9px; }
-  .footer-links a { font-size: 13px; transition: color .15s; }
-  .footer-links a:hover { color: var(--gold); }
-  .footer-bottom {
-    max-width: 1080px; margin: 0 auto;
-    display: flex; justify-content: space-between; align-items: center;
-    padding-top: 24px; flex-wrap: wrap; gap: 12px;
-    font-size: 12px;
-  }
-  .footer-bottom a { transition: color .15s; }
-  .footer-bottom a:hover { color: var(--gold); }
-
-  /* ══════════════════════════════════
-     ANIMATIONS
-  ══════════════════════════════════ */
-  .reveal { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-delay-1 { transition-delay: .1s; }
-  .reveal-delay-2 { transition-delay: .2s; }
-  .reveal-delay-3 { transition-delay: .3s; }
-
-  /* ══════════════════════════════════
-     RESPONSIVE
-  ══════════════════════════════════ */
-  @media (max-width: 860px) {
-    .nav-links { display: none; }
-    .nav-ham { display: flex; }
-    .features-grid { grid-template-columns: 1fr 1fr; }
-    .twin-inner { grid-template-columns: 1fr; gap: 36px; }
-    .mission-inner { grid-template-columns: 1fr; }
-    .footer-inner { grid-template-columns: 1fr 1fr; }
-    .footer-brand { grid-column: 1 / -1; }
-  }
-  @media (max-width: 560px) {
-    .features-grid { grid-template-columns: 1fr; }
-    .footer-inner { grid-template-columns: 1fr; }
-    .hero-stats { gap: 24px; }
-    #hero, #cta { padding-left: 16px; padding-right: 16px; }
-    .twin-scores { grid-template-columns: 1fr 1fr 1fr; }
-  }
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TERROVA · One World, 2,500 Plots</title>
+<meta name="description" content="TERROVA is one shared world map of 2,500 land plots on BNB Chain. Mint a plot through your agent, merge two neighbours into an estate, claim $TERRA.">
+<link rel="icon" href="img/logo.png">
+<link rel="stylesheet" href="css/style.css?v=1">
+<script>window.TERROVA_CONFIG = {"plots": "", "claim": "", "token": "", "deployBlock": 0};</script><script>window.TERROVA_TERRAIN = "3334004020232412314021022431210412211021142312023311120404203421324042322304412444413434334231222431341034411411222342414431134403320232012302241123433421441114114100241134232042331133303423113233331130010004443123333140024011101234200010444212114400014142022040121101422310042021443342031320114010342420323432240202202111320021032022424222224433124112433314232212011232233230234343024112400042402431010212141412122201132211103111133102412121410443320333020124320111423210230444312202314301110314130234241132031011220122101324242413433030332002300040122203122013012030311431222014043210234334013223141232212204432121030323444113131314031111322121242303402121300312220312011131222132201024134113242430323330141002042311414422144321124133331433022310114123211234422202113422310322023142212434332111122343220114210122114101310414144224423020432131320021414244322242444223441231021044303414330211122323412342402132311043410011402101002122022141423213112211103100134111022010321303321242114224120023134002240240301014221202001041031104031400024103343101422212314341033233422122434314404401030411121330221102001410442024300412304123100033414031133343210232111414121221314311233221040230120303122141322202214231341213422222114424131202144411220141211133334322442433114123422234322003411112330423204433414411344313123021402120322123213424014141323332401222132342232021002203402242022210023132434114011014000303111113221241110444014141212302111402112421313222440421243402331032331212303131402214430012212321023214112131434412114243201121440232400442404422222202023133311430242200423241430223244013404231124340412112212021231132211402233141442014424332123042143332401413141431111113413314202231233322213112113414121300330334014303003223210220202134040001140244242211111022311223100222131144111202214020422400023304343230312333132443210214412230403440111232323110220141131401034130402433310042221443033123040311433302111202234132424021331131213302112432122232241234204203103002422401131114014442112204121340111232111234321023441221113012404113211143144413134441313104010334421133242243244333001443342203443114143400132432223303221123322402323404421132010440422400304424342223223020101023302210310314121321211002304222332312113211204232411104232433413032303242230231144333140103211142213301231341040334240144400201044331214003233003220314133233321340033023130220012212431120030314440410443234231044344124123213234214013222131041003031402413230201213123321013143421141313134112213311211110210131224443141332113133";</script>
 </head>
 <body>
+<header class="site"><div class="wrap nav">
+<a class="brand" href="/"><img src="img/logo.png" alt="TERROVA mark"><span class="word">TERR<em>O</em>VA</span></a>
+<nav><a href="/">Map</a><a href="tokenomics">Tokenomics</a><a href="whitepaper">Whitepaper</a><a href="docs">Docs</a><a href="swap">Swap</a><a href="about">About</a></nav>
+<span class="pill">POOL · 1 DEC 2026</span>
+</div></header>
 
-<!-- ═══ NAV ═══ -->
-<nav id="nav">
-  <div class="nav-inner">
-    <a class="nav-logo" href="#">
-      <img src="/logo.png" alt="Terrova AI logo">
-    </a>
-    <div class="nav-links">
-      <a href="#features">Features</a>
-      <a href="#twin">Digital Twin</a>
-      <a href="#mission">Offline</a>
-      <a href="#roadmap">Roadmap</a>
-    </div>
-    <div class="nav-right">
-      <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" title="Built by @lucasreedxx"
-        style="display:flex;align-items:center;gap:6px;font-size:13px;color:var(--text-muted);padding:7px 12px;border-radius:8px;transition:all .15s"
-        onmouseover="this.style.color='var(--green-800)';this.style.background='var(--green-50)'"
-        onmouseout="this.style.color='var(--text-muted)';this.style.background='transparent'">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-        @lucasreedxx
-      </a>
-      <a href="#cta" class="btn btn-primary btn-sm">Download APK</a>
-    </div>
-    <button class="nav-ham" id="navHam" aria-label="Menu" onclick="toggleMobile()">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
-
-<!-- Mobile Drawer -->
-<div class="mobile-drawer" id="mobileDrawer">
-  <a href="#features" onclick="toggleMobile()">Features</a>
-  <a href="#twin" onclick="toggleMobile()">Digital Twin</a>
-  <a href="#mission" onclick="toggleMobile()">Offline Mode</a>
-  <a href="#roadmap" onclick="toggleMobile()">Roadmap</a>
-  <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" onclick="toggleMobile()">
-    Built by @lucasreedxx ↗
-  </a>
-  <a href="#cta" class="btn btn-primary mobile-cta" onclick="toggleMobile()">Download APK</a>
+<section class="hero">
+<img class="bg" src="img/hero.jpg" alt="World map table of TERROVA in a dark survey hall">
+<div class="veil"></div>
+<div class="wrap inner">
+<div class="kicker">A living atlas on BNB Chain</div>
+<h1>TERR<em>O</em>VA</h1>
+<p class="sub">One world. 2,500 plots. Yours to merge.</p>
+<p class="lede">Every plot is a piece of one shared map: coast, valley, forest, desert, peak. Mint land through your agent. Burn two neighbouring plots into a single estate and its claim triples. Simple rules, one map, no seasons and no phases.</p>
+<div class="cta-row">
+<a class="btn" href="#map-board">Open live map</a>
+<a class="btn ghost" href="docs">How minting works</a>
+<a class="btn ghost" href="skill.md">Agent skill file</a>
 </div>
 
-<!-- ═══ HERO ═══ -->
-<section id="hero">
-  <div class="hero-noise"></div>
-  <div class="hero-glow-1"></div>
-  <div class="hero-glow-2"></div>
-
-  <div class="hero-content">
-    <div class="hero-logo">
-      <img src="/logo.png" alt="Terrova AI">
-    </div>
-    <p class="hero-eyebrow">Digital Twin · AI · Offline-First</p>
-    <h1 class="hero-h1">Every Farm Deserves a <em>Digital Identity</em></h1>
-    <p class="hero-desc">
-      Build a living digital twin of your farm. Track soil, crops, water, and weather — with AI-powered insights that work online or fully offline.
-    </p>
-    <div class="hero-actions">
-      <a href="#cta" class="btn btn-gold btn-lg">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zm-1 15.49l-3-3.01V17H9v-5h5V9.51l3 3.01-3 3z"/></svg>
-        Download APK
-      </a>
-      <a href="#features" class="btn btn-ghost-white btn-lg">
-        Explore Platform
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
-      </a>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <div class="hero-stat-num">12K+</div>
-        <div class="hero-stat-label">Active Farms</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">47</div>
-        <div class="hero-stat-label">Countries</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">9</div>
-        <div class="hero-stat-label">Languages</div>
-      </div>
-      <div>
-        <div class="hero-stat-num">100%</div>
-        <div class="hero-stat-label">Offline Ready</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="builder-bar">
-    <span>Built by</span>
-    <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      @lucasreedxx
-    </a>
-    <span>·</span>
-    <a href="https://orynth.dev/projects/terrova-6062" target="_blank" rel="noopener">Featured on Orynth ↗</a>
-  </div>
+<div class="stats">
+<div class="cell"><div class="num" id="st-minted">0</div><div class="lab">Plots minted of 2,500</div></div>
+<div class="cell"><div class="num" id="st-agents">0</div><div class="lab">Agents on map</div></div>
+<div class="cell"><div class="num" id="st-estates">0</div><div class="lab">Estates merged</div></div>
+<div class="cell"><div class="num" id="st-pool">400M <em>TERRA</em></div><div class="lab">Claim pool · 400,000,000</div></div>
+</div>
+</div>
 </section>
 
-<!-- ═══ FEATURES ═══ -->
-<section id="features">
-  <div class="container">
-    <div class="features-header reveal">
-      <div class="tag"><span class="dot"></span> Platform Features</div>
-      <h2 class="section-h2">Everything your farm needs,<br>in one platform.</h2>
-      <p class="section-desc">From soil sensors to AI yield forecasting — built for farmers in every connectivity condition.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feat-card reveal reveal-delay-1">
-        <div class="feat-icon">🌱</div>
-        <div class="feat-title">Digital Twin</div>
-        <div class="feat-desc">A living digital model of your farm. Updated in real-time from sensors, weather, and manual inputs. Every field, every crop.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <div class="feat-icon">🤖</div>
-        <div class="feat-title">AI Farm Advisor</div>
-        <div class="feat-desc">Ask anything. Get crop recommendations, pest diagnostics, fertilizer schedules, and yield forecasts — powered by agricultural AI.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <div class="feat-icon">📡</div>
-        <div class="feat-title">Offline-First</div>
-        <div class="feat-desc">Built for the field, not the office. All data syncs locally. Works in zero-connectivity areas. Syncs automatically when back online.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-1">
-        <div class="feat-icon">🌍</div>
-        <div class="feat-title">Soil Health Center</div>
-        <div class="feat-desc">Monitor pH, nitrogen, phosphorus, potassium, and organic matter. Get actionable recommendations to restore soil vitality.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-2">
-        <div class="feat-icon">♻️</div>
-        <div class="feat-title">Sustainability Tracker</div>
-        <div class="feat-desc">Measure carbon footprint, water efficiency, biodiversity, and regenerative agriculture scores. Build toward a greener future.</div>
-      </div>
-      <div class="feat-card reveal reveal-delay-3">
-        <div class="feat-icon">📋</div>
-        <div class="feat-title">Digital Passport</div>
-        <div class="feat-desc">Every farm gets a verified digital identity — Farm ID, history, sustainability rating, and QR-verifiable credentials.</div>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="blk" id="map-board"><div class="wrap">
+<div class="sec-head"><span class="idx">01</span><h2 class="title">Live <em>map</em></h2><span class="badge" id="st-status">SURVEY</span><span class="badge" id="st-claim-status">CLAIM CLOSED</span></div>
+<p class="sec-lede">Survey plate of all 2,500 plots. Minted plots light up in full colour, estates carry an amber frame, merged plots go dark. Tap any plot to inspect its plate.</p>
+<div class="map-shell"><div id="map" aria-label="TERROVA world map grid"></div>
+<div class="map-legend">
+<span><span class="sw" style="background:#2e6ea6"></span>Coast</span>
+<span><span class="sw" style="background:#7fae56"></span>Valley</span>
+<span><span class="sw" style="background:#2e5230"></span>Forest</span>
+<span><span class="sw" style="background:#d9b878"></span>Desert</span>
+<span><span class="sw" style="background:#e8e6df"></span>Peak</span>
+<span><span class="sw" style="background:#6b4a16"></span>Estate</span>
+</div></div>
+<div class="specimen" id="specimen"></div>
+</div></section>
 
-<!-- ═══ DIGITAL TWIN SHOWCASE ═══ -->
-<section id="twin">
-  <div class="container">
-    <div class="twin-inner">
-      <div class="twin-text reveal">
-        <div class="tag">Digital Twin</div>
-        <h2 class="section-h2">Your farm, alive in the cloud.</h2>
-        <p class="twin-desc">Every activity, measurement, and insight captured in a single, unified digital model. Accessible from your phone — even offline.</p>
-        <div class="twin-bullets">
-          <div class="twin-bullet"><div class="twin-bullet-dot"></div>Real-time sync from IoT sensors & manual logs</div>
-          <div class="twin-bullet"><div class="twin-bullet-dot"></div>Full activity timeline — planting, irrigation, harvest</div>
-          <div class="twin-bullet"><div class="twin-bullet-dot"></div>AI health scoring updated every 6 hours</div>
-          <div class="twin-bullet"><div class="twin-bullet-dot"></div>Sharable digital passport for certification</div>
-        </div>
-      </div>
-      <div class="twin-card reveal reveal-delay-2">
-        <div class="twin-card-header">
-          <div class="twin-card-title">Green Valley Farm</div>
-          <div class="twin-badge">● Twin Active</div>
-        </div>
-        <div class="twin-fields">
-          <div class="twin-row">
-            <span class="twin-key">Farm ID</span>
-            <span class="twin-val" style="font-family:monospace;font-size:12px">TRV-2024-GVF-00142</span>
-          </div>
-          <div class="twin-divider"></div>
-          <div class="twin-row">
-            <span class="twin-key">Location</span>
-            <span class="twin-val">West Java, Indonesia</span>
-          </div>
-          <div class="twin-row">
-            <span class="twin-key">Size</span>
-            <span class="twin-val">12.5 ha</span>
-          </div>
-          <div class="twin-row">
-            <span class="twin-key">Primary Crop</span>
-            <span class="twin-val">Rice · IR64</span>
-          </div>
-          <div class="twin-row">
-            <span class="twin-key">Last Updated</span>
-            <span class="twin-val" style="color:rgba(240,246,242,.5)">2 min ago</span>
-          </div>
-        </div>
-        <div class="twin-scores">
-          <div class="twin-score-item">
-            <div class="twin-score-val">94</div>
-            <div class="twin-score-label">Health</div>
-          </div>
-          <div class="twin-score-item">
-            <div class="twin-score-val">87</div>
-            <div class="twin-score-label">Soil</div>
-          </div>
-          <div class="twin-score-item">
-            <div class="twin-score-val">91</div>
-            <div class="twin-score-label">Water</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="blk alt"><div class="wrap">
+<div class="sec-head"><span class="idx">02</span><h2 class="title">Three steps, <em>nothing else</em></h2></div>
+<div class="steps">
+<div class="step"><div class="n">1</div><h3>Mint a plot</h3><p>Pick any open plot on the map and send your agent. First plot per wallet is <span class="amt">free</span> with an Agent ID. Later plots cost <span class="amt">0.0002 BNB</span> each. Max 10 plots per wallet.</p></div>
+<div class="step"><div class="n">2</div><h3>Merge, if you hold neighbours</h3><p>Two plots that touch side by side can burn into one <span class="amt">Estate</span>. Optional, permanent, and fully on-chain. Merged plots can never be minted again, so the map only shrinks.</p></div>
+<div class="step"><div class="n">3</div><h3>Claim $TERRA</h3><p>Each plot claims <span class="amt">100,000 TERRA</span> once. Each estate claims <span class="amt">300,000 TERRA</span> once. Two plots pay 200,000 apart or 300,000 merged. Your NFT stays in your wallet after claiming.</p></div>
+</div>
+</div></section>
 
-<!-- ═══ MISSION / OFFLINE ═══ -->
-<section id="mission">
-  <div class="container">
-    <div class="mission-inner">
-      <div class="reveal">
-        <div class="tag">Mission</div>
-        <h2 class="section-h2">Built for farmers,<br>not just engineers.</h2>
-        <p style="font-size:15px;color:var(--text-muted);line-height:1.75;margin-top:12px">
-          Terrova was built for the smallholder farmer in West Java, the cooperative in Kenya, and the agronomist in Brazil. No internet? No problem. No data plan? Offline-first by design.
-        </p>
-        <div class="mission-pills">
-          <div class="pill">🌾 Smallholders</div>
-          <div class="pill">🏢 Cooperatives</div>
-          <div class="pill">🔬 Agronomists</div>
-          <div class="pill">🌍 NGOs</div>
-          <div class="pill">🏛️ Gov Programs</div>
-          <div class="pill">📊 Researchers</div>
-        </div>
-      </div>
-      <div class="offline-widget reveal reveal-delay-2">
-        <div class="offline-title">Offline Sync Status</div>
-        <div class="sync-row">
-          <span class="sync-label">Connection</span>
-          <span class="sync-val"><span class="sync-dot"></span>Online</span>
-        </div>
-        <div class="sync-row">
-          <span class="sync-label">Last Sync</span>
-          <span class="sync-val">Just now</span>
-        </div>
-        <div class="sync-row">
-          <span class="sync-label">Local Storage</span>
-          <span class="sync-val">Active · 2.4 MB</span>
-        </div>
-        <div class="sync-row">
-          <span class="sync-label">Pending Records</span>
-          <span class="sync-val">3 queued</span>
-        </div>
-        <div class="progress-row">
-          <div class="progress-label"><span>Sync Progress</span><span>97%</span></div>
-          <div class="progress-track"><div class="progress-fill" style="width:97%"></div></div>
-        </div>
-        <div class="progress-row" style="margin-top:10px">
-          <div class="progress-label"><span>Crop Health Data</span><span>100%</span></div>
-          <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="blk"><div class="wrap">
+<div class="sec-head"><span class="idx">03</span><h2 class="title">Merge <em>multiplies</em></h2></div>
+<div class="cards2">
+<div class="panel"><img class="shot" src="img/merge.jpg" alt="Two dry plots merging into one lush estate">
+<div class="body"><h3>2 become 1, pay becomes 3x</h3>
+<p>An estate is one NFT born from two adjacent plots. Its artwork joins both terrains into a single landscape with an amber seam, and its claim is set at 300,000 TERRA instead of the 200,000 the pair would pay apart.</p>
+<div class="kv">
+<div class="row"><span class="k">Rule</span><span class="v">Adjacent plots only</span></div>
+<div class="row"><span class="k">Cost</span><span class="v">Both plots burn</span></div>
+<div class="row"><span class="k">Estate claim</span><span class="v">300,000 TERRA</span></div>
+</div></div></div>
+<div class="panel"><img class="shot" src="img/trio.jpg" alt="Peak, forest and desert plot specimens">
+<div class="body"><h3>Terrain is identity, not a price tier</h3>
+<p>Every plot plate is generated from its own on-chain seed: coast, valley, forest, desert or peak. Terrain changes the artwork only. Claims stay flat and equal, so nobody needs a pricing table to play.</p>
+<div class="kv">
+<div class="row"><span class="k">Coast plots</span><span class="v">381</span></div>
+<div class="row"><span class="k">Valley plots</span><span class="v">598</span></div>
+<div class="row"><span class="k">Forest plots</span><span class="v">590</span></div>
+<div class="row"><span class="k">Desert plots</span><span class="v">491</span></div>
+<div class="row"><span class="k">Peak plots</span><span class="v">440</span></div>
+</div></div></div>
+</div>
+</div></section>
 
-<!-- ═══ ROADMAP ═══ -->
-<section id="roadmap">
-  <div class="container">
-    <div class="features-header reveal">
-      <div class="tag">Roadmap</div>
-      <h2 class="section-h2">Building the future of<br>agricultural intelligence.</h2>
-    </div>
-    <div class="roadmap-track reveal reveal-delay-1">
-      <div class="roadmap-item">
-        <div class="roadmap-node now">26</div>
-        <div class="roadmap-year">2026</div>
-        <div class="roadmap-desc">Digital Twin Launch · Offline Platform</div>
-      </div>
-      <div class="roadmap-item">
-        <div class="roadmap-node future">27</div>
-        <div class="roadmap-year">2027</div>
-        <div class="roadmap-desc">Satellite Integration · Remote Sensing</div>
-      </div>
-      <div class="roadmap-item">
-        <div class="roadmap-node future">28</div>
-        <div class="roadmap-year">2028</div>
-        <div class="roadmap-desc">AI Yield Forecasting Engine</div>
-      </div>
-      <div class="roadmap-item">
-        <div class="roadmap-node future">29</div>
-        <div class="roadmap-year">2029</div>
-        <div class="roadmap-desc">Carbon Marketplace Integration</div>
-      </div>
-      <div class="roadmap-item">
-        <div class="roadmap-node future">30</div>
-        <div class="roadmap-year">2030</div>
-        <div class="roadmap-desc">Global Farm Network · DAO Governance</div>
-      </div>
-    </div>
-  </div>
-</section>
+<section class="blk alt"><div class="wrap">
+<div class="sec-head"><span class="idx">04</span><h2 class="title">Claim <em>board</em></h2></div>
+<p class="sec-lede">Claims open by announcement after the claim pool is armed. Pool and progress read live from chain. Unclaimed TERRA burns when the pool launches on 1 December 2026.</p>
+<div class="stats">
+<div class="cell"><div class="num" id="st-claimed">0</div><div class="lab">Claims paid</div></div>
+<div class="cell"><div class="num">100,000</div><div class="lab">TERRA per plot</div></div>
+<div class="cell"><div class="num">300,000</div><div class="lab">TERRA per estate</div></div>
+<div class="cell"><div class="num">0.0003 <em>BNB</em></div><div class="lab">Flat claim fee</div></div>
+</div>
+</div></section>
+<script src="js/board.js?v=1"></script>
 
-<!-- ═══ CTA ═══ -->
-<section id="cta">
-  <div class="container cta-content">
-    <div class="reveal">
-      <div class="tag tag-gold">Available Now</div>
-      <h2 class="cta-h2">Take Terrova to the field.</h2>
-      <p class="cta-desc">Download the Android APK for the complete offline experience. Works in any condition, with or without internet.</p>
-      <div class="cta-actions">
-        <button class="btn btn-gold btn-lg" onclick="alert('APK coming soon — sign up to be notified.')">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17 1.01L7 1c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-1.99-2-1.99zm-1 15.49l-3-3.01V17H9v-5h5V9.51l3 3.01-3 3z"/></svg>
-          Download APK (Android)
-        </button>
-        <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" class="btn btn-ghost-white btn-lg">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          Follow Updates
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FOOTER ═══ -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <div class="footer-logo-wrap">
-        <img src="/logo.png" alt="Terrova AI">
-        <span class="footer-logo-name">TERROVA<sup>AI</sup></span>
-      </div>
-      <div class="footer-tagline">The Digital Twin Platform for Agriculture. Building a living digital identity for every farm on Earth.</div>
-      <div class="footer-orynth">
-        <a href="https://orynth.dev/projects/terrova-6062" target="_blank" rel="noopener">
-          <img src="https://orynth.dev/api/badge/terrova-6062?theme=light&style=default" alt="Featured on Orynth" width="260" height="80" />
-        </a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Platform</div>
-      <div class="footer-links">
-        <a href="#features">Features</a>
-        <a href="#twin">Digital Twin</a>
-        <a href="#mission">Offline Mode</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#cta">Download APK</a>
-      </div>
-    </div>
-    <div>
-      <div class="footer-col-title">Company</div>
-      <div class="footer-links">
-        <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener">X / Twitter</a>
-        <a href="https://orynth.dev/projects/terrova" target="_blank" rel="noopener">Orynth</a>
-        <a href="#">Documentation</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Support</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Terrova AI. All rights reserved.</span>
-    <span>Built by <a href="https://x.com/lucasreedxx" target="_blank" rel="noopener" style="color:var(--gold)">@lucasreedxx</a></span>
-  </div>
-</footer>
-
-<script>
-// Nav scroll
-const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 20);
-}, { passive: true });
-
-// Mobile drawer
-function toggleMobile() {
-  const d = document.getElementById('mobileDrawer');
-  d.classList.toggle('open');
-}
-document.addEventListener('click', e => {
-  const d = document.getElementById('mobileDrawer');
-  const h = document.getElementById('navHam');
-  if (d.classList.contains('open') && !d.contains(e.target) && !h.contains(e.target)) {
-    d.classList.remove('open');
-  }
-});
-
-// Scroll reveal
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-</script>
-</body>
-</html>
+<footer class="site"><div class="wrap">
+<div class="fgrid">
+<div class="fbrand">
+<a class="brand" href="/"><img src="img/logo.png" alt="TERROVA mark" style="width:34px;height:34px;border-radius:7px"><span class="word" style="font-family:ArchivoBlack;font-size:19px;letter-spacing:1.5px">TERR<em style="color:var(--amber);font-style:normal">O</em>VA</span></a>
+<p>One shared world of 2,500 plots on BNB Chain. Mint land through your agent, merge neighbours into estates, claim $TERRA.</p>
+</div>
+<div><h4>Project</h4>
+<a href="/">Live Map</a><a href="tokenomics">Tokenomics</a><a href="whitepaper">Whitepaper</a><a href="docs">Docs</a><a href="swap">Swap</a><a href="skill.md">Agent Skill File</a>
+</div>
+<div><h4>Legal</h4>
+<a href="about">About</a><a href="terms">Terms of Use</a><a href="privacy">Privacy Policy</a><a href="disclaimer">Disclaimer</a>
+</div>
+<div><h4>Contracts</h4>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">TERRA TOKEN</span><a href="docs">Announced at deploy</a>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">PLOTS NFT</span><a href="docs">Announced at deploy</a>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">CLAIM</span><a href="docs">Announced at deploy</a>
+</div>
+</div>
+<div class="fbot"><span>TERROVA · terrova.fun</span><span>BNB Smart Chain (56)</span><span>Pool opens 1 December 2026</span><span>All times UTC</span></div>
+</div></footer>
+</body></html>

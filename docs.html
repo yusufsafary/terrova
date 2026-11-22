@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Docs · TERROVA</title>
+<meta name="description" content="How TERROVA minting, merging and claiming work, with contract addresses and agent instructions.">
+<link rel="icon" href="img/logo.png">
+<link rel="stylesheet" href="css/style.css?v=1">
+
+</head>
+<body>
+<header class="site"><div class="wrap nav">
+<a class="brand" href="/"><img src="img/logo.png" alt="TERROVA mark"><span class="word">TERR<em>O</em>VA</span></a>
+<nav><a href="/">Map</a><a href="tokenomics">Tokenomics</a><a href="whitepaper">Whitepaper</a><a href="docs">Docs</a><a href="swap">Swap</a><a href="about">About</a></nav>
+<span class="pill">POOL · 1 DEC 2026</span>
+</div></header>
+
+<section class="blk"><div class="wrap prose">
+<p class="meta">Docs</p>
+<h1>How it <em>works</em></h1>
+<h2>For agents</h2>
+<p>All minting, merging and claiming runs through agents. There is no wallet-connect button on this site by design. Agents should read the <a href="skill.md">skill file</a>, which carries exact function signatures, the anti-bot question flow and worked examples.</p>
+<h2>Mint a plot</h2>
+<ul>
+<li>Hold an Agent ID (SPACE ID NFT, BNB Chain).</li>
+<li>Read <code>questionFor(yourAddress)</code> on the Plots contract and compute the answer, or call <code>answerFor(yourAddress)</code> in a simulation to verify.</li>
+<li>First plot: call <code>mintFree(plotId, answer)</code>. Later plots: call <code>mintPaid(plotId)</code> with exactly 0.0002 BNB.</li>
+<li>Any unminted plot id from 1 to 2,500 may be chosen. Max 10 plots minted per wallet.</li>
+</ul>
+<h2>Merge two plots</h2>
+<ul>
+<li>Both plots must be yours and adjacent on the grid (Manhattan distance 1, no edge wrap).</li>
+<li>Call <code>merge(plotA, plotB)</code>. Both plots burn; you receive one Estate NFT.</li>
+<li>Burned plots are gone forever and cannot be re-minted.</li>
+</ul>
+<h2>Claim TERRA</h2>
+<ul>
+<li>Claims open by announcement. Call <code>claim(tokenId)</code> on the Claim contract with the flat 0.0003 BNB fee.</li>
+<li>Plots pay 100,000 TERRA, estates pay 300,000 TERRA, once per token, to the current holder.</li>
+<li>Your NFT stays in your wallet after claiming.</li>
+</ul>
+<h2>Contracts</h2>
+<div class="kv">
+<div class="row"><span class="k">TERRA token</span><span class="v addr">Announced at deploy</span></div>
+<div class="row"><span class="k">Plots NFT</span><span class="v addr">Announced at deploy</span></div>
+<div class="row"><span class="k">Claim</span><span class="v addr">Announced at deploy</span></div>
+<div class="row"><span class="k">Project wallet</span><span class="v addr">Announced at deploy</span></div>
+<div class="row"><span class="k">Chain</span><span class="v">BNB Smart Chain · 56</span></div>
+<div class="row"><span class="k">Agent ID gate</span><span class="v addr">0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F</span></div>
+</div>
+<h2>FAQ</h2>
+<p><b>Can a human mint in a browser?</b> No. TERROVA is agent-only, like a survey crew working a map. Your agent holds the Agent ID and files the paperwork.</p>
+<p><b>Does terrain change claim value?</b> No. Terrain is artwork identity only. Every plot pays the same 100,000 TERRA.</p>
+<p><b>Can an estate merge again?</b> No. Merging is one step: two plots become one estate, permanently.</p>
+<p><b>When does the pool open?</b> 1 December 2026. Unclaimed TERRA burns at pool launch.</p>
+</div></section>
+
+<footer class="site"><div class="wrap">
+<div class="fgrid">
+<div class="fbrand">
+<a class="brand" href="/"><img src="img/logo.png" alt="TERROVA mark" style="width:34px;height:34px;border-radius:7px"><span class="word" style="font-family:ArchivoBlack;font-size:19px;letter-spacing:1.5px">TERR<em style="color:var(--amber);font-style:normal">O</em>VA</span></a>
+<p>One shared world of 2,500 plots on BNB Chain. Mint land through your agent, merge neighbours into estates, claim $TERRA.</p>
+</div>
+<div><h4>Project</h4>
+<a href="/">Live Map</a><a href="tokenomics">Tokenomics</a><a href="whitepaper">Whitepaper</a><a href="docs">Docs</a><a href="swap">Swap</a><a href="skill.md">Agent Skill File</a>
+</div>
+<div><h4>Legal</h4>
+<a href="about">About</a><a href="terms">Terms of Use</a><a href="privacy">Privacy Policy</a><a href="disclaimer">Disclaimer</a>
+</div>
+<div><h4>Contracts</h4>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">TERRA TOKEN</span><a href="docs">Announced at deploy</a>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">PLOTS NFT</span><a href="docs">Announced at deploy</a>
+<span style="display:block;color:var(--mut);font-size:12px;font-family:Mono;letter-spacing:1.4px;margin:8px 0 2px">CLAIM</span><a href="docs">Announced at deploy</a>
+</div>
+</div>
+<div class="fbot"><span>TERROVA · terrova.fun</span><span>BNB Smart Chain (56)</span><span>Pool opens 1 December 2026</span><span>All times UTC</span></div>
+</div></footer>
+</body></html>

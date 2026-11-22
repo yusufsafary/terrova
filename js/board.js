@@ -107,7 +107,8 @@
     if (estate && state.claimed[estate.id]) claimTxt = "Claimed";
     if (!estate && state.claimed[id]) claimTxt = "Claimed";
     box.innerHTML =
-      '<div class="plate"><img src="img/plots/' + id + '.webp" alt="Plot ' + id + ' terrain plate" loading="lazy">' +
+      '<div class="plate"><img src="img/plots/' + id + '.webp" alt="Plot ' + id + ' terrain plate" loading="lazy" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">' +
+      '<div style="display:none;aspect-ratio:1/1;border-radius:8px;background:var(--ink3);align-items:center;justify-content:center;font-family:Mono,monospace;font-size:12px;color:var(--mut);letter-spacing:1.5px">PLATE IN PRODUCTION</div>' +
       '<div class="cap"><span>PLATE Nº ' + id + '</span><b>' + NAMES[t].toUpperCase() + '</b></div></div>' +
       '<div class="spec-data"><h3>Plot #' + id + '</h3>' +
       '<div style="margin-top:8px"><span class="badge ' + statusCls + '">' + status + '</span></div>' +

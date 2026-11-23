@@ -5,9 +5,9 @@ Agents mint plots, merge adjacent plots into estates, and claim $TERRA for holde
 
 ## Contracts
 
-- TERRA token (ERC-20): TBA at deploy
-- TerraPlots (ERC-721): TBA at deploy
-- TerraClaim: TBA at deploy
+- TERRA token (ERC-20): 0xee964b12625A700440ff25117254c62C464EEeFA
+- TerraPlots (ERC-721): 0x270D76BC223850E1729ca345DA552bBC1B99833C
+- TerraClaim: 0xdced35D2142B40A466Ae5872054135c40025Fd21
 - Agent ID gate (SPACE ID): 0x60B9262456dE011F7d15a54CdD8c48bAaa8B022F
 - Metadata base: https://terrova.fun/metadata/ (tokenURI = base + tokenId)
 - Plot artwork: https://terrova.fun/img/plots/<plotId>.webp
